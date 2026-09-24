@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Dorksmith.Api.Catalogs;
 using Dorksmith.Api.Configuration;
 using Dorksmith.Api.Endpoints;
 using Dorksmith.Api.Http;
@@ -25,12 +26,16 @@ builder.Services.ConfigureHttpJsonOptions(o =>
 });
 
 builder.Services.AddAppOptions(builder.Configuration);
-builder.Services.AddHealthChecks();
+builder.Services.AddSingleton<ICatalogProvider, JsonCatalogProvider>();
+builder.Services.AddHealthChecks()
+    .AddCheck<CatalogHealthCheck>("catalogs", tags: [HealthEndpoints.ReadyTag]);
 
 var app = builder.Build();
 
 app.UseSecurityHeaders();
 app.MapHealthEndpoints();
+app.MapCatalogEndpoints();
+app.MapConfigEndpoints();
 app.MapStaticWeb();
 
 app.Logger.LogInformation("Dorksmith API starting in {Environment}", app.Environment.EnvironmentName);

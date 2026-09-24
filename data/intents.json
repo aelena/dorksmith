@@ -1,0 +1,712 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "2026-09-24",
+  "notes": [
+    "Templates are patterns with {placeholders} resolved by the generator. Composite placeholders (site, filetypeGroup, exclusions, ...) resolve to full operator syntax or to nothing.",
+    "Placeholders that resolve to nothing cause the template to be skipped unless they are optional. Optional by default: exclusions, dates, after, before, site, siteOption, context. Override per template with requires/optional.",
+    "when lists the input types a template applies to. Weight is the base ranking score. family groups templates into precision lenses.",
+    "keywords -> {keywords} = (\"a\" OR \"b\"). exclude -> extra static -term exclusions. fileTypes overrides the intent's defaultFileTypes. platformIds/platformCategories/platformLimit feed {platformSites}."
+  ],
+  "families": [
+    { "id": "balanced", "label": "Balanced" },
+    { "id": "precise", "label": "Precise" },
+    { "id": "broad", "label": "Broad" },
+    { "id": "title-focused", "label": "Title-focused" },
+    { "id": "url-focused", "label": "URL-focused" },
+    { "id": "document-focused", "label": "Document-focused" },
+    { "id": "recent", "label": "Recent" },
+    { "id": "noise-reduced", "label": "Noise-reduced" }
+  ],
+  "groups": [
+    { "id": "general", "label": "General discovery" },
+    { "id": "org-osint", "label": "Organization / domain OSINT" },
+    { "id": "defensive", "label": "Defensive exposure checks" },
+    { "id": "person", "label": "Person / identity OSINT" },
+    { "id": "socmint", "label": "SOCMINT / username discovery" }
+  ],
+  "intents": [
+    {
+      "id": "general-discovery",
+      "label": "Broad web discovery",
+      "group": "general",
+      "description": "Sensible starting variants for any topic: plain terms, exact phrase, title, URL, body text and documents.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "person", "organization", "technology", "filename", "domain"],
+      "defaultFileTypes": ["pdf", "docx", "pptx", "xlsx"],
+      "templates": [
+        { "id": "gd-balanced", "family": "balanced", "when": ["keyword", "person", "organization", "technology", "filename"], "pattern": "{terms} {site} {dates} {exclusions}", "weight": 100, "explanation": "Plain terms let the engine rank by relevance; optional site, date and exclusion scoping narrow it without over-constraining." },
+        { "id": "gd-precise", "family": "precise", "when": ["keyword", "person", "organization", "technology", "filename"], "pattern": "{quoted} {site} {exclusions}", "weight": 90, "explanation": "Exact-phrase matching removes results that only contain the words separately." },
+        { "id": "gd-recent", "family": "recent", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {site} {dates} {exclusions}", "weight": 88, "requires": ["dates"], "explanation": "Exact phrase constrained to the supplied date window." },
+        { "id": "gd-title", "family": "title-focused", "when": ["keyword", "person", "organization", "technology", "filename"], "pattern": "{intitle} {site} {exclusions}", "weight": 80, "explanation": "Pages whose title contains the phrase are usually about it rather than merely mentioning it." },
+        { "id": "gd-text", "family": "precise", "when": ["keyword", "person", "organization", "technology"], "pattern": "{intext} {site} {exclusions}", "weight": 70, "explanation": "intext: forces the phrase into the body text, filtering out navigation and link-only hits." },
+        { "id": "gd-url", "family": "url-focused", "when": ["keyword", "technology", "filename"], "pattern": "{inurl} {site} {exclusions}", "weight": 60, "explanation": "Terms appearing in the URL path often indicate dedicated pages, categories or files." },
+        { "id": "gd-docs", "family": "document-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {filetypeGroup} {site} {exclusions}", "weight": 65, "explanation": "Limits results to office documents, where reports, slides and spreadsheets live." },
+        { "id": "gd-broad", "family": "broad", "when": ["keyword", "person", "organization", "technology"], "pattern": "{termsAny} {site} {exclusions}", "weight": 50, "explanation": "Any of the words may match, trading precision for recall when the exact wording is unknown." },
+        { "id": "gd-noise", "family": "noise-reduced", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {site} {exclusions}", "exclude": ["jobs", "careers", "login", "signup"], "weight": 55, "explanation": "Removes recruitment and account pages that dominate results for many organisation and product names." },
+        { "id": "gd-filename-doc", "family": "document-focused", "when": ["filename"], "pattern": "{filenameStem} {filetypeFromFilename} {site} {exclusions}", "weight": 95, "explanation": "Searches the file's base name restricted to its extension, which catches renamed copies and mirrors." },
+        { "id": "gd-domain-mentions", "family": "balanced", "when": ["domain"], "pattern": "{domainQuoted} {excludeSite} {dates} {exclusions}", "weight": 100, "explanation": "Pages elsewhere on the web that mention the domain, excluding the domain itself." },
+        { "id": "gd-domain-all", "family": "broad", "when": ["domain"], "pattern": "{site} {dates} {exclusions}", "weight": 90, "explanation": "Everything the engine has indexed on the domain." },
+        { "id": "gd-domain-docs", "family": "document-focused", "when": ["domain"], "pattern": "{site} {filetypeGroup} {exclusions}", "weight": 80, "explanation": "Office documents hosted on the domain." },
+        { "id": "gd-domain-title", "family": "title-focused", "when": ["domain"], "pattern": "{site} intitle:{domainLabelBare} {exclusions}", "weight": 60, "explanation": "Pages on the domain whose title carries the organisation name, typically landing and about pages." },
+        { "id": "gd-domain-subs", "family": "url-focused", "when": ["domain"], "pattern": "{siteWildcard} -inurl:www {exclusions}", "weight": 70, "explanation": "Indexed hosts other than www reveal sub-domains without any active enumeration." }
+      ]
+    },
+    {
+      "id": "exact-phrase",
+      "label": "Exact phrase",
+      "group": "general",
+      "description": "Variants built around exact wording: quotes, intext:, intitle:, wildcards inside the phrase.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "person", "organization", "technology"],
+      "defaultFileTypes": ["pdf", "docx", "pptx", "xlsx"],
+      "templates": [
+        { "id": "ep-balanced", "family": "balanced", "when": ["*"], "pattern": "{quoted} {site} {dates} {exclusions}", "weight": 100, "explanation": "The phrase must appear verbatim; scoping is optional." },
+        { "id": "ep-text", "family": "precise", "when": ["*"], "pattern": "{intext} {site} {exclusions}", "weight": 85, "explanation": "intext: requires the phrase in the page body rather than in a title or link." },
+        { "id": "ep-title", "family": "title-focused", "when": ["*"], "pattern": "{intitle} {site} {exclusions}", "weight": 75, "explanation": "Title matches identify pages dedicated to the phrase." },
+        { "id": "ep-docs", "family": "document-focused", "when": ["*"], "pattern": "{quoted} {filetypeGroup} {site} {exclusions}", "weight": 65, "explanation": "The phrase inside office documents." },
+        { "id": "ep-wildcard", "family": "broad", "when": ["*"], "pattern": "{phraseWildcard} {site} {exclusions}", "weight": 60, "explanation": "A wildcard between the first and last word catches variants with different middle words." },
+        { "id": "ep-noise", "family": "noise-reduced", "when": ["*"], "pattern": "{quoted} {site} {exclusions}", "exclude": ["jobs", "careers"], "weight": 55, "explanation": "Drops recruitment pages, a common source of noise for company and product phrases." },
+        { "id": "ep-any", "family": "broad", "when": ["*"], "pattern": "{termsAny} {site} {exclusions}", "weight": 40, "explanation": "Loosens the phrase to any of its words for maximum recall." }
+      ]
+    },
+    {
+      "id": "site-scoped",
+      "label": "Domain / site scoped",
+      "group": "general",
+      "description": "Everything scoped to a site. For non-domain inputs supply a target site in the options.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "person", "organization", "technology", "domain"],
+      "requiresOptionsForInputTypes": { "keyword": ["site"], "person": ["site"], "organization": ["site"], "technology": ["site"] },
+      "defaultFileTypes": ["pdf", "docx", "pptx", "xlsx"],
+      "templates": [
+        { "id": "ss-balanced", "family": "balanced", "when": ["keyword", "person", "organization", "technology"], "pattern": "{terms} {site} {dates} {exclusions}", "requires": ["site"], "weight": 100, "explanation": "Terms restricted to the target site." },
+        { "id": "ss-precise", "family": "precise", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {site} {exclusions}", "requires": ["site"], "weight": 90, "explanation": "Exact phrase restricted to the target site." },
+        { "id": "ss-title", "family": "title-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{intitle} {site} {exclusions}", "requires": ["site"], "weight": 80, "explanation": "Title matches on the target site." },
+        { "id": "ss-text", "family": "precise", "when": ["keyword", "person", "organization", "technology"], "pattern": "{intext} {site} {exclusions}", "requires": ["site"], "weight": 75, "explanation": "Body-text matches on the target site." },
+        { "id": "ss-url", "family": "url-focused", "when": ["keyword", "technology"], "pattern": "{inurl} {site} {exclusions}", "requires": ["site"], "weight": 70, "explanation": "URL matches on the target site." },
+        { "id": "ss-docs", "family": "document-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {filetypeGroup} {site} {exclusions}", "requires": ["site"], "weight": 65, "explanation": "Documents on the target site containing the phrase." },
+        { "id": "ss-domain-all", "family": "balanced", "when": ["domain"], "pattern": "{site} {dates} {exclusions}", "weight": 100, "explanation": "Everything indexed on the domain, optionally date-bounded." },
+        { "id": "ss-domain-subs", "family": "url-focused", "when": ["domain"], "pattern": "{siteWildcard} -inurl:www {exclusions}", "weight": 85, "explanation": "Sub-domains discovered through indexed pages, excluding the main www host." },
+        { "id": "ss-domain-docs", "family": "document-focused", "when": ["domain"], "pattern": "{site} {filetypeGroup} {exclusions}", "weight": 75, "explanation": "Office documents hosted on the domain." },
+        { "id": "ss-domain-noise", "family": "noise-reduced", "when": ["domain"], "pattern": "{site} -inurl:tag -inurl:category -inurl:page -inurl:login {exclusions}", "weight": 60, "explanation": "Removes pagination, taxonomy and login URLs that inflate site listings." }
+      ]
+    },
+    {
+      "id": "title-focused",
+      "label": "Title-focused",
+      "group": "general",
+      "description": "Variants that prioritise intitle: so results are about the topic rather than mentioning it.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "person", "organization", "technology", "filename"],
+      "defaultFileTypes": ["pdf", "docx", "pptx"],
+      "templates": [
+        { "id": "tf-balanced", "family": "title-focused", "when": ["*"], "pattern": "{intitle} {site} {dates} {exclusions}", "weight": 100, "explanation": "The phrase must appear in the page title." },
+        { "id": "tf-precise", "family": "precise", "when": ["*"], "pattern": "{intitle} {intext} {site} {exclusions}", "weight": 85, "explanation": "Requires the phrase in both the title and the body text." },
+        { "id": "tf-any", "family": "broad", "when": ["*"], "pattern": "{intitleAny} {site} {exclusions}", "weight": 60, "explanation": "Any of the words in the title, for topics with variable wording." },
+        { "id": "tf-docs", "family": "document-focused", "when": ["*"], "pattern": "{intitle} {filetypeGroup} {site} {exclusions}", "weight": 65, "explanation": "Documents whose title metadata contains the phrase." },
+        { "id": "tf-noise", "family": "noise-reduced", "when": ["*"], "pattern": "{intitle} {site} {exclusions}", "exclude": ["login", "signup"], "weight": 55, "explanation": "Removes authentication pages that often carry product names in their titles." }
+      ]
+    },
+    {
+      "id": "url-focused",
+      "label": "URL-focused",
+      "group": "general",
+      "description": "Variants that prioritise inurl:, useful for finding dedicated sections, files and endpoints.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "technology", "filename"],
+      "defaultFileTypes": ["pdf", "docx", "xlsx"],
+      "templates": [
+        { "id": "uf-balanced", "family": "url-focused", "when": ["*"], "pattern": "{inurl} {site} {exclusions}", "weight": 100, "explanation": "The term must appear in the URL." },
+        { "id": "uf-precise", "family": "precise", "when": ["*"], "pattern": "{inurl} {quoted} {site} {exclusions}", "weight": 85, "explanation": "URL match plus the exact phrase in the page." },
+        { "id": "uf-title", "family": "title-focused", "when": ["*"], "pattern": "{inurl} {intitle} {site} {exclusions}", "weight": 70, "explanation": "Both the URL and the title mention the term." },
+        { "id": "uf-any", "family": "broad", "when": ["*"], "pattern": "{inurlAny} {site} {exclusions}", "weight": 60, "explanation": "Any of the words in the URL." },
+        { "id": "uf-docs", "family": "document-focused", "when": ["*"], "pattern": "{inurl} {filetypeGroup} {site} {exclusions}", "weight": 55, "explanation": "Documents whose URL contains the term." }
+      ]
+    },
+    {
+      "id": "page-text",
+      "label": "Page-text focused",
+      "group": "general",
+      "description": "Variants that prioritise intext: for phrases that must appear in the body copy.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "person", "organization", "technology"],
+      "defaultFileTypes": ["pdf", "docx", "pptx", "xlsx"],
+      "templates": [
+        { "id": "pt-balanced", "family": "balanced", "when": ["*"], "pattern": "{intext} {site} {dates} {exclusions}", "weight": 100, "explanation": "The phrase must appear in the body text." },
+        { "id": "pt-precise", "family": "precise", "when": ["*"], "pattern": "{intext} {intitle} {site} {exclusions}", "weight": 85, "explanation": "Phrase in the body and in the title." },
+        { "id": "pt-any", "family": "broad", "when": ["*"], "pattern": "{intextAny} {site} {exclusions}", "weight": 60, "explanation": "Any of the words in the body text." },
+        { "id": "pt-docs", "family": "document-focused", "when": ["*"], "pattern": "{intext} {filetypeGroup} {site} {exclusions}", "weight": 65, "explanation": "Documents whose text contains the phrase." },
+        { "id": "pt-noise", "family": "noise-reduced", "when": ["*"], "pattern": "{intext} {site} {exclusions}", "exclude": ["login", "jobs"], "weight": 50, "explanation": "Removes login and recruitment pages." }
+      ]
+    },
+    {
+      "id": "date-bounded",
+      "label": "Date-bounded",
+      "group": "general",
+      "description": "Variants constrained with after:/before:. Supply at least one date in the options.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "person", "organization", "technology", "domain"],
+      "requiresOptions": ["dates"],
+      "defaultFileTypes": ["pdf", "docx", "pptx", "xlsx"],
+      "templates": [
+        { "id": "db-balanced", "family": "recent", "when": ["keyword", "person", "organization", "technology"], "pattern": "{terms} {site} {dates} {exclusions}", "requires": ["dates"], "weight": 100, "explanation": "Terms within the date window." },
+        { "id": "db-precise", "family": "precise", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {site} {dates} {exclusions}", "requires": ["dates"], "weight": 90, "explanation": "Exact phrase within the date window." },
+        { "id": "db-title", "family": "title-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{intitle} {site} {dates} {exclusions}", "requires": ["dates"], "weight": 75, "explanation": "Title matches within the date window." },
+        { "id": "db-docs", "family": "document-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {filetypeGroup} {site} {dates} {exclusions}", "requires": ["dates"], "weight": 65, "explanation": "Documents published within the date window." },
+        { "id": "db-domain", "family": "recent", "when": ["domain"], "pattern": "{site} {dates} {exclusions}", "requires": ["dates"], "weight": 100, "explanation": "Pages on the domain published within the date window." },
+        { "id": "db-domain-docs", "family": "document-focused", "when": ["domain"], "pattern": "{site} {filetypeGroup} {dates} {exclusions}", "requires": ["dates"], "weight": 80, "explanation": "Documents on the domain published within the date window." },
+        { "id": "db-domain-mentions", "family": "broad", "when": ["domain"], "pattern": "{domainQuoted} {excludeSite} {dates} {exclusions}", "requires": ["dates"], "weight": 70, "explanation": "Mentions of the domain elsewhere within the date window." }
+      ]
+    },
+    {
+      "id": "exclude-noise",
+      "label": "Exclude noise",
+      "group": "general",
+      "description": "Variants with deterministic exclusions for jobs, logins, social networks and commerce. Add your own excluded terms in the options.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "person", "organization", "technology", "domain"],
+      "defaultFileTypes": ["pdf", "docx", "pptx", "xlsx"],
+      "templates": [
+        { "id": "en-balanced", "family": "noise-reduced", "when": ["keyword", "person", "organization", "technology"], "pattern": "{terms} {site} {exclusions} -inurl:login -inurl:signup -intitle:\"privacy policy\"", "exclude": ["jobs", "careers"], "weight": 100, "explanation": "Removes recruitment, authentication and policy pages." },
+        { "id": "en-precise", "family": "precise", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {site} {exclusions}", "exclude": ["jobs", "careers"], "weight": 90, "explanation": "Exact phrase minus recruitment pages." },
+        { "id": "en-social", "family": "noise-reduced", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com {exclusions}", "weight": 80, "explanation": "Removes the major social networks to surface primary sources." },
+        { "id": "en-commerce", "family": "noise-reduced", "when": ["keyword", "technology"], "pattern": "{quoted} -site:amazon.com -site:ebay.com -shop -buy -price {exclusions}", "weight": 60, "explanation": "Removes marketplaces and shopping terms." },
+        { "id": "en-docs", "family": "document-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {filetypeGroup} {site} {exclusions}", "exclude": ["brochure", "newsletter"], "weight": 55, "explanation": "Documents minus marketing collateral." },
+        { "id": "en-domain", "family": "noise-reduced", "when": ["domain"], "pattern": "{site} -inurl:login -inurl:signup -inurl:tag -inurl:category -inurl:page {exclusions}", "weight": 100, "explanation": "Site listing without authentication, taxonomy and pagination URLs." },
+        { "id": "en-domain-docs", "family": "document-focused", "when": ["domain"], "pattern": "{site} {filetypeGroup} {exclusions}", "exclude": ["brochure", "newsletter"], "weight": 70, "explanation": "Documents on the domain minus marketing collateral." },
+        { "id": "en-domain-mentions", "family": "broad", "when": ["domain"], "pattern": "{domainQuoted} {excludeSite} -site:pinterest.com -site:facebook.com -site:x.com -site:linkedin.com {exclusions}", "weight": 60, "explanation": "Mentions of the domain outside itself and outside social networks." }
+      ]
+    },
+    {
+      "id": "documents",
+      "label": "Documents by file type",
+      "group": "general",
+      "description": "Office documents, spreadsheets and presentations containing the phrase. Select file types in the options or accept the defaults.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "person", "organization", "technology", "domain"],
+      "defaultFileTypes": ["pdf", "docx", "pptx", "xlsx"],
+      "templates": [
+        { "id": "doc-balanced", "family": "document-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {filetypeGroup} {site} {dates} {exclusions}", "weight": 100, "explanation": "Exact phrase inside the selected document types." },
+        { "id": "doc-first", "family": "precise", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} {filetypeFirst} {site} {exclusions}", "weight": 85, "explanation": "Only the first (highest-priority) file type, for a tighter result set." },
+        { "id": "doc-title", "family": "title-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{intitle} {filetypeGroup} {site} {exclusions}", "weight": 75, "explanation": "Documents whose title metadata contains the phrase." },
+        { "id": "doc-broad", "family": "broad", "when": ["keyword", "person", "organization", "technology"], "pattern": "{terms} {filetypeGroup} {site} {exclusions}", "weight": 60, "explanation": "Unquoted terms inside the selected document types." },
+        { "id": "doc-sheets", "family": "document-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} (filetype:xlsx OR filetype:xls OR filetype:csv) {site} {exclusions}", "weight": 55, "explanation": "Spreadsheets and CSV exports only." },
+        { "id": "doc-slides", "family": "document-focused", "when": ["keyword", "person", "organization", "technology"], "pattern": "{quoted} (filetype:pptx OR filetype:ppt) {site} {exclusions}", "weight": 50, "explanation": "Presentations only." },
+        { "id": "doc-domain", "family": "document-focused", "when": ["domain"], "pattern": "{site} {filetypeGroup} {exclusions}", "weight": 100, "explanation": "Documents hosted on the domain." },
+        { "id": "doc-domain-recent", "family": "recent", "when": ["domain"], "pattern": "{site} {filetypeGroup} {dates}", "requires": ["dates"], "weight": 90, "explanation": "Documents on the domain within the date window." },
+        { "id": "doc-domain-first", "family": "precise", "when": ["domain"], "pattern": "{site} {filetypeFirst} {exclusions}", "weight": 80, "explanation": "Only the highest-priority file type on the domain." },
+        { "id": "doc-domain-mentions", "family": "broad", "when": ["domain"], "pattern": "{domainQuoted} {filetypeGroup} {excludeSite} {exclusions}", "weight": 65, "explanation": "Documents hosted elsewhere that mention the domain." }
+      ]
+    },
+    {
+      "id": "url-mentions",
+      "label": "URL references",
+      "group": "general",
+      "description": "Where a specific URL is quoted, linked or indexed.",
+      "safety": "standard",
+      "compatibleInputTypes": ["url"],
+      "templates": [
+        { "id": "um-quoted", "family": "precise", "when": ["url"], "pattern": "{urlQuoted} {exclusions}", "weight": 100, "explanation": "Pages quoting the full URL." },
+        { "id": "um-bare", "family": "balanced", "when": ["url"], "pattern": "{urlBareQuoted} {exclusions}", "weight": 95, "explanation": "The URL without its scheme, which matches how most pages cite links." },
+        { "id": "um-offsite", "family": "noise-reduced", "when": ["url"], "pattern": "{urlBareQuoted} {excludeSite} {exclusions}", "weight": 90, "explanation": "Citations of the URL from other hosts only." },
+        { "id": "um-path", "family": "url-focused", "when": ["url"], "pattern": "{site} {inurlPath} {exclusions}", "requires": ["inurlPath"], "weight": 85, "explanation": "Indexed pages under the same path on the host." },
+        { "id": "um-text", "family": "precise", "when": ["url"], "pattern": "{intext} {exclusions}", "weight": 60, "explanation": "The URL appearing in body text." },
+        { "id": "um-host", "family": "broad", "when": ["url"], "pattern": "{site} {dates} {exclusions}", "weight": 50, "explanation": "Everything indexed on the URL's host." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "label": "Troubleshooting / error lookup",
+      "group": "general",
+      "description": "Error messages and technology problems on Q&A sites, issue trackers, documentation and forums.",
+      "safety": "standard",
+      "compatibleInputTypes": ["keyword", "technology"],
+      "templates": [
+        { "id": "ts-qa", "family": "balanced", "when": ["*"], "pattern": "{quoted} {platformSites} {exclusions}", "platformIds": ["stackoverflow", "github", "serverfault", "superuser"], "weight": 100, "explanation": "Exact message on the main developer Q&A sites and GitHub." },
+        { "id": "ts-issues", "family": "precise", "when": ["*"], "pattern": "{quoted} site:github.com inurl:issues {exclusions}", "weight": 90, "explanation": "GitHub issue threads quoting the message." },
+        { "id": "ts-docs", "family": "url-focused", "when": ["*"], "pattern": "{quoted} (inurl:docs OR inurl:documentation OR intitle:documentation) {exclusions}", "weight": 70, "explanation": "Official documentation pages." },
+        { "id": "ts-forums", "family": "broad", "when": ["*"], "pattern": "{quoted} {platformSites} {exclusions}", "platformIds": ["reddit", "stackexchange", "hackernews"], "weight": 60, "explanation": "Community forums and discussion threads." },
+        { "id": "ts-broad", "family": "broad", "when": ["*"], "pattern": "{terms} {keywords} {exclusions}", "keywords": ["error", "exception", "not working", "fix"], "weight": 55, "explanation": "Unquoted terms combined with generic problem words." },
+        { "id": "ts-recent", "family": "recent", "when": ["*"], "pattern": "{quoted} {dates} {exclusions}", "requires": ["dates"], "weight": 65, "explanation": "Recent reports only, useful after a new release." }
+      ]
+    },
+
+    {
+      "id": "public-documents",
+      "label": "Public documents",
+      "group": "org-osint",
+      "description": "Reports, spreadsheets and presentations published by or about an organisation.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain", "organization"],
+      "defaultFileTypes": ["pdf", "docx", "xlsx", "pptx"],
+      "templates": [
+        { "id": "pd-domain-balanced", "family": "balanced", "when": ["domain"], "pattern": "{site} {filetypeGroup} {exclusions}", "weight": 100, "explanation": "Scopes results to the target domain and common document formats." },
+        { "id": "pd-domain-recent", "family": "recent", "when": ["domain"], "pattern": "{site} {filetypeGroup} {dates} {exclusions}", "requires": ["dates"], "weight": 92, "explanation": "Documents on the domain within the date window." },
+        { "id": "pd-domain-titles", "family": "title-focused", "when": ["domain"], "pattern": "{site} {filetypeGroup} (intitle:report OR intitle:policy OR intitle:presentation OR intitle:\"annual report\") {exclusions}", "weight": 80, "explanation": "Documents whose titles indicate reports, policies or presentations." },
+        { "id": "pd-domain-sheets", "family": "document-focused", "when": ["domain"], "pattern": "{site} (filetype:xlsx OR filetype:xls OR filetype:csv) {exclusions}", "weight": 75, "explanation": "Spreadsheets and data exports on the domain." },
+        { "id": "pd-domain-slides", "family": "document-focused", "when": ["domain"], "pattern": "{site} (filetype:pptx OR filetype:ppt) {exclusions}", "weight": 70, "explanation": "Presentations on the domain." },
+        { "id": "pd-domain-first", "family": "precise", "when": ["domain"], "pattern": "{site} {filetypeFirst} {exclusions}", "weight": 85, "explanation": "Only the highest-priority file type on the domain." },
+        { "id": "pd-domain-offsite", "family": "broad", "when": ["domain"], "pattern": "{domainQuoted} {filetypeGroup} {excludeSite} {exclusions}", "weight": 65, "explanation": "Documents hosted elsewhere that mention the domain." },
+        { "id": "pd-org-balanced", "family": "balanced", "when": ["organization"], "pattern": "{quoted} {filetypeGroup} {siteOption} {exclusions}", "weight": 100, "explanation": "The organisation name inside common document formats." },
+        { "id": "pd-org-titles", "family": "title-focused", "when": ["organization"], "pattern": "{quoted} {filetypeGroup} (intitle:report OR intitle:presentation OR intitle:policy) {exclusions}", "weight": 80, "explanation": "Documents titled as reports, presentations or policies." },
+        { "id": "pd-org-intitle", "family": "precise", "when": ["organization"], "pattern": "{intitle} {filetypeGroup} {exclusions}", "weight": 75, "explanation": "Documents whose title metadata contains the organisation name." },
+        { "id": "pd-org-first", "family": "document-focused", "when": ["organization"], "pattern": "{quoted} {filetypeFirst} {siteOption} {exclusions}", "weight": 70, "explanation": "Only the highest-priority file type." },
+        { "id": "pd-org-recent", "family": "recent", "when": ["organization"], "pattern": "{quoted} {filetypeGroup} {dates} {exclusions}", "requires": ["dates"], "weight": 85, "explanation": "Documents within the date window." }
+      ]
+    },
+    {
+      "id": "subdomain-references",
+      "label": "Sub-domain references",
+      "group": "org-osint",
+      "description": "Sub-domains discoverable purely through indexed search results. No DNS queries or active enumeration.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain"],
+      "defaultFileTypes": ["pdf", "xml", "json", "txt"],
+      "templates": [
+        { "id": "sr-wildcard", "family": "balanced", "when": ["domain"], "pattern": "{siteWildcard} -inurl:www {exclusions}", "weight": 100, "explanation": "Any indexed host under the domain except www." },
+        { "id": "sr-exclude-www", "family": "precise", "when": ["domain"], "pattern": "{siteWildcard} {excludeWww} {excludeSite} {exclusions}", "weight": 90, "explanation": "Same idea with explicit -site: exclusions, which some engines honour more strictly than -inurl:." },
+        { "id": "sr-environments", "family": "url-focused", "when": ["domain"], "pattern": "{siteWildcard} (inurl:dev OR inurl:staging OR inurl:test OR inurl:uat OR inurl:api OR inurl:admin OR inurl:portal) -inurl:www {exclusions}", "weight": 80, "explanation": "Hosts named after common environments and services." },
+        { "id": "sr-docs", "family": "document-focused", "when": ["domain"], "pattern": "{siteWildcard} -inurl:www {filetypeGroup} {exclusions}", "weight": 55, "explanation": "Files served from non-www hosts." },
+        { "id": "sr-mentions", "family": "broad", "when": ["domain"], "pattern": "{domainQuoted} {excludeSite} (inurl:subdomain OR intext:\"subdomain\" OR intext:\"*.{domain}\") {exclusions}", "weight": 40, "explanation": "Third-party pages discussing the domain's sub-domains." }
+      ]
+    },
+    {
+      "id": "contact-pages",
+      "label": "Public contact pages",
+      "group": "org-osint",
+      "description": "Contact, about, press and team pages, plus pages listing addresses at the domain.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain", "organization"],
+      "templates": [
+        { "id": "cp-domain-contact", "family": "balanced", "when": ["domain"], "pattern": "{site} (intitle:contact OR inurl:contact OR intitle:\"contact us\") {exclusions}", "weight": 100, "explanation": "Contact pages on the domain." },
+        { "id": "cp-domain-emails", "family": "precise", "when": ["domain"], "pattern": "{site} {atDomainQuoted} {exclusions}", "weight": 90, "explanation": "Pages on the domain that list addresses at the domain." },
+        { "id": "cp-domain-about", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:about OR inurl:team OR inurl:people OR inurl:staff OR intitle:about) {exclusions}", "weight": 80, "explanation": "About and team pages." },
+        { "id": "cp-domain-offsite", "family": "broad", "when": ["domain"], "pattern": "{atDomainQuoted} {excludeSite} {exclusions}", "weight": 70, "explanation": "Addresses at the domain published on other sites." },
+        { "id": "cp-domain-press", "family": "noise-reduced", "when": ["domain"], "pattern": "{site} (intitle:press OR inurl:press OR inurl:media OR inurl:newsroom) {exclusions}", "weight": 50, "explanation": "Press and media contact pages." },
+        { "id": "cp-org-contact", "family": "balanced", "when": ["organization"], "pattern": "{quoted} (intitle:contact OR \"contact us\") {siteOption} {exclusions}", "weight": 100, "explanation": "Contact pages mentioning the organisation." },
+        { "id": "cp-org-about", "family": "title-focused", "when": ["organization"], "pattern": "{quoted} (intitle:about OR \"our team\" OR leadership) {siteOption} {exclusions}", "weight": 70, "explanation": "About and leadership pages." },
+        { "id": "cp-org-details", "family": "broad", "when": ["organization"], "pattern": "{quoted} (email OR phone OR address) {siteOption} {exclusions}", "weight": 60, "explanation": "Pages listing contact details next to the organisation name." }
+      ]
+    },
+    {
+      "id": "staff-profiles",
+      "label": "Public staff / profile references",
+      "group": "org-osint",
+      "description": "Publicly published team pages and professional profiles associated with an organisation.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain", "organization"],
+      "templates": [
+        { "id": "sp-domain-team", "family": "balanced", "when": ["domain"], "pattern": "{site} (inurl:team OR inurl:people OR inurl:staff OR inurl:leadership OR inurl:about) {exclusions}", "weight": 100, "explanation": "Team and leadership pages on the domain." },
+        { "id": "sp-domain-linkedin", "family": "precise", "when": ["domain"], "pattern": "{domainLabel} site:linkedin.com/in {exclusions}", "weight": 95, "explanation": "LinkedIn profiles mentioning the organisation name derived from the domain." },
+        { "id": "sp-domain-titles", "family": "title-focused", "when": ["domain"], "pattern": "{site} (\"head of\" OR director OR manager OR engineer OR \"chief\") {exclusions}", "weight": 60, "explanation": "Pages on the domain that mention job titles." },
+        { "id": "sp-domain-platforms", "family": "broad", "when": ["domain"], "pattern": "{domainLabel} {platformSites} {exclusions}", "platformIds": ["linkedin", "xing", "github", "x"], "weight": 65, "explanation": "Professional and developer platforms mentioning the organisation name." },
+        { "id": "sp-domain-emails", "family": "url-focused", "when": ["domain"], "pattern": "{atDomainQuoted} {excludeSite} {exclusions}", "weight": 70, "explanation": "Addresses at the domain published elsewhere, often alongside names and roles." },
+        { "id": "sp-org-linkedin", "family": "balanced", "when": ["organization"], "pattern": "{quoted} site:linkedin.com/in {exclusions}", "weight": 100, "explanation": "LinkedIn profiles mentioning the organisation." },
+        { "id": "sp-org-titles", "family": "precise", "when": ["organization"], "pattern": "{quoted} (\"head of\" OR director OR manager OR engineer OR chief) {siteOption} {exclusions}", "weight": 80, "explanation": "Pages that mention the organisation alongside job titles." },
+        { "id": "sp-org-platforms", "family": "broad", "when": ["organization"], "pattern": "{quoted} {platformSites} {exclusions}", "platformIds": ["linkedin", "xing", "github", "x"], "weight": 70, "explanation": "Professional and developer platforms mentioning the organisation." },
+        { "id": "sp-org-team", "family": "title-focused", "when": ["organization"], "pattern": "{quoted} (intitle:team OR inurl:team OR \"our team\" OR leadership) {siteOption} {exclusions}", "weight": 60, "explanation": "Team pages mentioning the organisation." }
+      ]
+    },
+    {
+      "id": "technology-mentions",
+      "label": "Public technology mentions",
+      "group": "org-osint",
+      "description": "Public statements, profiles and job postings that reveal an organisation's technology stack.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain", "organization", "technology"],
+      "templates": [
+        { "id": "tm-domain-powered", "family": "balanced", "when": ["domain"], "pattern": "{site} (\"powered by\" OR \"built with\" OR \"running on\") {exclusions}", "weight": 100, "explanation": "Footer credits and vendor mentions on the domain." },
+        { "id": "tm-domain-stack-sites", "family": "precise", "when": ["domain"], "pattern": "{domainQuoted} (site:stackshare.io OR site:builtwith.com) {exclusions}", "weight": 80, "explanation": "Technology profiling sites that have indexed the domain." },
+        { "id": "tm-domain-paths", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:wp-content OR inurl:wp-includes OR inurl:sites/default OR inurl:_next OR inurl:static/js) {exclusions}", "weight": 70, "explanation": "Framework-specific URL paths fingerprint the platform in use." },
+        { "id": "tm-domain-devs", "family": "broad", "when": ["domain"], "pattern": "{domainQuoted} {platformSites} {exclusions}", "platformIds": ["stackoverflow", "github"], "weight": 75, "explanation": "Developers referencing the domain on Q&A and code-hosting sites." },
+        { "id": "tm-domain-api", "family": "title-focused", "when": ["domain"], "pattern": "{site} API (inurl:docs OR inurl:developer OR inurl:developers) {exclusions}", "weight": 60, "explanation": "Developer documentation reveals APIs and integration technologies." },
+        { "id": "tm-org-powered", "family": "balanced", "when": ["organization"], "pattern": "{quoted} (\"powered by\" OR \"built with\" OR \"tech stack\" OR \"we use\") {siteOption} {exclusions}", "weight": 100, "explanation": "Public statements about the organisation's stack." },
+        { "id": "tm-org-stackshare", "family": "precise", "when": ["organization"], "pattern": "{quoted} site:stackshare.io {exclusions}", "weight": 80, "explanation": "StackShare company profiles." },
+        { "id": "tm-org-jobs", "family": "broad", "when": ["organization"], "pattern": "{quoted} (inurl:jobs OR inurl:careers) (\"experience with\" OR \"familiarity with\" OR \"proficiency in\") {exclusions}", "weight": 65, "explanation": "Job postings routinely list the technologies in use." },
+        { "id": "tm-org-devs", "family": "url-focused", "when": ["organization"], "pattern": "{quoted} {platformSites} {exclusions}", "platformIds": ["stackoverflow", "github"], "weight": 70, "explanation": "Developers referencing the organisation on Q&A and code-hosting sites." },
+        { "id": "tm-tech-powered", "family": "balanced", "when": ["technology"], "pattern": "{quoted} (\"powered by\" OR \"built with\") {site} {exclusions}", "weight": 100, "explanation": "Sites crediting the technology, optionally scoped to a target site." },
+        { "id": "tm-tech-site", "family": "precise", "when": ["technology"], "pattern": "{quoted} {site} {exclusions}", "requires": ["site"], "weight": 90, "explanation": "The technology name anywhere on the target site." },
+        { "id": "tm-tech-stackshare", "family": "broad", "when": ["technology"], "pattern": "{quoted} site:stackshare.io {exclusions}", "weight": 60, "explanation": "Companies listing the technology on StackShare." },
+        { "id": "tm-tech-jobs", "family": "url-focused", "when": ["technology"], "pattern": "{quoted} (inurl:jobs OR inurl:careers) {site} {exclusions}", "weight": 55, "explanation": "Job postings requiring the technology." }
+      ]
+    },
+    {
+      "id": "developer-references",
+      "label": "Public repositories and developer references",
+      "group": "org-osint",
+      "description": "Code hosting, package registries, Q&A and paste sites referencing a domain or organisation.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain", "organization"],
+      "templates": [
+        { "id": "dr-domain-hosts", "family": "balanced", "when": ["domain"], "pattern": "{domainQuoted} {platformSites} {exclusions}", "platformCategories": ["developer"], "platformLimit": 6, "weight": 100, "explanation": "The domain on the main developer platforms." },
+        { "id": "dr-domain-github", "family": "precise", "when": ["domain"], "pattern": "{domainQuoted} site:github.com {exclusions}", "weight": 95, "explanation": "GitHub code, issues and READMEs mentioning the domain." },
+        { "id": "dr-domain-so", "family": "precise", "when": ["domain"], "pattern": "{domainQuoted} site:stackoverflow.com {exclusions}", "weight": 80, "explanation": "Stack Overflow questions mentioning the domain." },
+        { "id": "dr-domain-registries", "family": "broad", "when": ["domain"], "pattern": "{domainQuoted} (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com) {exclusions}", "weight": 70, "explanation": "Package and container registries." },
+        { "id": "dr-domain-pastes", "family": "noise-reduced", "when": ["domain"], "pattern": "{domainQuoted} (site:gist.github.com OR site:pastebin.com) {exclusions}", "weight": 60, "explanation": "Snippets and pastes mentioning the domain." },
+        { "id": "dr-domain-label", "family": "url-focused", "when": ["domain"], "pattern": "{domainLabel} (site:github.com OR site:gitlab.com) inurl:{domainLabelBare} {exclusions}", "weight": 50, "explanation": "Repositories or organisations named after the domain label." },
+        { "id": "dr-org-hosts", "family": "balanced", "when": ["organization"], "pattern": "{quoted} {platformSites} {exclusions}", "platformCategories": ["developer"], "platformLimit": 6, "weight": 100, "explanation": "The organisation on the main developer platforms." },
+        { "id": "dr-org-github", "family": "precise", "when": ["organization"], "pattern": "{quoted} site:github.com {exclusions}", "weight": 90, "explanation": "GitHub content mentioning the organisation." },
+        { "id": "dr-org-registries", "family": "broad", "when": ["organization"], "pattern": "{quoted} (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com) {exclusions}", "weight": 65, "explanation": "Package and container registries." },
+        { "id": "dr-org-pastes", "family": "noise-reduced", "when": ["organization"], "pattern": "{quoted} (site:gist.github.com OR site:pastebin.com) {exclusions}", "weight": 55, "explanation": "Snippets and pastes mentioning the organisation." }
+      ]
+    },
+    {
+      "id": "cloud-storage-references",
+      "label": "Public cloud / storage references",
+      "group": "org-osint",
+      "description": "Publicly indexed object-storage buckets and containers named after or referencing an organisation.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain", "organization"],
+      "templates": [
+        { "id": "cs-domain-all", "family": "balanced", "when": ["domain"], "pattern": "{domainLabel} (site:s3.amazonaws.com OR site:blob.core.windows.net OR site:storage.googleapis.com) {exclusions}", "weight": 100, "explanation": "The three major providers' public storage hostnames." },
+        { "id": "cs-domain-s3", "family": "precise", "when": ["domain"], "pattern": "{domainLabel} site:s3.amazonaws.com {exclusions}", "weight": 90, "explanation": "Amazon S3 buckets." },
+        { "id": "cs-domain-azure", "family": "precise", "when": ["domain"], "pattern": "{domainLabel} site:blob.core.windows.net {exclusions}", "weight": 85, "explanation": "Azure Blob Storage containers." },
+        { "id": "cs-domain-gcs", "family": "precise", "when": ["domain"], "pattern": "{domainLabel} site:storage.googleapis.com {exclusions}", "weight": 80, "explanation": "Google Cloud Storage buckets." },
+        { "id": "cs-domain-others", "family": "broad", "when": ["domain"], "pattern": "{domainLabel} (site:digitaloceanspaces.com OR site:r2.dev OR site:backblazeb2.com OR site:wasabisys.com) {exclusions}", "weight": 60, "explanation": "Smaller object-storage providers." },
+        { "id": "cs-domain-links", "family": "url-focused", "when": ["domain"], "pattern": "{domainQuoted} (inurl:s3.amazonaws.com OR inurl:blob.core.windows.net OR inurl:storage.googleapis.com) {excludeSite} {exclusions}", "weight": 55, "explanation": "Pages that link storage URLs alongside the domain." },
+        { "id": "cs-org-all", "family": "balanced", "when": ["organization"], "pattern": "{quoted} (site:s3.amazonaws.com OR site:blob.core.windows.net OR site:storage.googleapis.com) {exclusions}", "weight": 100, "explanation": "The three major providers' public storage hostnames." },
+        { "id": "cs-org-s3", "family": "precise", "when": ["organization"], "pattern": "{quoted} site:s3.amazonaws.com {exclusions}", "weight": 85, "explanation": "Amazon S3 buckets." },
+        { "id": "cs-org-azure", "family": "precise", "when": ["organization"], "pattern": "{quoted} site:blob.core.windows.net {exclusions}", "weight": 80, "explanation": "Azure Blob Storage containers." },
+        { "id": "cs-org-others", "family": "broad", "when": ["organization"], "pattern": "{quoted} (site:storage.googleapis.com OR site:digitaloceanspaces.com OR site:r2.dev) {exclusions}", "weight": 60, "explanation": "Google Cloud Storage and smaller providers." }
+      ]
+    },
+    {
+      "id": "support-status-pages",
+      "label": "Public support / status / help pages",
+      "group": "org-osint",
+      "description": "Status dashboards, help centres and knowledge bases, including hosted ones.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain", "organization"],
+      "templates": [
+        { "id": "st-domain-status", "family": "balanced", "when": ["domain"], "pattern": "{site} (intitle:status OR inurl:status OR intitle:\"system status\") {exclusions}", "weight": 100, "explanation": "Status pages on the domain." },
+        { "id": "st-domain-help", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:support OR inurl:help OR inurl:faq OR inurl:kb OR inurl:docs) {exclusions}", "weight": 90, "explanation": "Support, help and documentation sections." },
+        { "id": "st-domain-subs", "family": "broad", "when": ["domain"], "pattern": "{siteWildcard} (inurl:status OR inurl:support OR inurl:help) -inurl:www {exclusions}", "weight": 85, "explanation": "Dedicated status/support hosts under the domain." },
+        { "id": "st-domain-hosted-status", "family": "precise", "when": ["domain"], "pattern": "{domainLabel} (site:statuspage.io OR site:status.io OR site:instatus.com OR site:betteruptime.com) {exclusions}", "weight": 70, "explanation": "Hosted status-page providers." },
+        { "id": "st-domain-hosted-help", "family": "precise", "when": ["domain"], "pattern": "{domainLabel} (site:zendesk.com OR site:freshdesk.com OR site:helpscout.net OR site:intercom.help) {exclusions}", "weight": 65, "explanation": "Hosted help-desk providers." },
+        { "id": "st-org-status", "family": "balanced", "when": ["organization"], "pattern": "{quoted} (intitle:status OR \"system status\" OR \"service status\") {siteOption} {exclusions}", "weight": 100, "explanation": "Status pages mentioning the organisation." },
+        { "id": "st-org-hosted-status", "family": "precise", "when": ["organization"], "pattern": "{quoted} (site:statuspage.io OR site:status.io OR site:instatus.com) {exclusions}", "weight": 70, "explanation": "Hosted status-page providers." },
+        { "id": "st-org-hosted-help", "family": "precise", "when": ["organization"], "pattern": "{quoted} (site:zendesk.com OR site:freshdesk.com OR site:intercom.help) {exclusions}", "weight": 65, "explanation": "Hosted help-desk providers." },
+        { "id": "st-org-help", "family": "broad", "when": ["organization"], "pattern": "{quoted} (\"help center\" OR \"knowledge base\" OR \"support portal\") {siteOption} {exclusions}", "weight": 60, "explanation": "Help centres and knowledge bases." }
+      ]
+    },
+    {
+      "id": "presentations-reports",
+      "label": "Public presentations / reports",
+      "group": "org-osint",
+      "description": "Slide decks, annual reports and whitepapers on the domain and on document-sharing platforms.",
+      "safety": "standard",
+      "compatibleInputTypes": ["domain", "organization"],
+      "templates": [
+        { "id": "pr-domain-slides", "family": "balanced", "when": ["domain"], "pattern": "{site} (filetype:pptx OR filetype:ppt) {exclusions}", "weight": 100, "explanation": "Presentations on the domain." },
+        { "id": "pr-domain-reports", "family": "document-focused", "when": ["domain"], "pattern": "{site} filetype:pdf (intitle:report OR intitle:\"annual report\" OR intitle:whitepaper OR intitle:overview) {exclusions}", "weight": 90, "explanation": "PDF reports and whitepapers on the domain." },
+        { "id": "pr-domain-slide-sites", "family": "precise", "when": ["domain"], "pattern": "{domainLabel} {platformSites} {exclusions}", "platformIds": ["slideshare", "speakerdeck"], "weight": 85, "explanation": "Slide-sharing platforms." },
+        { "id": "pr-domain-doc-sites", "family": "broad", "when": ["domain"], "pattern": "{domainLabel} (site:scribd.com OR site:issuu.com OR site:docdroid.net) {exclusions}", "weight": 70, "explanation": "Document-sharing platforms." },
+        { "id": "pr-domain-offsite", "family": "noise-reduced", "when": ["domain"], "pattern": "{domainQuoted} (filetype:pptx OR filetype:pdf) {excludeSite} {exclusions}", "weight": 60, "explanation": "Decks and PDFs hosted elsewhere that mention the domain." },
+        { "id": "pr-org-docs", "family": "balanced", "when": ["organization"], "pattern": "{quoted} (filetype:pptx OR filetype:ppt OR filetype:pdf) {siteOption} {exclusions}", "weight": 100, "explanation": "Presentations and PDFs mentioning the organisation." },
+        { "id": "pr-org-slide-sites", "family": "precise", "when": ["organization"], "pattern": "{quoted} {platformSites} {exclusions}", "platformIds": ["slideshare", "speakerdeck"], "weight": 85, "explanation": "Slide-sharing platforms." },
+        { "id": "pr-org-reports", "family": "document-focused", "when": ["organization"], "pattern": "{quoted} (\"annual report\" OR \"investor presentation\" OR whitepaper) filetype:pdf {exclusions}", "weight": 80, "explanation": "Formal reports in PDF form." },
+        { "id": "pr-org-doc-sites", "family": "broad", "when": ["organization"], "pattern": "{quoted} (site:scribd.com OR site:issuu.com) {exclusions}", "weight": 60, "explanation": "Document-sharing platforms." }
+      ]
+    },
+
+    {
+      "id": "exposed-config-files",
+      "label": "Defensive: exposed configuration files",
+      "group": "defensive",
+      "description": "Configuration and environment files that may have been accidentally indexed on a domain you are authorised to assess.",
+      "safety": "defensive-exposure",
+      "compatibleInputTypes": ["domain"],
+      "defaultFileTypes": ["env", "ini", "cfg", "conf", "yml", "yaml", "toml", "properties"],
+      "templates": [
+        { "id": "cf-extensions", "family": "balanced", "when": ["domain"], "pattern": "{site} {filetypeGroup} {exclusions}", "weight": 100, "explanation": "Common configuration extensions indexed on the domain." },
+        { "id": "cf-filenames", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:\".env\" OR inurl:\"config.php\" OR inurl:\"settings.py\" OR inurl:\"appsettings.json\" OR inurl:\"web.config\" OR inurl:\"wp-config\") {exclusions}", "weight": 95, "explanation": "Well-known configuration file names in URLs." },
+        { "id": "cf-listings", "family": "precise", "when": ["domain"], "pattern": "{site} (intitle:\"index of\" OR intext:\"parent directory\") (\".env\" OR config OR settings) {exclusions}", "weight": 80, "explanation": "Directory listings that expose configuration files." },
+        { "id": "cf-vcs", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:\".git\" OR inurl:\".svn\" OR inurl:\".hg\" OR inurl:\".DS_Store\") {exclusions}", "weight": 70, "explanation": "Version-control and OS metadata folders that should never be web-accessible." },
+        { "id": "cf-infra", "family": "broad", "when": ["domain"], "pattern": "{site} (inurl:docker-compose OR inurl:Dockerfile OR inurl:\".htaccess\" OR inurl:\"nginx.conf\" OR inurl:\"httpd.conf\") {exclusions}", "weight": 60, "explanation": "Infrastructure and web-server configuration files." },
+        { "id": "cf-subs", "family": "noise-reduced", "when": ["domain"], "pattern": "{siteWildcard} -inurl:www {filetypeGroup} {exclusions}", "weight": 55, "explanation": "The same extension check across non-www hosts." }
+      ]
+    },
+    {
+      "id": "exposed-backups-archives",
+      "label": "Defensive: exposed backups and archives",
+      "group": "defensive",
+      "description": "Backup, dump and archive files that may have been accidentally indexed.",
+      "safety": "defensive-exposure",
+      "compatibleInputTypes": ["domain"],
+      "defaultFileTypes": ["bak", "old", "zip", "tar", "gz", "tgz", "7z", "rar", "sql"],
+      "templates": [
+        { "id": "ba-extensions", "family": "balanced", "when": ["domain"], "pattern": "{site} {filetypeGroup} {exclusions}", "weight": 100, "explanation": "Backup and archive extensions indexed on the domain." },
+        { "id": "ba-paths", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:backup OR inurl:backups OR inurl:bak OR inurl:old OR inurl:archive OR inurl:dump) {exclusions}", "weight": 90, "explanation": "Backup-related words in URL paths." },
+        { "id": "ba-sql", "family": "precise", "when": ["domain"], "pattern": "{site} filetype:sql {exclusions}", "weight": 85, "explanation": "SQL dumps specifically." },
+        { "id": "ba-listings", "family": "precise", "when": ["domain"], "pattern": "{site} (intitle:\"index of\" OR intext:\"parent directory\") (backup OR bak OR \".sql\" OR \".zip\") {exclusions}", "weight": 80, "explanation": "Directory listings containing backup files." },
+        { "id": "ba-archives-paths", "family": "document-focused", "when": ["domain"], "pattern": "{site} (filetype:zip OR filetype:tar OR filetype:gz) (inurl:backup OR inurl:dump OR inurl:export) {exclusions}", "weight": 70, "explanation": "Archives in backup or export paths." },
+        { "id": "ba-subs", "family": "noise-reduced", "when": ["domain"], "pattern": "{siteWildcard} -inurl:www {filetypeGroup} {exclusions}", "weight": 55, "explanation": "The same extension check across non-www hosts." }
+      ]
+    },
+    {
+      "id": "exposed-logs-diagnostics",
+      "label": "Defensive: exposed logs and diagnostics",
+      "group": "defensive",
+      "description": "Log, trace and dump files that may have been accidentally indexed.",
+      "safety": "defensive-exposure",
+      "compatibleInputTypes": ["domain"],
+      "defaultFileTypes": ["log", "out", "err", "dmp", "trace"],
+      "templates": [
+        { "id": "lg-extensions", "family": "balanced", "when": ["domain"], "pattern": "{site} {filetypeGroup} {exclusions}", "weight": 100, "explanation": "Log and diagnostic extensions indexed on the domain." },
+        { "id": "lg-paths", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:log OR inurl:logs OR inurl:debug OR inurl:trace) {exclusions}", "weight": 90, "explanation": "Log-related words in URL paths." },
+        { "id": "lg-log", "family": "precise", "when": ["domain"], "pattern": "{site} filetype:log {exclusions}", "weight": 85, "explanation": ".log files specifically." },
+        { "id": "lg-listings", "family": "precise", "when": ["domain"], "pattern": "{site} (intitle:\"index of\" OR intext:\"parent directory\") (log OR logs OR debug) {exclusions}", "weight": 75, "explanation": "Directory listings containing logs." },
+        { "id": "lg-traces", "family": "broad", "when": ["domain"], "pattern": "{site} (intext:\"stack trace\" OR intext:traceback OR intext:\"exception in\") -inurl:blog -inurl:docs {exclusions}", "weight": 65, "explanation": "Pages rendering stack traces, excluding documentation and blogs." },
+        { "id": "lg-subs", "family": "noise-reduced", "when": ["domain"], "pattern": "{siteWildcard} -inurl:www {filetypeGroup} {exclusions}", "weight": 55, "explanation": "The same extension check across non-www hosts." }
+      ]
+    },
+    {
+      "id": "directory-listings",
+      "label": "Defensive: directory listings",
+      "group": "defensive",
+      "description": "Auto-generated directory indexes exposed on a domain.",
+      "safety": "defensive-exposure",
+      "compatibleInputTypes": ["domain"],
+      "templates": [
+        { "id": "dl-index-of", "family": "balanced", "when": ["domain"], "pattern": "{site} intitle:\"index of\" {exclusions}", "weight": 100, "explanation": "The classic Apache/nginx listing title." },
+        { "id": "dl-broad", "family": "broad", "when": ["domain"], "pattern": "{site} (intitle:\"index of\" OR intext:\"parent directory\" OR intitle:\"directory listing\") {exclusions}", "weight": 90, "explanation": "Alternative listing markers used by different servers." },
+        { "id": "dl-precise", "family": "precise", "when": ["domain"], "pattern": "{site} intitle:\"index of\" \"last modified\" {exclusions}", "weight": 85, "explanation": "Requires the column header that real listings render." },
+        { "id": "dl-sensitive-paths", "family": "url-focused", "when": ["domain"], "pattern": "{site} intitle:\"index of\" (inurl:upload OR inurl:uploads OR inurl:files OR inurl:backup OR inurl:private OR inurl:admin) {exclusions}", "weight": 80, "explanation": "Listings under paths that commonly hold sensitive material." },
+        { "id": "dl-subs", "family": "noise-reduced", "when": ["domain"], "pattern": "{siteWildcard} -inurl:www intitle:\"index of\" {exclusions}", "weight": 60, "explanation": "Listings on non-www hosts." }
+      ]
+    },
+    {
+      "id": "exposed-api-docs",
+      "label": "Defensive: publicly indexed API documentation",
+      "group": "defensive",
+      "description": "Swagger/OpenAPI, GraphQL and other API documentation that may not be intended for public indexing.",
+      "safety": "defensive-exposure",
+      "compatibleInputTypes": ["domain"],
+      "templates": [
+        { "id": "ad-paths", "family": "balanced", "when": ["domain"], "pattern": "{site} (inurl:swagger OR inurl:api-docs OR inurl:openapi OR inurl:redoc OR inurl:graphql) {exclusions}", "weight": 100, "explanation": "Well-known documentation paths." },
+        { "id": "ad-titles", "family": "title-focused", "when": ["domain"], "pattern": "{site} (intitle:\"swagger ui\" OR intitle:\"api documentation\" OR intitle:redoc OR intitle:\"graphql playground\") {exclusions}", "weight": 90, "explanation": "Documentation UI page titles." },
+        { "id": "ad-specs", "family": "document-focused", "when": ["domain"], "pattern": "{site} (filetype:json OR filetype:yaml OR filetype:yml) (intext:openapi OR intext:swagger) {exclusions}", "weight": 85, "explanation": "Raw OpenAPI specification files." },
+        { "id": "ad-subs", "family": "broad", "when": ["domain"], "pattern": "{siteWildcard} (inurl:api OR inurl:swagger OR inurl:graphql) -inurl:www {exclusions}", "weight": 70, "explanation": "API hosts under the domain." },
+        { "id": "ad-versions", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:\"/v1/\" OR inurl:\"/v2/\" OR inurl:\"/api/v\") {exclusions}", "weight": 55, "explanation": "Versioned API paths that have been indexed." }
+      ]
+    },
+    {
+      "id": "error-debug-pages",
+      "label": "Defensive: public error / debug pages",
+      "group": "defensive",
+      "description": "Indexed pages that render stack traces, database errors or debug output.",
+      "safety": "defensive-exposure",
+      "compatibleInputTypes": ["domain"],
+      "templates": [
+        { "id": "ed-traces", "family": "balanced", "when": ["domain"], "pattern": "{site} (intext:\"stack trace\" OR intext:\"traceback (most recent call last)\" OR intext:\"unhandled exception\" OR intext:\"fatal error\") {exclusions}", "weight": 100, "explanation": "Generic stack-trace and fatal-error strings." },
+        { "id": "ed-titles", "family": "title-focused", "when": ["domain"], "pattern": "{site} (intitle:\"server error\" OR intitle:\"application error\" OR intitle:whoops OR intitle:exception) {exclusions}", "weight": 90, "explanation": "Error page titles." },
+        { "id": "ed-database", "family": "precise", "when": ["domain"], "pattern": "{site} (intext:\"warning: mysql\" OR intext:\"ORA-\" OR intext:SQLSTATE OR intext:\"syntax error\" OR intext:\"pg_query\") {exclusions}", "weight": 80, "explanation": "Database error strings." },
+        { "id": "ed-debug-paths", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:debug OR inurl:trace OR inurl:\"elmah.axd\" OR inurl:phpinfo) {exclusions}", "weight": 75, "explanation": "Debug and diagnostic handler paths." },
+        { "id": "ed-frameworks", "family": "broad", "when": ["domain"], "pattern": "{site} (intext:\"DEBUG = True\" OR intext:\"Whoops, looks like something went wrong\" OR intext:\"Laravel\" intext:\"Stack trace\") {exclusions}", "weight": 60, "explanation": "Framework-specific debug page strings (Django, Laravel)." }
+      ]
+    },
+    {
+      "id": "source-map-references",
+      "label": "Defensive: exposed source maps",
+      "group": "defensive",
+      "description": "JavaScript/CSS source maps that reveal original source code.",
+      "safety": "defensive-exposure",
+      "compatibleInputTypes": ["domain"],
+      "templates": [
+        { "id": "sm-filetype", "family": "balanced", "when": ["domain"], "pattern": "{site} filetype:map {exclusions}", "weight": 100, "explanation": "Indexed .map files on the domain." },
+        { "id": "sm-paths", "family": "url-focused", "when": ["domain"], "pattern": "{site} (inurl:\".js.map\" OR inurl:\".css.map\") {exclusions}", "weight": 95, "explanation": "Source map file names in URLs." },
+        { "id": "sm-reference", "family": "precise", "when": ["domain"], "pattern": "{site} intext:sourceMappingURL {exclusions}", "weight": 80, "explanation": "Bundles that reference a source map." },
+        { "id": "sm-subs", "family": "broad", "when": ["domain"], "pattern": "{siteWildcard} filetype:map -inurl:www {exclusions}", "weight": 60, "explanation": "Source maps on non-www hosts." },
+        { "id": "sm-static", "family": "document-focused", "when": ["domain"], "pattern": "{site} (inurl:\"/static/\" OR inurl:\"/assets/\" OR inurl:\"/dist/\") (filetype:map OR filetype:js) {exclusions}", "weight": 50, "explanation": "Bundled assets in typical build output paths." }
+      ]
+    },
+    {
+      "id": "repository-references",
+      "label": "Defensive: public repository references",
+      "group": "defensive",
+      "description": "Public code, gists and pastes referencing a domain or organisation, where credentials and internal names are commonly leaked.",
+      "safety": "defensive-exposure",
+      "compatibleInputTypes": ["domain", "organization"],
+      "templates": [
+        { "id": "rr-domain-hosts", "family": "balanced", "when": ["domain"], "pattern": "{domainQuoted} {platformSites} {exclusions}", "platformIds": ["github", "gitlab", "bitbucket", "codeberg"], "weight": 100, "explanation": "The domain on the main code-hosting platforms." },
+        { "id": "rr-domain-github", "family": "precise", "when": ["domain"], "pattern": "{domainQuoted} site:github.com {exclusions}", "weight": 95, "explanation": "GitHub content mentioning the domain." },
+        { "id": "rr-domain-emails", "family": "precise", "when": ["domain"], "pattern": "{atDomainQuoted} site:github.com {exclusions}", "weight": 85, "explanation": "Addresses at the domain appearing in commits, configs and READMEs." },
+        { "id": "rr-domain-pastes", "family": "broad", "when": ["domain"], "pattern": "{domainQuoted} (site:gist.github.com OR site:pastebin.com OR site:paste.ee) {exclusions}", "weight": 70, "explanation": "Gists and paste sites." },
+        { "id": "rr-domain-registries", "family": "url-focused", "when": ["domain"], "pattern": "{domainQuoted} (site:hub.docker.com OR site:npmjs.com OR site:pypi.org) {exclusions}", "weight": 60, "explanation": "Published packages and images that reference the domain." },
+        { "id": "rr-org-hosts", "family": "balanced", "when": ["organization"], "pattern": "{quoted} {platformSites} {exclusions}", "platformIds": ["github", "gitlab", "bitbucket"], "weight": 100, "explanation": "The organisation on the main code-hosting platforms." },
+        { "id": "rr-org-github", "family": "precise", "when": ["organization"], "pattern": "{quoted} site:github.com {exclusions}", "weight": 90, "explanation": "GitHub content mentioning the organisation." },
+        { "id": "rr-org-pastes", "family": "broad", "when": ["organization"], "pattern": "{quoted} (site:gist.github.com OR site:pastebin.com) {exclusions}", "weight": 65, "explanation": "Gists and paste sites." }
+      ]
+    },
+
+    {
+      "id": "person-name-variants",
+      "label": "Exact name variants",
+      "group": "person",
+      "description": "Name spellings and orderings: exact, reversed, initial, wildcard middle name.",
+      "safety": "standard",
+      "compatibleInputTypes": ["person"],
+      "templates": [
+        { "id": "pn-exact", "family": "precise", "when": ["person"], "pattern": "{quoted} {site} {dates} {exclusions}", "weight": 100, "explanation": "The full name as an exact phrase." },
+        { "id": "pn-wildcard", "family": "broad", "when": ["person"], "pattern": "{phraseWildcard} {site} {exclusions}", "weight": 75, "explanation": "A wildcard between first and last name catches middle names and initials." },
+        { "id": "pn-reversed", "family": "balanced", "when": ["person"], "pattern": "{quotedReversed} {site} {exclusions}", "weight": 70, "explanation": "Surname-first ordering used in directories and citations." },
+        { "id": "pn-initial", "family": "broad", "when": ["person"], "pattern": "{quotedInitialLast} {site} {exclusions}", "weight": 60, "explanation": "First initial plus surname, common in bylines and papers." },
+        { "id": "pn-title", "family": "title-focused", "when": ["person"], "pattern": "{intitle} {site} {exclusions}", "weight": 65, "explanation": "Pages titled with the name: profiles, interviews, bios." },
+        { "id": "pn-recent", "family": "recent", "when": ["person"], "pattern": "{quoted} {site} {dates} {exclusions}", "requires": ["dates"], "weight": 85, "explanation": "The exact name within the date window." },
+        { "id": "pn-noise", "family": "noise-reduced", "when": ["person"], "pattern": "{quoted} -site:pinterest.com -site:amazon.com -site:ebay.com {exclusions}", "weight": 55, "explanation": "Removes marketplaces and image boards that pollute name searches." }
+      ]
+    },
+    {
+      "id": "person-organization",
+      "label": "Name + organisation",
+      "group": "person",
+      "description": "Correlates a person with an organisation supplied in the options.",
+      "safety": "standard",
+      "compatibleInputTypes": ["person"],
+      "requiresOptions": ["organization"],
+      "defaultFileTypes": ["pdf", "docx", "pptx"],
+      "templates": [
+        { "id": "po-balanced", "family": "balanced", "when": ["person"], "pattern": "{quoted} {organization} {site} {exclusions}", "weight": 100, "explanation": "Both the name and the organisation as exact phrases." },
+        { "id": "po-proximity", "family": "precise", "when": ["person"], "pattern": "{quoted} AROUND(5) {organization}", "weight": 85, "explanation": "AROUND(5) requires the phrases to be within five words, which filters incidental co-mentions." },
+        { "id": "po-linkedin", "family": "precise", "when": ["person"], "pattern": "{quoted} {organization} site:linkedin.com {exclusions}", "weight": 80, "explanation": "LinkedIn pages mentioning both." },
+        { "id": "po-title", "family": "title-focused", "when": ["person"], "pattern": "{intitle} {organization} {exclusions}", "weight": 65, "explanation": "Pages titled with the name that mention the organisation." },
+        { "id": "po-docs", "family": "document-focused", "when": ["person"], "pattern": "{quoted} {organization} {filetypeGroup} {exclusions}", "weight": 60, "explanation": "Documents mentioning both." },
+        { "id": "po-broad", "family": "broad", "when": ["person"], "pattern": "{terms} {organization} {exclusions}", "weight": 50, "explanation": "Unquoted name with the organisation phrase." }
+      ]
+    },
+    {
+      "id": "person-location",
+      "label": "Name + location",
+      "group": "person",
+      "description": "Correlates a person with a location keyword supplied in the options.",
+      "safety": "standard",
+      "compatibleInputTypes": ["person"],
+      "requiresOptions": ["location"],
+      "defaultFileTypes": ["pdf", "docx"],
+      "templates": [
+        { "id": "pl-balanced", "family": "balanced", "when": ["person"], "pattern": "{quoted} {location} {site} {exclusions}", "weight": 100, "explanation": "Name and location as exact phrases." },
+        { "id": "pl-proximity", "family": "precise", "when": ["person"], "pattern": "{quoted} AROUND(8) {location}", "weight": 80, "explanation": "Requires the phrases to be close together." },
+        { "id": "pl-linkedin", "family": "precise", "when": ["person"], "pattern": "{quoted} {location} site:linkedin.com {exclusions}", "weight": 70, "explanation": "LinkedIn pages mentioning both." },
+        { "id": "pl-broad", "family": "broad", "when": ["person"], "pattern": "{terms} {location} {exclusions}", "weight": 55, "explanation": "Unquoted name with the location phrase." },
+        { "id": "pl-docs", "family": "document-focused", "when": ["person"], "pattern": "{quoted} {location} {filetypeGroup} {exclusions}", "weight": 50, "explanation": "Documents mentioning both." }
+      ]
+    },
+    {
+      "id": "person-role",
+      "label": "Name + profession / title",
+      "group": "person",
+      "description": "Correlates a person with a job title or profession supplied in the options.",
+      "safety": "standard",
+      "compatibleInputTypes": ["person"],
+      "requiresOptions": ["role"],
+      "templates": [
+        { "id": "pr-balanced", "family": "balanced", "when": ["person"], "pattern": "{quoted} {role} {site} {exclusions}", "weight": 100, "explanation": "Name and role as exact phrases." },
+        { "id": "pr-proximity", "family": "precise", "when": ["person"], "pattern": "{quoted} AROUND(5) {role}", "weight": 85, "explanation": "Requires the role to appear near the name, as in bylines and bios." },
+        { "id": "pr-linkedin", "family": "precise", "when": ["person"], "pattern": "{quoted} {role} site:linkedin.com/in {exclusions}", "weight": 80, "explanation": "LinkedIn profiles mentioning both." },
+        { "id": "pr-title", "family": "title-focused", "when": ["person"], "pattern": "{intitle} {role} {exclusions}", "weight": 60, "explanation": "Pages titled with the name that mention the role." },
+        { "id": "pr-broad", "family": "broad", "when": ["person"], "pattern": "{terms} {role} {exclusions}", "weight": 50, "explanation": "Unquoted name with the role phrase." }
+      ]
+    },
+    {
+      "id": "person-documents",
+      "label": "Public documents mentioning the person",
+      "group": "person",
+      "description": "PDFs, decks and spreadsheets that mention the name, optionally with extra context.",
+      "safety": "standard",
+      "compatibleInputTypes": ["person"],
+      "defaultFileTypes": ["pdf", "docx", "pptx", "xlsx"],
+      "templates": [
+        { "id": "pdoc-balanced", "family": "document-focused", "when": ["person"], "pattern": "{quoted} {filetypeGroup} {site} {exclusions}", "weight": 100, "explanation": "The name inside common document formats." },
+        { "id": "pdoc-context", "family": "precise", "when": ["person"], "pattern": "{quoted} {context} {filetypeGroup} {exclusions}", "requires": ["context"], "weight": 90, "explanation": "Adds the supplied organisation, location or role to disambiguate common names." },
+        { "id": "pdoc-pdf", "family": "precise", "when": ["person"], "pattern": "{quoted} {filetypeFirst} {site} {exclusions}", "weight": 85, "explanation": "Only the highest-priority file type." },
+        { "id": "pdoc-cv", "family": "title-focused", "when": ["person"], "pattern": "{quoted} filetype:pdf (intitle:cv OR intitle:resume OR intitle:\"curriculum vitae\") {exclusions}", "weight": 70, "explanation": "Publicly posted CVs." },
+        { "id": "pdoc-slides", "family": "broad", "when": ["person"], "pattern": "{quoted} (filetype:pptx OR filetype:ppt) {exclusions}", "weight": 60, "explanation": "Presentations crediting the person." }
+      ]
+    },
+    {
+      "id": "person-social-profiles",
+      "label": "Social-profile-focused",
+      "group": "person",
+      "description": "The name on social, professional, developer and creator platforms.",
+      "safety": "standard",
+      "compatibleInputTypes": ["person"],
+      "templates": [
+        { "id": "ps-social", "family": "balanced", "when": ["person"], "pattern": "{quoted} {platformSites} {exclusions}", "platformCategories": ["general-social"], "platformLimit": 6, "weight": 100, "explanation": "Major social networks." },
+        { "id": "ps-linkedin", "family": "precise", "when": ["person"], "pattern": "{quoted} site:linkedin.com/in {exclusions}", "weight": 95, "explanation": "LinkedIn profiles specifically." },
+        { "id": "ps-context", "family": "precise", "when": ["person"], "pattern": "{quoted} {context} site:linkedin.com/in", "requires": ["context"], "weight": 92, "explanation": "LinkedIn profiles disambiguated with the supplied context." },
+        { "id": "ps-professional", "family": "title-focused", "when": ["person"], "pattern": "{quoted} {platformSites} {exclusions}", "platformCategories": ["professional"], "platformLimit": 5, "weight": 85, "explanation": "Professional networks and researcher profiles." },
+        { "id": "ps-developer", "family": "url-focused", "when": ["person"], "pattern": "{quoted} {platformSites} {exclusions}", "platformIds": ["github", "stackoverflow", "medium", "substack", "devto"], "weight": 70, "explanation": "Developer and writing platforms." },
+        { "id": "ps-creator", "family": "broad", "when": ["person"], "pattern": "{quoted} {platformSites} {exclusions}", "platformCategories": ["creator-media"], "platformLimit": 6, "weight": 60, "explanation": "Video, audio and newsletter platforms." }
+      ]
+    },
+    {
+      "id": "email-mentions",
+      "label": "Email address references",
+      "group": "person",
+      "description": "Where an email address is published, on and off its own domain.",
+      "safety": "standard",
+      "compatibleInputTypes": ["email"],
+      "defaultFileTypes": ["pdf", "docx", "xlsx", "txt"],
+      "templates": [
+        { "id": "em-quoted", "family": "precise", "when": ["email"], "pattern": "{emailQuoted} {exclusions}", "weight": 100, "explanation": "The address as an exact phrase." },
+        { "id": "em-offsite", "family": "noise-reduced", "when": ["email"], "pattern": "{emailQuoted} {excludeSite} {exclusions}", "weight": 90, "explanation": "Occurrences outside the address's own domain." },
+        { "id": "em-local-part", "family": "balanced", "when": ["email"], "pattern": "{emailUserQuoted} {site} {exclusions}", "weight": 80, "explanation": "The local part on the address's domain, which finds profile pages that omit the full address." },
+        { "id": "em-text", "family": "precise", "when": ["email"], "pattern": "{intext} {exclusions}", "weight": 75, "explanation": "The address in body text." },
+        { "id": "em-docs", "family": "document-focused", "when": ["email"], "pattern": "{emailQuoted} {filetypeGroup} {exclusions}", "weight": 70, "explanation": "Documents containing the address." },
+        { "id": "em-platforms", "family": "broad", "when": ["email"], "pattern": "{emailQuoted} {platformSites} {exclusions}", "platformIds": ["github", "linkedin", "x", "facebook"], "weight": 65, "explanation": "Code hosting and social platforms." }
+      ]
+    },
+
+    {
+      "id": "username-profiles",
+      "label": "Platform-scoped profile search",
+      "group": "socmint",
+      "description": "The handle scoped to platform groups from the local catalog. Pair with the Username Search tab for direct profile URLs.",
+      "safety": "standard",
+      "compatibleInputTypes": ["username"],
+      "templates": [
+        { "id": "up-social", "family": "balanced", "when": ["username"], "pattern": "{quotedUsername} {platformSites} {exclusions}", "platformCategories": ["general-social"], "platformLimit": 6, "weight": 100, "explanation": "Major social networks." },
+        { "id": "up-developer", "family": "precise", "when": ["username"], "pattern": "{quotedUsername} {platformSites} {exclusions}", "platformCategories": ["developer"], "platformLimit": 5, "weight": 85, "explanation": "Developer platforms." },
+        { "id": "up-professional", "family": "title-focused", "when": ["username"], "pattern": "{quotedUsername} {platformSites} {exclusions}", "platformCategories": ["professional"], "platformLimit": 4, "weight": 80, "explanation": "Professional networks." },
+        { "id": "up-creator", "family": "document-focused", "when": ["username"], "pattern": "{quotedUsername} {platformSites} {exclusions}", "platformCategories": ["creator-media"], "platformLimit": 6, "weight": 75, "explanation": "Creator and media platforms." },
+        { "id": "up-forums", "family": "broad", "when": ["username"], "pattern": "{quotedUsername} {platformSites} {exclusions}", "platformCategories": ["forums-community"], "platformLimit": 5, "weight": 70, "explanation": "Forums and communities." },
+        { "id": "up-gaming", "family": "noise-reduced", "when": ["username"], "pattern": "{quotedUsername} {platformSites} {exclusions}", "platformCategories": ["gaming"], "platformLimit": 5, "weight": 60, "explanation": "Gaming platforms." },
+        { "id": "up-inurl", "family": "url-focused", "when": ["username"], "pattern": "{inurlUsername} {exclusions}", "weight": 65, "explanation": "The handle in URL paths, which is how most platforms expose profiles." }
+      ]
+    },
+    {
+      "id": "username-exact",
+      "label": "Exact username search",
+      "group": "socmint",
+      "description": "Exact, quoted, @-prefixed and URL/title placements of the handle, plus a noise-reduced variant.",
+      "safety": "standard",
+      "compatibleInputTypes": ["username"],
+      "templates": [
+        { "id": "ue-quoted", "family": "balanced", "when": ["username"], "pattern": "{quotedUsername} {exclusions}", "weight": 100, "explanation": "The handle as an exact phrase." },
+        { "id": "ue-at", "family": "precise", "when": ["username"], "pattern": "{atUsername} {exclusions}", "weight": 90, "explanation": "Quoted @handle, which favours social mentions." },
+        { "id": "ue-profile-paths", "family": "url-focused", "when": ["username"], "pattern": "{quotedUsername} (inurl:user OR inurl:users OR inurl:profile OR inurl:members OR inurl:u) {exclusions}", "weight": 80, "explanation": "Pages under typical profile paths." },
+        { "id": "ue-inurl", "family": "url-focused", "when": ["username"], "pattern": "{inurlUsername} {exclusions}", "weight": 75, "explanation": "The handle inside the URL." },
+        { "id": "ue-title", "family": "title-focused", "when": ["username"], "pattern": "{intitleUsername} {exclusions}", "weight": 70, "explanation": "The handle in page titles." },
+        { "id": "ue-both", "family": "precise", "when": ["username"], "pattern": "{quotedUsername} {atUsername} {exclusions}", "weight": 65, "explanation": "Requires both the bare and @-prefixed forms." },
+        { "id": "ue-noise", "family": "noise-reduced", "when": ["username"], "pattern": "{quotedUsername} -site:pinterest.com -site:amazon.com -site:ebay.com -site:etsy.com {exclusions}", "weight": 55, "explanation": "Removes marketplaces where handles collide with product names." },
+        { "id": "ue-hashtag", "family": "broad", "when": ["username"], "pattern": "{hashtagUsername} {exclusions}", "weight": 40, "explanation": "The handle used as a hashtag." }
+      ]
+    },
+    {
+      "id": "username-display-name",
+      "label": "Username + display name",
+      "group": "socmint",
+      "description": "Correlates a handle with a display name supplied in the options.",
+      "safety": "standard",
+      "compatibleInputTypes": ["username"],
+      "requiresOptions": ["displayName"],
+      "templates": [
+        { "id": "ud-balanced", "family": "balanced", "when": ["username"], "pattern": "{quotedUsername} {displayName} {exclusions}", "weight": 100, "explanation": "Both the handle and the display name as exact phrases." },
+        { "id": "ud-at", "family": "precise", "when": ["username"], "pattern": "{atUsername} {displayName} {exclusions}", "weight": 85, "explanation": "@handle plus display name." },
+        { "id": "ud-social", "family": "title-focused", "when": ["username"], "pattern": "{quotedUsername} {displayName} {platformSites} {exclusions}", "platformCategories": ["general-social"], "platformLimit": 6, "weight": 80, "explanation": "Both on major social networks." },
+        { "id": "ud-inurl", "family": "url-focused", "when": ["username"], "pattern": "{displayName} {inurlUsername} {exclusions}", "weight": 70, "explanation": "Display name on pages whose URL carries the handle." },
+        { "id": "ud-professional", "family": "broad", "when": ["username"], "pattern": "{displayName} {platformSites} {exclusions}", "platformCategories": ["professional"], "platformLimit": 4, "weight": 60, "explanation": "The display name on professional networks, where handles are rarely used." }
+      ]
+    }
+  ]
+}

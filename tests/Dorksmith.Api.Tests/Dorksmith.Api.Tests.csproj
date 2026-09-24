@@ -4,6 +4,7 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <RootNamespace>Dorksmith.Api.Tests</RootNamespace>
+    <NoWarn>xUnit1004</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="System.Text.Json.Nodes" />
   </ItemGroup>
 
   <ItemGroup>
