@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dorksmith — Search Query Workbench</title>
+  <meta name="description" content="Deterministic advanced search query (dork) generator and OSINT/SOCMINT workbench. Catalog-driven, no AI, no accounts.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">⌕</span>
+      <span class="brand-name">Dorksmith</span>
+      <span class="brand-tag">search query workbench</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button type="button" role="tab" id="tab-generator" aria-controls="panel-generator" aria-selected="true" data-view="generator" tabindex="0">Generator</button>
+      <button type="button" role="tab" id="tab-handles" aria-controls="panel-handles" aria-selected="false" data-view="handles" tabindex="-1">Username Search</button>
+      <button type="button" role="tab" id="tab-operators" aria-controls="panel-operators" aria-selected="false" data-view="operators" tabindex="-1">Operator Guide</button>
+      <button type="button" role="tab" id="tab-about" aria-controls="panel-about" aria-selected="false" data-view="about" tabindex="-1">About</button>
+    </nav>
+    <div class="topbar-actions">
+      <button type="button" id="theme-toggle" class="icon-btn" aria-label="Switch colour theme" title="Switch theme (auto → light → dark)">◐</button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================ Generator ============================ -->
+    <section id="panel-generator" class="view" role="tabpanel" aria-labelledby="tab-generator">
+      <div class="two-col">
+        <form id="generator-form" class="panel form" autocomplete="off" novalidate>
+          <h1 class="panel-title">Generate advanced search queries</h1>
+          <p class="muted">Deterministic, catalog-driven query variants with explanations. Nothing is sent to an AI service.</p>
+
+          <div class="field">
+            <label for="input">Target</label>
+            <div class="combo">
+              <input id="input" name="input" type="text" required maxlength="500" spellcheck="false"
+                     placeholder="example.com, @alice42, &quot;quarterly roadmap&quot;, alice@example.com …"
+                     role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions" aria-haspopup="listbox">
+              <ul id="suggestions" class="suggestions" role="listbox" aria-label="Suggestions" hidden></ul>
+            </div>
+            <p id="input-hint" class="hint" aria-live="polite"></p>
+            <ul id="input-warnings" class="warnings" aria-live="polite"></ul>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="input-type">Input type</label>
+              <select id="input-type" name="inputType">
+                <option value="keyword">Keyword / phrase</option>
+                <option value="person">Person</option>
+                <option value="organization">Organization</option>
+                <option value="domain">Domain</option>
+                <option value="url">URL</option>
+                <option value="username">Username / handle</option>
+                <option value="email">Email</option>
+                <option value="filename">Filename</option>
+                <option value="technology">Technology</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="intent">Intent</label>
+              <select id="intent" name="intent"></select>
+            </div>
+          </div>
+          <p id="intent-description" class="hint"></p>
+          <p id="intent-safety" class="notice notice-defensive" hidden>
+            <strong>Defensive exposure check.</strong> Use only against systems you own or are authorised to assess. Dorksmith only builds the query; it never inspects results.
+          </p>
+
+          <details id="advanced" class="advanced" open>
+            <summary>Options</summary>
+
+            <div class="field">
+              <label for="site">Restrict to site <span class="optional">optional</span></label>
+              <input id="site" name="site" type="text" placeholder="example.com" spellcheck="false" maxlength="253">
+            </div>
+
+            <fieldset class="field">
+              <legend>File types <span class="optional">optional</span></legend>
+              <div id="filetypes" class="chip-group" role="group" aria-label="File types"></div>
+            </fieldset>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="after">After <span class="optional">optional</span></label>
+                <input id="after" name="after" type="date">
+              </div>
+              <div class="field">
+                <label for="before">Before <span class="optional">optional</span></label>
+                <input id="before" name="before" type="date">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="exclude">Exclude terms <span class="optional">comma separated</span></label>
+              <input id="exclude" name="exclude" type="text" placeholder="jobs, careers, login" spellcheck="false" maxlength="500">
+            </div>
+
+            <div class="field field-narrow">
+              <label for="variants">Variants</label>
+              <input id="variants" name="variants" type="number" min="1" max="12" value="6" inputmode="numeric">
+            </div>
+          </details>
+
+          <div class="actions">
+            <button type="submit" id="generate" class="btn btn-primary">Generate <kbd>Ctrl</kbd>+<kbd>↵</kbd></button>
+            <button type="reset" id="reset" class="btn">Reset</button>
+          </div>
+          <p id="form-error" class="error" role="alert" hidden></p>
+        </form>
+
+        <section class="results" aria-labelledby="results-heading">
+          <div class="results-head">
+            <h2 id="results-heading" class="panel-title">Results</h2>
+            <div class="results-tools" id="results-tools" hidden>
+              <button type="button" id="copy-all" class="btn btn-small">Copy all</button>
+              <button type="button" id="more-precise" class="btn btn-small" title="Adds quoting and scoping via the structured controls">More precise</button>
+              <button type="button" id="broader" class="btn btn-small" title="Removes restrictive options">Broader</button>
+            </div>
+          </div>
+          <p id="results-status" class="muted" aria-live="polite">Enter a target, pick an intent and generate.</p>
+          <div id="results-error" class="notice notice-error" role="alert" hidden></div>
+          <ol id="results" class="cards" aria-label="Generated query variants"></ol>
+          <p id="results-meta" class="meta" hidden></p>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ Username search ============================ -->
+    <section id="panel-handles" class="view" role="tabpanel" aria-labelledby="tab-handles" hidden>
+      <div class="two-col">
+        <form id="handles-form" class="panel form" autocomplete="off" novalidate>
+          <h1 class="panel-title">Username / handle discovery</h1>
+          <p class="muted">Expands a handle into public profile URLs and search-engine queries from a local platform catalog. Nothing is probed; a constructible URL does <strong>not</strong> mean an account exists.</p>
+
+          <div class="field">
+            <label for="handle">Handle</label>
+            <input id="handle" name="username" type="text" required maxlength="100" spellcheck="false" placeholder="alice42 or @alice42">
+            <p id="handle-hint" class="hint"></p>
+          </div>
+
+          <fieldset class="field">
+            <legend>Platform categories</legend>
+            <div id="handle-categories" class="chip-group" role="group" aria-label="Platform categories"></div>
+          </fieldset>
+
+          <div class="field field-narrow">
+            <label for="handle-max">Max platforms</label>
+            <input id="handle-max" name="maxPlatforms" type="number" min="1" max="100" value="30" inputmode="numeric">
+          </div>
+
+          <div class="actions">
+            <button type="submit" id="expand" class="btn btn-primary">Expand handle</button>
+            <button type="reset" class="btn">Reset</button>
+          </div>
+          <p id="handles-error" class="error" role="alert" hidden></p>
+        </form>
+
+        <section class="results" aria-labelledby="handles-results-heading">
+          <div class="results-head">
+            <h2 id="handles-results-heading" class="panel-title">Profiles &amp; queries</h2>
+            <div class="results-tools" id="handles-tools" hidden>
+              <button type="button" id="handles-copy-urls" class="btn btn-small">Copy URLs</button>
+              <button type="button" id="handles-copy-queries" class="btn btn-small">Copy queries</button>
+            </div>
+          </div>
+          <p id="handles-status" class="muted" aria-live="polite">Enter a handle and expand.</p>
+          <div id="handles-results-error" class="notice notice-error" role="alert" hidden></div>
+          <div id="handles-results"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ Operator guide ============================ -->
+    <section id="panel-operators" class="view" role="tabpanel" aria-labelledby="tab-operators" hidden>
+      <div class="panel">
+        <h1 class="panel-title">Operator guide <span id="op-engine" class="badge badge-neutral">google</span></h1>
+        <p class="muted">Support states come from the versioned operator catalog. <span class="badge badge-unreliable">unreliable</span>, <span class="badge badge-deprecated">deprecated</span> and <span class="badge badge-unknown">unknown</span> operators are never emitted by the generator unless the catalog explicitly allows it.</p>
+        <div class="toolbar">
+          <div class="field grow">
+            <label for="op-search">Search operators</label>
+            <input id="op-search" type="search" placeholder="site, filetype, date…" spellcheck="false">
+          </div>
+          <fieldset class="segmented" aria-label="Support filter">
+            <legend class="sr-only">Support filter</legend>
+            <label><input type="radio" name="op-filter" value="all" checked> All</label>
+            <label><input type="radio" name="op-filter" value="reliable"> Official / working</label>
+            <label><input type="radio" name="op-filter" value="unreliable"> Unreliable</label>
+            <label><input type="radio" name="op-filter" value="deprecated"> Deprecated</label>
+          </fieldset>
+        </div>
+        <p id="op-count" class="meta" aria-live="polite"></p>
+        <div id="op-list" class="op-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============================ About ============================ -->
+    <section id="panel-about" class="view" role="tabpanel" aria-labelledby="tab-about" hidden>
+      <div class="panel prose">
+        <h1 class="panel-title">About Dorksmith</h1>
+        <p>Dorksmith is a <strong>deterministic query compiler</strong> for advanced web search. Given a target, an input type and an intent it emits several ranked query variants, explains why each exists and which operators it uses, and warns about operators the search engine no longer supports reliably.</p>
+        <p>It is built for defensive exposure reviews, OSINT and SOCMINT research, journalism, troubleshooting and plain-old power searching. There is no login, no account, no AI model and no result scraping: every query is generated locally from a versioned catalog and opened in the search engine by you.</p>
+
+        <h2>Usage notice</h2>
+        <ul id="usage-notice">
+          <li>This service only <strong>generates public-search queries and public profile URLs</strong>. It performs no probing, exploitation, credential validation or bulk enumeration.</li>
+          <li>You are responsible for <strong>lawful and authorised use</strong>. Defensive exposure checks must only target systems you own or are permitted to assess.</li>
+          <li>Generation requests are <strong>rate limited</strong> per client: <span id="about-rate-limit">…</span> requests per hour.</li>
+          <li>Search inputs and options are <strong>logged</strong> for service operation and abuse prevention, and retained for <span id="about-retention">…</span> days.</li>
+          <li>Client addresses are stored as <span id="about-ip-mode">…</span>.</li>
+          <li>No cookies are set. Optional local history, if you enable it, lives only in this browser's <code>localStorage</code>.</li>
+        </ul>
+
+        <h2>Keyboard</h2>
+        <table class="kbd-table">
+          <tbody>
+            <tr><td><kbd>/</kbd></td><td>Focus the target box</td></tr>
+            <tr><td><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>↵</kbd></td><td>Generate</td></tr>
+            <tr><td><kbd>↑</kbd> <kbd>↓</kbd> <kbd>↵</kbd></td><td>Navigate and select suggestions</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Close suggestions</td></tr>
+            <tr><td><kbd>Alt</kbd> + <kbd>1</kbd>–<kbd>4</kbd></td><td>Switch sections</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Local history</h2>
+        <p>
+          <label class="check"><input type="checkbox" id="history-opt-in"> Remember my recent targets in this browser only</label>
+          <button type="button" id="history-clear" class="btn btn-small">Clear history</button>
+        </p>
+
+        <h2>Catalog</h2>
+        <p>Operator, intent, file-type and platform knowledge live in versioned JSON catalogs. Current catalog version: <code id="about-catalog-version">…</code>.</p>
+        <p class="muted">Source and documentation: <a href="https://github.com/aelena/search-query-workbench" rel="noopener noreferrer" target="_blank">github.com/aelena/search-query-workbench</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Public-search query generation only · rate limited · inputs logged <span id="footer-retention">…</span> · IPs <span id="footer-ip-mode">…</span></span>
+    <span class="footer-sep" aria-hidden="true">·</span>
+    <button type="button" class="link-btn" data-view="about">Usage &amp; privacy</button>
+    <span class="footer-sep" aria-hidden="true">·</span>
+    <span>catalog <code id="footer-catalog-version">…</code></span>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Templates (cloned by JS; user data is always set via textContent) -->
+  <template id="tpl-variant">
+    <li class="card variant">
+      <div class="card-head">
+        <span class="variant-label"></span>
+        <span class="variant-id meta"></span>
+      </div>
+      <pre class="query" tabindex="0"><code></code></pre>
+      <p class="explanation"></p>
+      <div class="chips" aria-label="Operators used"></div>
+      <ul class="warnings"></ul>
+      <div class="card-actions">
+        <button type="button" class="btn btn-small copy">Copy</button>
+        <a class="btn btn-small open" target="_blank" rel="noopener noreferrer">Open in Google ↗</a>
+      </div>
+    </li>
+  </template>
+
+  <template id="tpl-profile">
+    <li class="card profile">
+      <div class="card-head">
+        <span class="platform-name"></span>
+        <span class="badge badge-unknown status"></span>
+      </div>
+      <a class="profile-url mono" target="_blank" rel="noopener noreferrer"></a>
+      <pre class="query"><code></code></pre>
+      <p class="caveat warnings"></p>
+      <div class="card-actions">
+        <button type="button" class="btn btn-small copy-url">Copy URL</button>
+        <button type="button" class="btn btn-small copy-query">Copy query</button>
+        <a class="btn btn-small open" target="_blank" rel="noopener noreferrer">Open in Google ↗</a>
+      </div>
+    </li>
+  </template>
+
+  <template id="tpl-operator">
+    <article class="card operator">
+      <div class="card-head">
+        <code class="op-token"></code>
+        <span class="badge support"></span>
+      </div>
+      <h3 class="op-name"></h3>
+      <p class="op-description"></p>
+      <dl class="op-details">
+        <dt>Syntax</dt><dd><code class="op-syntax"></code></dd>
+        <dt>Example</dt><dd><code class="op-example"></code></dd>
+      </dl>
+      <p class="op-caveats warnings"></p>
+      <p class="op-source meta"></p>
+    </article>
+  </template>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

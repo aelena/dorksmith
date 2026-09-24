@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>Dorksmith.Api</RootNamespace>
+    <AssemblyName>Dorksmith.Api</AssemblyName>
+    <UserSecretsId>dorksmith-api</UserSecretsId>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Logging\Migrations\*.sql" />
+  </ItemGroup>
+
+</Project>
