@@ -1,0 +1,38 @@
+# Spec (kept local)
+SPECS.md
+specs.md
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+*.trx
+
+# State / data
+state/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Node (test-only, if ever added)
+node_modules/
+playwright-report/
+test-results/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Tooling caches
+graft/
+.claude/
