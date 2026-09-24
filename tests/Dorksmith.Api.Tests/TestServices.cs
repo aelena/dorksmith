@@ -19,6 +19,15 @@ public static class TestServices
         return new DorkGenerator(catalogs, new RequestValidator(catalogs, gen, usernames), new PlaceholderResolver(catalogs));
     }
 
+    /// <summary>Manually advanced clock for quota and retention tests.</summary>
+    public sealed class FakeTimeProvider(DateTimeOffset start) : TimeProvider
+    {
+        private DateTimeOffset _now = start;
+        public override DateTimeOffset GetUtcNow() => _now;
+        public void Advance(TimeSpan by) => _now += by;
+        public void Set(DateTimeOffset at) => _now = at;
+    }
+
     public static OperatorCatalog GoogleOperators()
     {
         Catalogs.Value.TryGetOperators("google", out var ops);

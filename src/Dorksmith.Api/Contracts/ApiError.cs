@@ -20,6 +20,9 @@ public static class ApiErrors
     public static IResult FeatureDisabled(string message)
         => Results.Json(new ApiError("feature_disabled", message), statusCode: StatusCodes.Status404NotFound);
 
+    public static IResult RateLimited(int retryAfterSeconds)
+        => Results.Json(new ApiError("rate_limit_exceeded", "Hourly request limit reached.", null, retryAfterSeconds), statusCode: StatusCodes.Status429TooManyRequests);
+
     public static IResult PayloadTooLarge(string message = "Request payload too large.")
         => Results.Json(new ApiError("payload_too_large", message), statusCode: StatusCodes.Status413PayloadTooLarge);
 }
