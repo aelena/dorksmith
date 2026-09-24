@@ -4,6 +4,7 @@ using Dorksmith.Api.Catalogs;
 using Dorksmith.Api.Configuration;
 using Dorksmith.Api.Endpoints;
 using Dorksmith.Api.Generation;
+using Dorksmith.Api.Handles;
 using Dorksmith.Api.Http;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
@@ -31,6 +32,7 @@ builder.Services.AddSingleton<ICatalogProvider, JsonCatalogProvider>();
 builder.Services.AddSingleton<RequestValidator>();
 builder.Services.AddSingleton<PlaceholderResolver>();
 builder.Services.AddSingleton<IDorkGenerator, DorkGenerator>();
+builder.Services.AddSingleton<IHandleExpander, HandleExpander>();
 builder.WebHost.ConfigureKestrel(k => k.Limits.MaxRequestBodySize = 16 * 1024);
 builder.Services.AddHealthChecks()
     .AddCheck<CatalogHealthCheck>("catalogs", tags: [HealthEndpoints.ReadyTag]);
@@ -43,6 +45,7 @@ app.MapHealthEndpoints();
 app.MapCatalogEndpoints();
 app.MapConfigEndpoints();
 app.MapDorkEndpoints();
+app.MapHandleEndpoints();
 app.MapStaticWeb();
 
 app.Logger.LogInformation("Dorksmith API starting in {Environment}", app.Environment.EnvironmentName);

@@ -5,6 +5,7 @@ import { api } from './api.js';
 import { initOperatorsUi } from './operators-ui.js';
 import { initGeneratorUi } from './generator-ui.js';
 import { initAutocomplete } from './autocomplete.js';
+import { initHandlesUi } from './handles-ui.js';
 
 const VIEWS = ['generator', 'handles', 'operators', 'about'];
 
@@ -109,3 +110,4 @@ initShortcuts();
 initHistoryControls();
 initNotices();
 initOperatorsUi().then(() => initGeneratorUi()).then(() => initAutocomplete());
+initHandlesUi();
