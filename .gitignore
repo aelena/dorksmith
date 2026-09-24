@@ -36,3 +36,8 @@ desktop.ini
 # Tooling caches
 graft/
 .claude/
+
+# Playwright
+web/tests/node_modules/
+web/tests/playwright-report/
+web/tests/test-results/

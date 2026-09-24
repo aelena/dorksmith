@@ -180,6 +180,7 @@ function update() {
 }
 
 function onKeydown(e) {
+  if (e.ctrlKey || e.metaKey || e.altKey) return; // modifier shortcuts (Ctrl+Enter generate) are not ours
   if (!state.open) {
     if (e.key === 'ArrowDown' && state.input.value.trim()) { e.preventDefault(); update(); }
     return;

@@ -181,7 +181,7 @@ input::placeholder { color: var(--fg-muted); opacity: .8; }
 .btn-primary:hover { filter: brightness(1.08); background: var(--accent); }
 .btn-small { padding: .25rem .55rem; font-size: .8rem; }
 .btn[disabled] { opacity: .55; cursor: progress; }
-.btn kbd { font-size: .7rem; opacity: .75; border: 1px solid currentColor; border-radius: 3px; padding: 0 .25rem; }
+.btn kbd { font-size: .7rem; opacity: .85; border: 1px solid currentColor; border-radius: 3px; padding: 0 .25rem; background: transparent; color: inherit; }
 .link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); text-decoration: underline; cursor: pointer; }
 kbd { font-size: .8rem; border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 4px; padding: 0 .3rem; background: var(--bg-sunken); }
 

@@ -27,6 +27,7 @@ public static class FlatEnvironmentVariables
         ["SERVE_STATIC"] = "Web:ServeStatic",
         ["USERNAME_SEARCH_ENABLED"] = "UsernameSearch:Enabled",
         ["USERNAME_MAX_PLATFORMS"] = "UsernameSearch:MaxPlatforms",
+        ["FORWARD_LIMIT"] = "Proxy:ForwardLimit",
     };
 
     private static readonly IReadOnlyDictionary<string, string> Lists = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)

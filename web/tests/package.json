@@ -1,0 +1,13 @@
+{
+  "name": "dorksmith-web-tests",
+  "private": true,
+  "description": "Browser tests for the Dorksmith SPA. Test-only dependency; the SPA itself has no build chain.",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "install-browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.2"
+  }
+}

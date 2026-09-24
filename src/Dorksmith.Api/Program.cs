@@ -68,7 +68,7 @@ if (trustsProxies)
     builder.Services.Configure<ForwardedHeadersOptions>(o =>
     {
         o.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-        o.ForwardLimit = 1;
+        o.ForwardLimit = proxy.ForwardLimit;
         o.KnownProxies.Clear();
         o.KnownNetworks.Clear();
         foreach (var p in proxy.KnownProxies)

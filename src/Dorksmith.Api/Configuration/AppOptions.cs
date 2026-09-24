@@ -63,6 +63,8 @@ public sealed class ProxyOptions
     public const string Section = "Proxy";
     public string[] KnownProxies { get; set; } = [];
     public string[] KnownNetworks { get; set; } = [];
+    /// <summary>Number of trusted reverse-proxy hops (X-Forwarded-For entries) to unwind. 1 = nginx only; 2 = Caddy → nginx.</summary>
+    [Range(1, 8)] public int ForwardLimit { get; set; } = 1;
 }
 
 public sealed class UsernameSearchOptions
