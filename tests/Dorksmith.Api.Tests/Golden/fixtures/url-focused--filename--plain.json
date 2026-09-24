@@ -1,0 +1,28 @@
+{
+  "name": "url-focused / filename (plain)",
+  "input": "annual-report.pdf",
+  "inputType": "filename",
+  "intent": "url-focused",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "uf-balanced",
+      "query": "inurl:annual-report.pdf"
+    },
+    {
+      "id": "uf-precise",
+      "query": "inurl:annual-report.pdf \u0022annual-report.pdf\u0022"
+    },
+    {
+      "id": "uf-title",
+      "query": "inurl:annual-report.pdf intitle:annual-report.pdf"
+    },
+    {
+      "id": "uf-docs",
+      "query": "inurl:annual-report.pdf (filetype:pdf OR filetype:docx OR filetype:xlsx)"
+    }
+  ],
+  "expectedContains": []
+}

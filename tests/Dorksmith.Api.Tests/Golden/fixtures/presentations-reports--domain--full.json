@@ -1,0 +1,46 @@
+{
+  "name": "presentations-reports / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "presentations-reports",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "pr-domain-slides",
+      "query": "site:example.com (filetype:pptx OR filetype:ppt) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-domain-reports",
+      "query": "site:example.com filetype:pdf (intitle:report OR intitle:\u0022annual report\u0022 OR intitle:whitepaper OR intitle:overview) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-domain-slide-sites",
+      "query": "\u0022example\u0022 (site:slideshare.net OR site:speakerdeck.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-domain-doc-sites",
+      "query": "\u0022example\u0022 (site:scribd.com OR site:issuu.com OR site:docdroid.net) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-domain-offsite",
+      "query": "\u0022example.com\u0022 (filetype:pptx OR filetype:pdf) -site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

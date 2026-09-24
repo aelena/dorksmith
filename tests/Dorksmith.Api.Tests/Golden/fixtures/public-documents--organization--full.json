@@ -1,0 +1,47 @@
+{
+  "name": "public-documents / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "public-documents",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "pd-org-balanced",
+      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pd-org-titles",
+      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) (intitle:report OR intitle:presentation OR intitle:policy) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pd-org-intitle",
+      "query": "intitle:\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pd-org-recent",
+      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pd-org-first",
+      "query": "\u0022Example Corp\u0022 filetype:pdf site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

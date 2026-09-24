@@ -1,0 +1,28 @@
+{
+  "name": "public-documents / organization (plain)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "public-documents",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "pd-org-balanced",
+      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx)"
+    },
+    {
+      "id": "pd-org-titles",
+      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx) (intitle:report OR intitle:presentation OR intitle:policy)"
+    },
+    {
+      "id": "pd-org-first",
+      "query": "\u0022Example Corp\u0022 filetype:pdf"
+    },
+    {
+      "id": "pd-org-intitle",
+      "query": "intitle:\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx)"
+    }
+  ],
+  "expectedContains": []
+}

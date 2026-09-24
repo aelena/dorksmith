@@ -1,0 +1,28 @@
+{
+  "name": "technology-mentions / organization (plain)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "technology-mentions",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "tm-org-powered",
+      "query": "\u0022Example Corp\u0022 (\u0022powered by\u0022 OR \u0022built with\u0022 OR \u0022tech stack\u0022 OR \u0022we use\u0022)"
+    },
+    {
+      "id": "tm-org-stackshare",
+      "query": "\u0022Example Corp\u0022 site:stackshare.io"
+    },
+    {
+      "id": "tm-org-devs",
+      "query": "\u0022Example Corp\u0022 (site:stackoverflow.com OR site:github.com)"
+    },
+    {
+      "id": "tm-org-jobs",
+      "query": "\u0022Example Corp\u0022 (inurl:jobs OR inurl:careers) (\u0022experience with\u0022 OR \u0022familiarity with\u0022 OR \u0022proficiency in\u0022)"
+    }
+  ],
+  "expectedContains": []
+}

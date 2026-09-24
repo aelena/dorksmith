@@ -162,6 +162,10 @@ input::placeholder { color: var(--fg-muted); opacity: .8; }
 }
 .chip-group label:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); }
 .chip-group input { margin: 0; }
+.chip-row { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; width: 100%; margin-bottom: .25rem; }
+.chip-row-label { min-width: 9rem; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+.chip-group label:has(input[data-defensive]) { border-style: dashed; }
+[aria-invalid="true"] { border-color: var(--bad-fg) !important; box-shadow: 0 0 0 2px var(--bad-bg); }
 .chip-group .chip-input { width: 7rem; min-height: 1.75rem; padding: .15rem .5rem; border-radius: 999px; font-size: .82rem; }
 
 .advanced { margin-top: .9rem; border-top: 1px solid var(--border); padding-top: .5rem; }

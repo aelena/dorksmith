@@ -1,0 +1,46 @@
+{
+  "name": "error-debug-pages / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "error-debug-pages",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "ed-traces",
+      "query": "site:example.com (intext:\u0022stack trace\u0022 OR intext:\u0022traceback (most recent call last)\u0022 OR intext:\u0022unhandled exception\u0022 OR intext:\u0022fatal error\u0022) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ed-titles",
+      "query": "site:example.com (intitle:\u0022server error\u0022 OR intitle:\u0022application error\u0022 OR intitle:whoops OR intitle:exception) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ed-database",
+      "query": "site:example.com (intext:\u0022warning: mysql\u0022 OR intext:\u0022ORA-\u0022 OR intext:SQLSTATE OR intext:\u0022syntax error\u0022 OR intext:\u0022pg_query\u0022) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ed-debug-paths",
+      "query": "site:example.com (inurl:debug OR inurl:trace OR inurl:\u0022elmah.axd\u0022 OR inurl:phpinfo) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ed-frameworks",
+      "query": "site:example.com (intext:\u0022DEBUG = True\u0022 OR intext:\u0022Whoops, looks like something went wrong\u0022 OR intext:\u0022Laravel\u0022 intext:\u0022Stack trace\u0022) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,36 @@
+{
+  "name": "documents / organization (plain)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "documents",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "doc-balanced",
+      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "doc-first",
+      "query": "\u0022Example Corp\u0022 filetype:pdf"
+    },
+    {
+      "id": "doc-title",
+      "query": "intitle:\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "doc-broad",
+      "query": "Example Corp (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "doc-sheets",
+      "query": "\u0022Example Corp\u0022 (filetype:xlsx OR filetype:xls OR filetype:csv)"
+    },
+    {
+      "id": "doc-slides",
+      "query": "\u0022Example Corp\u0022 (filetype:pptx OR filetype:ppt)"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,24 @@
+{
+  "name": "documents / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "documents",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "doc-domain",
+      "query": "site:example.com (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "doc-domain-first",
+      "query": "site:example.com filetype:pdf"
+    },
+    {
+      "id": "doc-domain-mentions",
+      "query": "\u0022example.com\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -site:example.com"
+    }
+  ],
+  "expectedContains": []
+}

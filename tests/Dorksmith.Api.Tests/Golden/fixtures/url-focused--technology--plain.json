@@ -1,0 +1,28 @@
+{
+  "name": "url-focused / technology (plain)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "url-focused",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "uf-balanced",
+      "query": "inurl:Kubernetes"
+    },
+    {
+      "id": "uf-precise",
+      "query": "inurl:Kubernetes \u0022Kubernetes\u0022"
+    },
+    {
+      "id": "uf-title",
+      "query": "inurl:Kubernetes intitle:Kubernetes"
+    },
+    {
+      "id": "uf-docs",
+      "query": "inurl:Kubernetes (filetype:pdf OR filetype:docx OR filetype:xlsx)"
+    }
+  ],
+  "expectedContains": []
+}

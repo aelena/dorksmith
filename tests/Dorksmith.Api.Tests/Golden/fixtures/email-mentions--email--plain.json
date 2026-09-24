@@ -1,0 +1,36 @@
+{
+  "name": "email-mentions / email (plain)",
+  "input": "alice@example.com",
+  "inputType": "email",
+  "intent": "email-mentions",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "em-quoted",
+      "query": "\u0022alice@example.com\u0022"
+    },
+    {
+      "id": "em-offsite",
+      "query": "\u0022alice@example.com\u0022 -site:example.com"
+    },
+    {
+      "id": "em-local-part",
+      "query": "\u0022alice\u0022 site:example.com"
+    },
+    {
+      "id": "em-docs",
+      "query": "\u0022alice@example.com\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:txt)"
+    },
+    {
+      "id": "em-platforms",
+      "query": "\u0022alice@example.com\u0022 (site:github.com OR site:linkedin.com OR site:x.com OR site:facebook.com)"
+    },
+    {
+      "id": "em-text",
+      "query": "intext:\u0022alice@example.com\u0022"
+    }
+  ],
+  "expectedContains": []
+}

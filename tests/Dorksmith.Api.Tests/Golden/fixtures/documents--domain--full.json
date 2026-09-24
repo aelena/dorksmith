@@ -1,0 +1,42 @@
+{
+  "name": "documents / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "documents",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "doc-domain",
+      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "doc-domain-recent",
+      "query": "site:example.com (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31"
+    },
+    {
+      "id": "doc-domain-first",
+      "query": "site:example.com filetype:pdf -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "doc-domain-mentions",
+      "query": "\u0022example.com\u0022 (filetype:pdf OR filetype:docx) -site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,32 @@
+{
+  "name": "error-debug-pages / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "error-debug-pages",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "ed-traces",
+      "query": "site:example.com (intext:\u0022stack trace\u0022 OR intext:\u0022traceback (most recent call last)\u0022 OR intext:\u0022unhandled exception\u0022 OR intext:\u0022fatal error\u0022)"
+    },
+    {
+      "id": "ed-titles",
+      "query": "site:example.com (intitle:\u0022server error\u0022 OR intitle:\u0022application error\u0022 OR intitle:whoops OR intitle:exception)"
+    },
+    {
+      "id": "ed-database",
+      "query": "site:example.com (intext:\u0022warning: mysql\u0022 OR intext:\u0022ORA-\u0022 OR intext:SQLSTATE OR intext:\u0022syntax error\u0022 OR intext:\u0022pg_query\u0022)"
+    },
+    {
+      "id": "ed-debug-paths",
+      "query": "site:example.com (inurl:debug OR inurl:trace OR inurl:\u0022elmah.axd\u0022 OR inurl:phpinfo)"
+    },
+    {
+      "id": "ed-frameworks",
+      "query": "site:example.com (intext:\u0022DEBUG = True\u0022 OR intext:\u0022Whoops, looks like something went wrong\u0022 OR intext:\u0022Laravel\u0022 intext:\u0022Stack trace\u0022)"
+    }
+  ],
+  "expectedContains": []
+}

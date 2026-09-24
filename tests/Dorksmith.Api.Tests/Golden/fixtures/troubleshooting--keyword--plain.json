@@ -1,0 +1,32 @@
+{
+  "name": "troubleshooting / keyword (plain)",
+  "input": "quarterly roadmap",
+  "inputType": "keyword",
+  "intent": "troubleshooting",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "ts-qa",
+      "query": "\u0022quarterly roadmap\u0022 (site:stackoverflow.com OR site:github.com OR site:serverfault.com OR site:superuser.com)"
+    },
+    {
+      "id": "ts-issues",
+      "query": "\u0022quarterly roadmap\u0022 site:github.com inurl:issues"
+    },
+    {
+      "id": "ts-docs",
+      "query": "\u0022quarterly roadmap\u0022 (inurl:docs OR inurl:documentation OR intitle:documentation)"
+    },
+    {
+      "id": "ts-forums",
+      "query": "\u0022quarterly roadmap\u0022 (site:reddit.com OR site:stackexchange.com OR site:news.ycombinator.com)"
+    },
+    {
+      "id": "ts-broad",
+      "query": "quarterly roadmap (error OR exception OR \u0022not working\u0022 OR fix)"
+    }
+  ],
+  "expectedContains": []
+}

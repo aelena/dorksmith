@@ -1,0 +1,46 @@
+{
+  "name": "support-status-pages / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "support-status-pages",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "st-domain-status",
+      "query": "site:example.com (intitle:status OR inurl:status OR intitle:\u0022system status\u0022) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "st-domain-help",
+      "query": "site:example.com (inurl:support OR inurl:help OR inurl:faq OR inurl:kb OR inurl:docs) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "st-domain-subs",
+      "query": "site:*.example.com (inurl:status OR inurl:support OR inurl:help) -inurl:www -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "st-domain-hosted-status",
+      "query": "\u0022example\u0022 (site:statuspage.io OR site:status.io OR site:instatus.com OR site:betteruptime.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "st-domain-hosted-help",
+      "query": "\u0022example\u0022 (site:zendesk.com OR site:freshdesk.com OR site:helpscout.net OR site:intercom.help) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

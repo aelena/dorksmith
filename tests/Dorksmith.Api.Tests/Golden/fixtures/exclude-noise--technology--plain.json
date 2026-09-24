@@ -1,0 +1,32 @@
+{
+  "name": "exclude-noise / technology (plain)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "exclude-noise",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "en-balanced",
+      "query": "Kubernetes -jobs -careers -inurl:login -inurl:signup -intitle:\u0022privacy policy\u0022"
+    },
+    {
+      "id": "en-precise",
+      "query": "\u0022Kubernetes\u0022 -jobs -careers"
+    },
+    {
+      "id": "en-social",
+      "query": "\u0022Kubernetes\u0022 -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com"
+    },
+    {
+      "id": "en-docs",
+      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -brochure -newsletter"
+    },
+    {
+      "id": "en-commerce",
+      "query": "\u0022Kubernetes\u0022 -site:amazon.com -site:ebay.com -shop -buy -price"
+    }
+  ],
+  "expectedContains": []
+}

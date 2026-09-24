@@ -1,0 +1,50 @@
+{
+  "name": "cloud-storage-references / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "cloud-storage-references",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "cs-domain-all",
+      "query": "\u0022example\u0022 (site:s3.amazonaws.com OR site:blob.core.windows.net OR site:storage.googleapis.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cs-domain-s3",
+      "query": "\u0022example\u0022 site:s3.amazonaws.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cs-domain-azure",
+      "query": "\u0022example\u0022 site:blob.core.windows.net -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cs-domain-gcs",
+      "query": "\u0022example\u0022 site:storage.googleapis.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cs-domain-others",
+      "query": "\u0022example\u0022 (site:digitaloceanspaces.com OR site:r2.dev OR site:backblazeb2.com OR site:wasabisys.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cs-domain-links",
+      "query": "\u0022example.com\u0022 (inurl:s3.amazonaws.com OR inurl:blob.core.windows.net OR inurl:storage.googleapis.com) -site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

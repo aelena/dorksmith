@@ -1,0 +1,46 @@
+{
+  "name": "staff-profiles / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "staff-profiles",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "sp-domain-team",
+      "query": "site:example.com (inurl:team OR inurl:people OR inurl:staff OR inurl:leadership OR inurl:about) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sp-domain-linkedin",
+      "query": "\u0022example\u0022 site:linkedin.com/in -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sp-domain-emails",
+      "query": "\u0022@example.com\u0022 -site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sp-domain-platforms",
+      "query": "\u0022example\u0022 (site:linkedin.com OR site:xing.com OR site:github.com OR site:x.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sp-domain-titles",
+      "query": "site:example.com (\u0022head of\u0022 OR director OR manager OR engineer OR \u0022chief\u0022) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

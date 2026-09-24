@@ -1,0 +1,32 @@
+{
+  "name": "source-map-references / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "source-map-references",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "sm-filetype",
+      "query": "site:example.com filetype:map"
+    },
+    {
+      "id": "sm-paths",
+      "query": "site:example.com (inurl:\u0022.js.map\u0022 OR inurl:\u0022.css.map\u0022)"
+    },
+    {
+      "id": "sm-reference",
+      "query": "site:example.com intext:sourceMappingURL"
+    },
+    {
+      "id": "sm-subs",
+      "query": "site:*.example.com filetype:map -inurl:www"
+    },
+    {
+      "id": "sm-static",
+      "query": "site:example.com (inurl:\u0022/static/\u0022 OR inurl:\u0022/assets/\u0022 OR inurl:\u0022/dist/\u0022) (filetype:map OR filetype:js)"
+    }
+  ],
+  "expectedContains": []
+}

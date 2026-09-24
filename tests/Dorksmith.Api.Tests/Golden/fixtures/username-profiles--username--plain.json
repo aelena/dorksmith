@@ -1,0 +1,40 @@
+{
+  "name": "username-profiles / username (plain)",
+  "input": "@alice42",
+  "inputType": "username",
+  "intent": "username-profiles",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "up-social",
+      "query": "\u0022alice42\u0022 (site:x.com OR site:instagram.com OR site:facebook.com OR site:tiktok.com OR site:threads.net OR site:bsky.app)"
+    },
+    {
+      "id": "up-developer",
+      "query": "\u0022alice42\u0022 (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com)"
+    },
+    {
+      "id": "up-professional",
+      "query": "\u0022alice42\u0022 (site:linkedin.com OR site:xing.com OR site:wellfound.com OR site:about.me)"
+    },
+    {
+      "id": "up-creator",
+      "query": "\u0022alice42\u0022 (site:youtube.com OR site:twitch.tv OR site:medium.com OR site:substack.com OR site:linktr.ee OR site:soundcloud.com)"
+    },
+    {
+      "id": "up-forums",
+      "query": "\u0022alice42\u0022 (site:reddit.com OR site:quora.com OR site:wikipedia.org OR site:producthunt.com OR site:disqus.com)"
+    },
+    {
+      "id": "up-gaming",
+      "query": "\u0022alice42\u0022 (site:steamcommunity.com OR site:roblox.com OR site:xbox.com OR site:psnprofiles.com OR site:itch.io)"
+    },
+    {
+      "id": "up-inurl",
+      "query": "inurl:alice42"
+    }
+  ],
+  "expectedContains": []
+}

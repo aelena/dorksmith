@@ -1,0 +1,43 @@
+{
+  "name": "date-bounded / person (full)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "date-bounded",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "db-balanced",
+      "query": "Alice Smith site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "db-precise",
+      "query": "\u0022Alice Smith\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "db-title",
+      "query": "intitle:\u0022Alice Smith\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "db-docs",
+      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

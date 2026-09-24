@@ -1,0 +1,47 @@
+{
+  "name": "general-discovery / filename (full)",
+  "input": "annual-report.pdf",
+  "inputType": "filename",
+  "intent": "general-discovery",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "gd-balanced",
+      "query": "annual-report.pdf site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-filename-doc",
+      "query": "\u0022annual-report\u0022 filetype:pdf site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-precise",
+      "query": "\u0022annual-report.pdf\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-title",
+      "query": "intitle:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-url",
+      "query": "inurl:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

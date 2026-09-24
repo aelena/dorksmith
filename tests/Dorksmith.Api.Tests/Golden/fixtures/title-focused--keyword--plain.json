@@ -1,0 +1,32 @@
+{
+  "name": "title-focused / keyword (plain)",
+  "input": "quarterly roadmap",
+  "inputType": "keyword",
+  "intent": "title-focused",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "tf-balanced",
+      "query": "intitle:\u0022quarterly roadmap\u0022"
+    },
+    {
+      "id": "tf-precise",
+      "query": "intitle:\u0022quarterly roadmap\u0022 intext:\u0022quarterly roadmap\u0022"
+    },
+    {
+      "id": "tf-docs",
+      "query": "intitle:\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx)"
+    },
+    {
+      "id": "tf-any",
+      "query": "(intitle:quarterly OR intitle:roadmap)"
+    },
+    {
+      "id": "tf-noise",
+      "query": "intitle:\u0022quarterly roadmap\u0022 -login -signup"
+    }
+  ],
+  "expectedContains": []
+}

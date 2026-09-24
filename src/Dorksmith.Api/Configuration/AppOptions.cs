@@ -24,7 +24,11 @@ public sealed class GenerationOptions
     [Range(1, 12)] public int DefaultVariants { get; set; } = 6;
     [Range(0, 100)] public int MaxExcludeTerms { get; set; } = 20;
     [Range(0, 50)] public int MaxFileTypes { get; set; } = 10;
-    public string[] SupportedEngines { get; set; } = ["google"];
+    /// <summary>Bound from config; the binder appends arrays, so read <see cref="Engines"/> instead.</summary>
+    public string[] SupportedEngines { get; set; } = [];
+    public IReadOnlyList<string> Engines => SupportedEngines.Length == 0
+        ? ["google"]
+        : SupportedEngines.Select(e => e.Trim().ToLowerInvariant()).Distinct().ToArray();
 }
 
 public sealed class RateLimitingOptions

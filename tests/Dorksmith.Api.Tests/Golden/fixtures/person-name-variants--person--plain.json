@@ -1,0 +1,36 @@
+{
+  "name": "person-name-variants / person (plain)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "person-name-variants",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "pn-exact",
+      "query": "\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "pn-wildcard",
+      "query": "\u0022Alice * Smith\u0022"
+    },
+    {
+      "id": "pn-reversed",
+      "query": "\u0022Smith Alice\u0022"
+    },
+    {
+      "id": "pn-title",
+      "query": "intitle:\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "pn-noise",
+      "query": "\u0022Alice Smith\u0022 -site:pinterest.com -site:amazon.com -site:ebay.com"
+    },
+    {
+      "id": "pn-initial",
+      "query": "\u0022A. Smith\u0022"
+    }
+  ],
+  "expectedContains": []
+}

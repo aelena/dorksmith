@@ -1,0 +1,36 @@
+{
+  "name": "exposed-config-files / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "exposed-config-files",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "cf-extensions",
+      "query": "site:example.com (filetype:env OR filetype:ini OR filetype:cfg OR filetype:conf OR filetype:yml OR filetype:yaml OR filetype:toml OR filetype:properties)"
+    },
+    {
+      "id": "cf-filenames",
+      "query": "site:example.com (inurl:\u0022.env\u0022 OR inurl:\u0022config.php\u0022 OR inurl:\u0022settings.py\u0022 OR inurl:\u0022appsettings.json\u0022 OR inurl:\u0022web.config\u0022 OR inurl:\u0022wp-config\u0022)"
+    },
+    {
+      "id": "cf-listings",
+      "query": "site:example.com (intitle:\u0022index of\u0022 OR intext:\u0022parent directory\u0022) (\u0022.env\u0022 OR config OR settings)"
+    },
+    {
+      "id": "cf-infra",
+      "query": "site:example.com (inurl:docker-compose OR inurl:Dockerfile OR inurl:\u0022.htaccess\u0022 OR inurl:\u0022nginx.conf\u0022 OR inurl:\u0022httpd.conf\u0022)"
+    },
+    {
+      "id": "cf-vcs",
+      "query": "site:example.com (inurl:\u0022.git\u0022 OR inurl:\u0022.svn\u0022 OR inurl:\u0022.hg\u0022 OR inurl:\u0022.DS_Store\u0022)"
+    },
+    {
+      "id": "cf-subs",
+      "query": "site:*.example.com -inurl:www (filetype:env OR filetype:ini OR filetype:cfg OR filetype:conf OR filetype:yml OR filetype:yaml OR filetype:toml OR filetype:properties)"
+    }
+  ],
+  "expectedContains": []
+}

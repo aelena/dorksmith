@@ -1,0 +1,46 @@
+{
+  "name": "technology-mentions / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "technology-mentions",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "tm-domain-powered",
+      "query": "site:example.com (\u0022powered by\u0022 OR \u0022built with\u0022 OR \u0022running on\u0022) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-domain-stack-sites",
+      "query": "\u0022example.com\u0022 (site:stackshare.io OR site:builtwith.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-domain-devs",
+      "query": "\u0022example.com\u0022 (site:stackoverflow.com OR site:github.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-domain-paths",
+      "query": "site:example.com (inurl:wp-content OR inurl:wp-includes OR inurl:sites/default OR inurl:_next OR inurl:static/js) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-domain-api",
+      "query": "site:example.com API (inurl:docs OR inurl:developer OR inurl:developers) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

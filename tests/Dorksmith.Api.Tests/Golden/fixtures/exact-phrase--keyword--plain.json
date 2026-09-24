@@ -1,0 +1,40 @@
+{
+  "name": "exact-phrase / keyword (plain)",
+  "input": "quarterly roadmap",
+  "inputType": "keyword",
+  "intent": "exact-phrase",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "ep-balanced",
+      "query": "\u0022quarterly roadmap\u0022"
+    },
+    {
+      "id": "ep-text",
+      "query": "intext:\u0022quarterly roadmap\u0022"
+    },
+    {
+      "id": "ep-title",
+      "query": "intitle:\u0022quarterly roadmap\u0022"
+    },
+    {
+      "id": "ep-docs",
+      "query": "\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "ep-wildcard",
+      "query": "\u0022quarterly * roadmap\u0022"
+    },
+    {
+      "id": "ep-noise",
+      "query": "\u0022quarterly roadmap\u0022 -jobs -careers"
+    },
+    {
+      "id": "ep-any",
+      "query": "(quarterly OR roadmap)"
+    }
+  ],
+  "expectedContains": []
+}

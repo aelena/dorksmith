@@ -1,0 +1,36 @@
+{
+  "name": "url-mentions / url (plain)",
+  "input": "https://example.com/docs/api",
+  "inputType": "url",
+  "intent": "url-mentions",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "um-quoted",
+      "query": "\u0022https://example.com/docs/api\u0022"
+    },
+    {
+      "id": "um-offsite",
+      "query": "\u0022example.com/docs/api\u0022 -site:example.com"
+    },
+    {
+      "id": "um-bare",
+      "query": "\u0022example.com/docs/api\u0022"
+    },
+    {
+      "id": "um-path",
+      "query": "site:example.com inurl:\u0022docs/api\u0022"
+    },
+    {
+      "id": "um-host",
+      "query": "site:example.com"
+    },
+    {
+      "id": "um-text",
+      "query": "intext:\u0022https://example.com/docs/api\u0022"
+    }
+  ],
+  "expectedContains": []
+}

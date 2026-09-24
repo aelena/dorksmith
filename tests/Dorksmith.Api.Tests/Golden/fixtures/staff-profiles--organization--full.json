@@ -1,0 +1,43 @@
+{
+  "name": "staff-profiles / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "staff-profiles",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "sp-org-linkedin",
+      "query": "\u0022Example Corp\u0022 site:linkedin.com/in -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sp-org-titles",
+      "query": "\u0022Example Corp\u0022 (\u0022head of\u0022 OR director OR manager OR engineer OR chief) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sp-org-platforms",
+      "query": "\u0022Example Corp\u0022 (site:linkedin.com OR site:xing.com OR site:github.com OR site:x.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sp-org-team",
+      "query": "\u0022Example Corp\u0022 (intitle:team OR inurl:team OR \u0022our team\u0022 OR leadership) site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

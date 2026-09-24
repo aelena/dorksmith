@@ -1,0 +1,28 @@
+{
+  "name": "site-scoped / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "site-scoped",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "ss-domain-all",
+      "query": "site:example.com"
+    },
+    {
+      "id": "ss-domain-subs",
+      "query": "site:*.example.com -inurl:www"
+    },
+    {
+      "id": "ss-domain-docs",
+      "query": "site:example.com (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "ss-domain-noise",
+      "query": "site:example.com -inurl:tag -inurl:category -inurl:page -inurl:login"
+    }
+  ],
+  "expectedContains": []
+}

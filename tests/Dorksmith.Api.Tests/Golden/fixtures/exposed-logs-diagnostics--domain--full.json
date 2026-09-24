@@ -1,0 +1,50 @@
+{
+  "name": "exposed-logs-diagnostics / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "exposed-logs-diagnostics",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "lg-extensions",
+      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "lg-paths",
+      "query": "site:example.com (inurl:log OR inurl:logs OR inurl:debug OR inurl:trace) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "lg-log",
+      "query": "site:example.com filetype:log -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "lg-traces",
+      "query": "site:example.com (intext:\u0022stack trace\u0022 OR intext:traceback OR intext:\u0022exception in\u0022) -inurl:blog -inurl:docs -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "lg-listings",
+      "query": "site:example.com (intitle:\u0022index of\u0022 OR intext:\u0022parent directory\u0022) (log OR logs OR debug) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "lg-subs",
+      "query": "site:*.example.com -inurl:www (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

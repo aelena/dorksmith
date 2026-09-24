@@ -547,7 +547,7 @@
       "safety": "standard",
       "compatibleInputTypes": ["person"],
       "templates": [
-        { "id": "pn-exact", "family": "precise", "when": ["person"], "pattern": "{quoted} {site} {dates} {exclusions}", "weight": 100, "explanation": "The full name as an exact phrase." },
+        { "id": "pn-exact", "family": "precise", "when": ["person"], "pattern": "{quoted} {site} {exclusions}", "weight": 100, "explanation": "The full name as an exact phrase." },
         { "id": "pn-wildcard", "family": "broad", "when": ["person"], "pattern": "{phraseWildcard} {site} {exclusions}", "weight": 75, "explanation": "A wildcard between first and last name catches middle names and initials." },
         { "id": "pn-reversed", "family": "balanced", "when": ["person"], "pattern": "{quotedReversed} {site} {exclusions}", "weight": 70, "explanation": "Surname-first ordering used in directories and citations." },
         { "id": "pn-initial", "family": "broad", "when": ["person"], "pattern": "{quotedInitialLast} {site} {exclusions}", "weight": 60, "explanation": "First initial plus surname, common in bylines and papers." },

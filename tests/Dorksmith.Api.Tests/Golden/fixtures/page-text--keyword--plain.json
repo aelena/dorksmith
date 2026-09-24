@@ -1,0 +1,32 @@
+{
+  "name": "page-text / keyword (plain)",
+  "input": "quarterly roadmap",
+  "inputType": "keyword",
+  "intent": "page-text",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "pt-balanced",
+      "query": "intext:\u0022quarterly roadmap\u0022"
+    },
+    {
+      "id": "pt-precise",
+      "query": "intext:\u0022quarterly roadmap\u0022 intitle:\u0022quarterly roadmap\u0022"
+    },
+    {
+      "id": "pt-docs",
+      "query": "intext:\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "pt-any",
+      "query": "(intext:quarterly OR intext:roadmap)"
+    },
+    {
+      "id": "pt-noise",
+      "query": "intext:\u0022quarterly roadmap\u0022 -login -jobs"
+    }
+  ],
+  "expectedContains": []
+}

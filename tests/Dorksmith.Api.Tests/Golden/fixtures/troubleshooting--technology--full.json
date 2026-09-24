@@ -1,0 +1,51 @@
+{
+  "name": "troubleshooting / technology (full)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "troubleshooting",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "ts-qa",
+      "query": "\u0022Kubernetes\u0022 (site:stackoverflow.com OR site:github.com OR site:serverfault.com OR site:superuser.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ts-issues",
+      "query": "\u0022Kubernetes\u0022 site:github.com inurl:issues -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ts-docs",
+      "query": "\u0022Kubernetes\u0022 (inurl:docs OR inurl:documentation OR intitle:documentation) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ts-recent",
+      "query": "\u0022Kubernetes\u0022 after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ts-forums",
+      "query": "\u0022Kubernetes\u0022 (site:reddit.com OR site:stackexchange.com OR site:news.ycombinator.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ts-broad",
+      "query": "Kubernetes (error OR exception OR \u0022not working\u0022 OR fix) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,43 @@
+{
+  "name": "technology-mentions / technology (full)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "technology-mentions",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "tm-tech-powered",
+      "query": "\u0022Kubernetes\u0022 (\u0022powered by\u0022 OR \u0022built with\u0022) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-tech-site",
+      "query": "\u0022Kubernetes\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-tech-stackshare",
+      "query": "\u0022Kubernetes\u0022 site:stackshare.io -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-tech-jobs",
+      "query": "\u0022Kubernetes\u0022 (inurl:jobs OR inurl:careers) site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,47 @@
+{
+  "name": "title-focused / person (full)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "title-focused",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "tf-balanced",
+      "query": "intitle:\u0022Alice Smith\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tf-precise",
+      "query": "intitle:\u0022Alice Smith\u0022 intext:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tf-docs",
+      "query": "intitle:\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tf-any",
+      "query": "(intitle:Alice OR intitle:Smith) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tf-noise",
+      "query": "intitle:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022 -login -signup"
+    }
+  ],
+  "expectedContains": []
+}

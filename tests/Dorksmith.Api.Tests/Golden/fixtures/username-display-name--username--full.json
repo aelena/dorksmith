@@ -1,0 +1,47 @@
+{
+  "name": "username-display-name / username (full)",
+  "input": "@alice42",
+  "inputType": "username",
+  "intent": "username-display-name",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "ud-balanced",
+      "query": "\u0022alice42\u0022 \u0022Alice Smith\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ud-social",
+      "query": "\u0022alice42\u0022 \u0022Alice Smith\u0022 (site:x.com OR site:instagram.com OR site:facebook.com OR site:tiktok.com OR site:threads.net OR site:bsky.app) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ud-at",
+      "query": "\u0022@alice42\u0022 \u0022Alice Smith\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ud-professional",
+      "query": "\u0022Alice Smith\u0022 (site:linkedin.com OR site:xing.com OR site:wellfound.com OR site:about.me) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ud-inurl",
+      "query": "\u0022Alice Smith\u0022 inurl:alice42 -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

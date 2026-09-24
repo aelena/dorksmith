@@ -1,0 +1,47 @@
+{
+  "name": "exclude-noise / technology (full)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "exclude-noise",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "en-balanced",
+      "query": "Kubernetes site:example.com -jobs -\u0022privacy policy\u0022 -careers -inurl:login -inurl:signup -intitle:\u0022privacy policy\u0022"
+    },
+    {
+      "id": "en-precise",
+      "query": "\u0022Kubernetes\u0022 site:example.com -jobs -\u0022privacy policy\u0022 -careers"
+    },
+    {
+      "id": "en-social",
+      "query": "\u0022Kubernetes\u0022 -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "en-docs",
+      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022 -brochure -newsletter"
+    },
+    {
+      "id": "en-commerce",
+      "query": "\u0022Kubernetes\u0022 -site:amazon.com -site:ebay.com -shop -buy -price -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

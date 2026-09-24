@@ -1,0 +1,24 @@
+{
+  "name": "contact-pages / organization (plain)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "contact-pages",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "cp-org-contact",
+      "query": "\u0022Example Corp\u0022 (intitle:contact OR \u0022contact us\u0022)"
+    },
+    {
+      "id": "cp-org-about",
+      "query": "\u0022Example Corp\u0022 (intitle:about OR \u0022our team\u0022 OR leadership)"
+    },
+    {
+      "id": "cp-org-details",
+      "query": "\u0022Example Corp\u0022 (email OR phone OR address)"
+    }
+  ],
+  "expectedContains": []
+}

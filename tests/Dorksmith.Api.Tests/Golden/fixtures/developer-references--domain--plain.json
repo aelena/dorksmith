@@ -1,0 +1,36 @@
+{
+  "name": "developer-references / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "developer-references",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "dr-domain-hosts",
+      "query": "\u0022example.com\u0022 (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com)"
+    },
+    {
+      "id": "dr-domain-github",
+      "query": "\u0022example.com\u0022 site:github.com"
+    },
+    {
+      "id": "dr-domain-registries",
+      "query": "\u0022example.com\u0022 (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com)"
+    },
+    {
+      "id": "dr-domain-pastes",
+      "query": "\u0022example.com\u0022 (site:gist.github.com OR site:pastebin.com)"
+    },
+    {
+      "id": "dr-domain-so",
+      "query": "\u0022example.com\u0022 site:stackoverflow.com"
+    },
+    {
+      "id": "dr-domain-label",
+      "query": "\u0022example\u0022 (site:github.com OR site:gitlab.com) inurl:example"
+    }
+  ],
+  "expectedContains": []
+}

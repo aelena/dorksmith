@@ -1,0 +1,32 @@
+{
+  "name": "contact-pages / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "contact-pages",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "cp-domain-contact",
+      "query": "site:example.com (intitle:contact OR inurl:contact OR intitle:\u0022contact us\u0022)"
+    },
+    {
+      "id": "cp-domain-emails",
+      "query": "site:example.com \u0022@example.com\u0022"
+    },
+    {
+      "id": "cp-domain-about",
+      "query": "site:example.com (inurl:about OR inurl:team OR inurl:people OR inurl:staff OR intitle:about)"
+    },
+    {
+      "id": "cp-domain-offsite",
+      "query": "\u0022@example.com\u0022 -site:example.com"
+    },
+    {
+      "id": "cp-domain-press",
+      "query": "site:example.com (intitle:press OR inurl:press OR inurl:media OR inurl:newsroom)"
+    }
+  ],
+  "expectedContains": []
+}

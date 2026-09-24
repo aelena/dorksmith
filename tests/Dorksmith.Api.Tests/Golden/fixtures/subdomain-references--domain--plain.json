@@ -1,0 +1,32 @@
+{
+  "name": "subdomain-references / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "subdomain-references",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "sr-wildcard",
+      "query": "site:*.example.com -inurl:www"
+    },
+    {
+      "id": "sr-exclude-www",
+      "query": "site:*.example.com -site:www.example.com -site:example.com"
+    },
+    {
+      "id": "sr-environments",
+      "query": "site:*.example.com (inurl:dev OR inurl:staging OR inurl:test OR inurl:uat OR inurl:api OR inurl:admin OR inurl:portal) -inurl:www"
+    },
+    {
+      "id": "sr-docs",
+      "query": "site:*.example.com -inurl:www (filetype:pdf OR filetype:xml OR filetype:json OR filetype:txt)"
+    },
+    {
+      "id": "sr-mentions",
+      "query": "\u0022example.com\u0022 -site:example.com (inurl:subdomain OR intext:\u0022subdomain\u0022 OR intext:\u0022*.example.com\u0022)"
+    }
+  ],
+  "expectedContains": []
+}

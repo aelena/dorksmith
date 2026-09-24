@@ -1,0 +1,47 @@
+{
+  "name": "person-location / person (full)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "person-location",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "pl-balanced",
+      "query": "\u0022Alice Smith\u0022 \u0022Madrid\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pl-proximity",
+      "query": "\u0022Alice Smith\u0022 AROUND(8) \u0022Madrid\u0022"
+    },
+    {
+      "id": "pl-docs",
+      "query": "\u0022Alice Smith\u0022 \u0022Madrid\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pl-broad",
+      "query": "Alice Smith \u0022Madrid\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pl-linkedin",
+      "query": "\u0022Alice Smith\u0022 \u0022Madrid\u0022 site:linkedin.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

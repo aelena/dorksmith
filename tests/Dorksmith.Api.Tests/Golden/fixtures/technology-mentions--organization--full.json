@@ -1,0 +1,43 @@
+{
+  "name": "technology-mentions / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "technology-mentions",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "tm-org-powered",
+      "query": "\u0022Example Corp\u0022 (\u0022powered by\u0022 OR \u0022built with\u0022 OR \u0022tech stack\u0022 OR \u0022we use\u0022) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-org-stackshare",
+      "query": "\u0022Example Corp\u0022 site:stackshare.io -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-org-devs",
+      "query": "\u0022Example Corp\u0022 (site:stackoverflow.com OR site:github.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "tm-org-jobs",
+      "query": "\u0022Example Corp\u0022 (inurl:jobs OR inurl:careers) (\u0022experience with\u0022 OR \u0022familiarity with\u0022 OR \u0022proficiency in\u0022) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

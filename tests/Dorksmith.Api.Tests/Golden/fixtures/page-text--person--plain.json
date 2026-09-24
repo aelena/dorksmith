@@ -1,0 +1,32 @@
+{
+  "name": "page-text / person (plain)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "page-text",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "pt-balanced",
+      "query": "intext:\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "pt-precise",
+      "query": "intext:\u0022Alice Smith\u0022 intitle:\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "pt-docs",
+      "query": "intext:\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "pt-any",
+      "query": "(intext:Alice OR intext:Smith)"
+    },
+    {
+      "id": "pt-noise",
+      "query": "intext:\u0022Alice Smith\u0022 -login -jobs"
+    }
+  ],
+  "expectedContains": []
+}

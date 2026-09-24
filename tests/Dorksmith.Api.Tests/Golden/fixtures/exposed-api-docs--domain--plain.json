@@ -1,0 +1,32 @@
+{
+  "name": "exposed-api-docs / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "exposed-api-docs",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "ad-paths",
+      "query": "site:example.com (inurl:swagger OR inurl:api-docs OR inurl:openapi OR inurl:redoc OR inurl:graphql)"
+    },
+    {
+      "id": "ad-titles",
+      "query": "site:example.com (intitle:\u0022swagger ui\u0022 OR intitle:\u0022api documentation\u0022 OR intitle:redoc OR intitle:\u0022graphql playground\u0022)"
+    },
+    {
+      "id": "ad-specs",
+      "query": "site:example.com (filetype:json OR filetype:yaml OR filetype:yml) (intext:openapi OR intext:swagger)"
+    },
+    {
+      "id": "ad-subs",
+      "query": "site:*.example.com (inurl:api OR inurl:swagger OR inurl:graphql) -inurl:www"
+    },
+    {
+      "id": "ad-versions",
+      "query": "site:example.com (inurl:\u0022/v1/\u0022 OR inurl:\u0022/v2/\u0022 OR inurl:\u0022/api/v\u0022)"
+    }
+  ],
+  "expectedContains": []
+}

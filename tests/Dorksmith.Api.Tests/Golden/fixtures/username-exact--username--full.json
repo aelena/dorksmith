@@ -1,0 +1,59 @@
+{
+  "name": "username-exact / username (full)",
+  "input": "@alice42",
+  "inputType": "username",
+  "intent": "username-exact",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "ue-quoted",
+      "query": "\u0022alice42\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ue-at",
+      "query": "\u0022@alice42\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ue-profile-paths",
+      "query": "\u0022alice42\u0022 (inurl:user OR inurl:users OR inurl:profile OR inurl:members OR inurl:u) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ue-title",
+      "query": "intitle:alice42 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ue-inurl",
+      "query": "inurl:alice42 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ue-noise",
+      "query": "\u0022alice42\u0022 -site:pinterest.com -site:amazon.com -site:ebay.com -site:etsy.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ue-hashtag",
+      "query": "#alice42 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ue-both",
+      "query": "\u0022alice42\u0022 \u0022@alice42\u0022 -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

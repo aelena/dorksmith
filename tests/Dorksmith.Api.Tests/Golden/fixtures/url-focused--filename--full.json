@@ -1,0 +1,43 @@
+{
+  "name": "url-focused / filename (full)",
+  "input": "annual-report.pdf",
+  "inputType": "filename",
+  "intent": "url-focused",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "uf-balanced",
+      "query": "inurl:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "uf-precise",
+      "query": "inurl:annual-report.pdf \u0022annual-report.pdf\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "uf-docs",
+      "query": "inurl:annual-report.pdf (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "uf-title",
+      "query": "inurl:annual-report.pdf intitle:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

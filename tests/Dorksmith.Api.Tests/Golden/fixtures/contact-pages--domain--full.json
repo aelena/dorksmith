@@ -1,0 +1,46 @@
+{
+  "name": "contact-pages / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "contact-pages",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "cp-domain-contact",
+      "query": "site:example.com (intitle:contact OR inurl:contact OR intitle:\u0022contact us\u0022) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cp-domain-emails",
+      "query": "site:example.com \u0022@example.com\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cp-domain-about",
+      "query": "site:example.com (inurl:about OR inurl:team OR inurl:people OR inurl:staff OR intitle:about) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cp-domain-offsite",
+      "query": "\u0022@example.com\u0022 -site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cp-domain-press",
+      "query": "site:example.com (intitle:press OR inurl:press OR inurl:media OR inurl:newsroom) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

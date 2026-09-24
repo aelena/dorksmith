@@ -1,0 +1,43 @@
+{
+  "name": "support-status-pages / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "support-status-pages",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "st-org-status",
+      "query": "\u0022Example Corp\u0022 (intitle:status OR \u0022system status\u0022 OR \u0022service status\u0022) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "st-org-hosted-status",
+      "query": "\u0022Example Corp\u0022 (site:statuspage.io OR site:status.io OR site:instatus.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "st-org-help",
+      "query": "\u0022Example Corp\u0022 (\u0022help center\u0022 OR \u0022knowledge base\u0022 OR \u0022support portal\u0022) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "st-org-hosted-help",
+      "query": "\u0022Example Corp\u0022 (site:zendesk.com OR site:freshdesk.com OR site:intercom.help) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

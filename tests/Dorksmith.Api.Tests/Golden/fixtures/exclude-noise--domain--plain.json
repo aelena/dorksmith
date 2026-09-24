@@ -1,0 +1,24 @@
+{
+  "name": "exclude-noise / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "exclude-noise",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "en-domain",
+      "query": "site:example.com -inurl:login -inurl:signup -inurl:tag -inurl:category -inurl:page"
+    },
+    {
+      "id": "en-domain-docs",
+      "query": "site:example.com (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -brochure -newsletter"
+    },
+    {
+      "id": "en-domain-mentions",
+      "query": "\u0022example.com\u0022 -site:example.com -site:pinterest.com -site:facebook.com -site:x.com -site:linkedin.com"
+    }
+  ],
+  "expectedContains": []
+}

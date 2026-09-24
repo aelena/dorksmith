@@ -1,0 +1,46 @@
+{
+  "name": "repository-references / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "repository-references",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "rr-domain-hosts",
+      "query": "\u0022example.com\u0022 (site:github.com OR site:gitlab.com OR site:bitbucket.org OR site:codeberg.org) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "rr-domain-github",
+      "query": "\u0022example.com\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "rr-domain-pastes",
+      "query": "\u0022example.com\u0022 (site:gist.github.com OR site:pastebin.com OR site:paste.ee) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "rr-domain-emails",
+      "query": "\u0022@example.com\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "rr-domain-registries",
+      "query": "\u0022example.com\u0022 (site:hub.docker.com OR site:npmjs.com OR site:pypi.org) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

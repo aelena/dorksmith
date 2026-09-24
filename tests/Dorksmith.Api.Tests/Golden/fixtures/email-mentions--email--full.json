@@ -1,0 +1,51 @@
+{
+  "name": "email-mentions / email (full)",
+  "input": "alice@example.com",
+  "inputType": "email",
+  "intent": "email-mentions",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "em-quoted",
+      "query": "\u0022alice@example.com\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "em-local-part",
+      "query": "\u0022alice\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "em-offsite",
+      "query": "\u0022alice@example.com\u0022 -site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "em-docs",
+      "query": "\u0022alice@example.com\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "em-platforms",
+      "query": "\u0022alice@example.com\u0022 (site:github.com OR site:linkedin.com OR site:x.com OR site:facebook.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "em-text",
+      "query": "intext:\u0022alice@example.com\u0022 -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

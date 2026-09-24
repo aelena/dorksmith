@@ -1,0 +1,32 @@
+{
+  "name": "person-social-profiles / person (plain)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "person-social-profiles",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "ps-social",
+      "query": "\u0022Alice Smith\u0022 (site:x.com OR site:instagram.com OR site:facebook.com OR site:tiktok.com OR site:threads.net OR site:bsky.app)"
+    },
+    {
+      "id": "ps-linkedin",
+      "query": "\u0022Alice Smith\u0022 site:linkedin.com/in"
+    },
+    {
+      "id": "ps-professional",
+      "query": "\u0022Alice Smith\u0022 (site:linkedin.com OR site:xing.com OR site:wellfound.com OR site:about.me OR site:researchgate.net)"
+    },
+    {
+      "id": "ps-developer",
+      "query": "\u0022Alice Smith\u0022 (site:github.com OR site:stackoverflow.com OR site:medium.com OR site:substack.com OR site:dev.to)"
+    },
+    {
+      "id": "ps-creator",
+      "query": "\u0022Alice Smith\u0022 (site:youtube.com OR site:twitch.tv OR site:medium.com OR site:substack.com OR site:linktr.ee OR site:soundcloud.com)"
+    }
+  ],
+  "expectedContains": []
+}

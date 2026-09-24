@@ -1,0 +1,50 @@
+{
+  "name": "developer-references / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "developer-references",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "dr-domain-hosts",
+      "query": "\u0022example.com\u0022 (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "dr-domain-github",
+      "query": "\u0022example.com\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "dr-domain-registries",
+      "query": "\u0022example.com\u0022 (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "dr-domain-so",
+      "query": "\u0022example.com\u0022 site:stackoverflow.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "dr-domain-pastes",
+      "query": "\u0022example.com\u0022 (site:gist.github.com OR site:pastebin.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "dr-domain-label",
+      "query": "\u0022example\u0022 (site:github.com OR site:gitlab.com) inurl:example -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

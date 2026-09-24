@@ -1,0 +1,47 @@
+{
+  "name": "person-documents / person (full)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "person-documents",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "pdoc-balanced",
+      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pdoc-context",
+      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 \u0022Madrid\u0022 \u0022CTO\u0022 \u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pdoc-cv",
+      "query": "\u0022Alice Smith\u0022 filetype:pdf (intitle:cv OR intitle:resume OR intitle:\u0022curriculum vitae\u0022) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pdoc-slides",
+      "query": "\u0022Alice Smith\u0022 (filetype:pptx OR filetype:ppt) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pdoc-pdf",
+      "query": "\u0022Alice Smith\u0022 filetype:pdf site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

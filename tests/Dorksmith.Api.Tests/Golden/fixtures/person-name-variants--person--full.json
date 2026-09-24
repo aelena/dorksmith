@@ -1,0 +1,55 @@
+{
+  "name": "person-name-variants / person (full)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "person-name-variants",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "pn-exact",
+      "query": "\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pn-recent",
+      "query": "\u0022Alice Smith\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pn-reversed",
+      "query": "\u0022Smith Alice\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pn-wildcard",
+      "query": "\u0022Alice * Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pn-noise",
+      "query": "\u0022Alice Smith\u0022 -site:pinterest.com -site:amazon.com -site:ebay.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pn-title",
+      "query": "intitle:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pn-initial",
+      "query": "\u0022A. Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

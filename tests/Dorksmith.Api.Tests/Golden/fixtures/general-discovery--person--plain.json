@@ -1,0 +1,40 @@
+{
+  "name": "general-discovery / person (plain)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "general-discovery",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "gd-balanced",
+      "query": "Alice Smith"
+    },
+    {
+      "id": "gd-precise",
+      "query": "\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "gd-title",
+      "query": "intitle:\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "gd-docs",
+      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "gd-noise",
+      "query": "\u0022Alice Smith\u0022 -jobs -careers -login -signup"
+    },
+    {
+      "id": "gd-text",
+      "query": "intext:\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "gd-broad",
+      "query": "(Alice OR Smith)"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,51 @@
+{
+  "name": "url-mentions / url (full)",
+  "input": "https://example.com/docs/api",
+  "inputType": "url",
+  "intent": "url-mentions",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "um-quoted",
+      "query": "\u0022https://example.com/docs/api\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "um-bare",
+      "query": "\u0022example.com/docs/api\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "um-path",
+      "query": "site:example.com inurl:\u0022docs/api\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "um-offsite",
+      "query": "\u0022example.com/docs/api\u0022 -site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "um-host",
+      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "um-text",
+      "query": "intext:\u0022https://example.com/docs/api\u0022 -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

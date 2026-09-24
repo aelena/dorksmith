@@ -1,0 +1,43 @@
+{
+  "name": "presentations-reports / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "presentations-reports",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "pr-org-docs",
+      "query": "\u0022Example Corp\u0022 (filetype:pptx OR filetype:ppt OR filetype:pdf) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-org-slide-sites",
+      "query": "\u0022Example Corp\u0022 (site:slideshare.net OR site:speakerdeck.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-org-reports",
+      "query": "\u0022Example Corp\u0022 (\u0022annual report\u0022 OR \u0022investor presentation\u0022 OR whitepaper) filetype:pdf -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-org-doc-sites",
+      "query": "\u0022Example Corp\u0022 (site:scribd.com OR site:issuu.com) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

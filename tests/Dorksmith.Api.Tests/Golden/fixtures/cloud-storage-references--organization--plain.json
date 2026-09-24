@@ -1,0 +1,28 @@
+{
+  "name": "cloud-storage-references / organization (plain)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "cloud-storage-references",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "cs-org-all",
+      "query": "\u0022Example Corp\u0022 (site:s3.amazonaws.com OR site:blob.core.windows.net OR site:storage.googleapis.com)"
+    },
+    {
+      "id": "cs-org-s3",
+      "query": "\u0022Example Corp\u0022 site:s3.amazonaws.com"
+    },
+    {
+      "id": "cs-org-others",
+      "query": "\u0022Example Corp\u0022 (site:storage.googleapis.com OR site:digitaloceanspaces.com OR site:r2.dev)"
+    },
+    {
+      "id": "cs-org-azure",
+      "query": "\u0022Example Corp\u0022 site:blob.core.windows.net"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,39 @@
+{
+  "name": "repository-references / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "repository-references",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "rr-org-hosts",
+      "query": "\u0022Example Corp\u0022 (site:github.com OR site:gitlab.com OR site:bitbucket.org) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "rr-org-github",
+      "query": "\u0022Example Corp\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "rr-org-pastes",
+      "query": "\u0022Example Corp\u0022 (site:gist.github.com OR site:pastebin.com) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

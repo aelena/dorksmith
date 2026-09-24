@@ -1,0 +1,28 @@
+{
+  "name": "title-focused / filename (plain)",
+  "input": "annual-report.pdf",
+  "inputType": "filename",
+  "intent": "title-focused",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "tf-balanced",
+      "query": "intitle:annual-report.pdf"
+    },
+    {
+      "id": "tf-precise",
+      "query": "intitle:annual-report.pdf intext:annual-report.pdf"
+    },
+    {
+      "id": "tf-docs",
+      "query": "intitle:annual-report.pdf (filetype:pdf OR filetype:docx OR filetype:pptx)"
+    },
+    {
+      "id": "tf-noise",
+      "query": "intitle:annual-report.pdf -login -signup"
+    }
+  ],
+  "expectedContains": []
+}

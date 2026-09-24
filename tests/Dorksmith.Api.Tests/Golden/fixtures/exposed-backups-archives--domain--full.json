@@ -1,0 +1,50 @@
+{
+  "name": "exposed-backups-archives / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "exposed-backups-archives",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "ba-extensions",
+      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ba-paths",
+      "query": "site:example.com (inurl:backup OR inurl:backups OR inurl:bak OR inurl:old OR inurl:archive OR inurl:dump) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ba-sql",
+      "query": "site:example.com filetype:sql -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ba-archives-paths",
+      "query": "site:example.com (filetype:zip OR filetype:tar OR filetype:gz) (inurl:backup OR inurl:dump OR inurl:export) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ba-listings",
+      "query": "site:example.com (intitle:\u0022index of\u0022 OR intext:\u0022parent directory\u0022) (backup OR bak OR \u0022.sql\u0022 OR \u0022.zip\u0022) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ba-subs",
+      "query": "site:*.example.com -inurl:www (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

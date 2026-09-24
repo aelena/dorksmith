@@ -1,0 +1,51 @@
+{
+  "name": "person-organization / person (full)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "person-organization",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "po-balanced",
+      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "po-proximity",
+      "query": "\u0022Alice Smith\u0022 AROUND(5) \u0022Example Corp\u0022"
+    },
+    {
+      "id": "po-title",
+      "query": "intitle:\u0022Alice Smith\u0022 \u0022Example Corp\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "po-docs",
+      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "po-linkedin",
+      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 site:linkedin.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "po-broad",
+      "query": "Alice Smith \u0022Example Corp\u0022 -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

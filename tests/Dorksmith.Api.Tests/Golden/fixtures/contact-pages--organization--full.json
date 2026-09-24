@@ -1,0 +1,39 @@
+{
+  "name": "contact-pages / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "contact-pages",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "cp-org-contact",
+      "query": "\u0022Example Corp\u0022 (intitle:contact OR \u0022contact us\u0022) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cp-org-about",
+      "query": "\u0022Example Corp\u0022 (intitle:about OR \u0022our team\u0022 OR leadership) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "cp-org-details",
+      "query": "\u0022Example Corp\u0022 (email OR phone OR address) site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

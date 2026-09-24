@@ -3,6 +3,7 @@ import { $, $$, setText, toast, isTypingContext } from './dom.js';
 import { storage } from './storage.js';
 import { api } from './api.js';
 import { initOperatorsUi } from './operators-ui.js';
+import { initGeneratorUi } from './generator-ui.js';
 
 const VIEWS = ['generator', 'handles', 'operators', 'about'];
 
@@ -106,4 +107,4 @@ initTabs();
 initShortcuts();
 initHistoryControls();
 initNotices();
-initOperatorsUi();
+initOperatorsUi().then(() => initGeneratorUi());

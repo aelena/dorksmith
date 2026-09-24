@@ -84,7 +84,7 @@ public class CatalogEndpointTests : IClassFixture<DorksmithFactory>
         Assert.DoesNotContain("secret", text, StringComparison.OrdinalIgnoreCase);
         var body = JsonDocument.Parse(text).RootElement;
         Assert.Equal(12, body.GetProperty("maxVariants").GetInt32());
-        Assert.Contains("google", body.GetProperty("supportedEngines").EnumerateArray().Select(e => e.GetString()));
+        Assert.Equal(["google"], body.GetProperty("supportedEngines").EnumerateArray().Select(e => e.GetString()));
         Assert.Equal("hmac", body.GetProperty("ipLoggingMode").GetString());
         Assert.True(body.GetProperty("rateLimitPerHour").GetInt32() > 0);
     }

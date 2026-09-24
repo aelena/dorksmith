@@ -1,0 +1,24 @@
+{
+  "name": "repository-references / organization (plain)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "repository-references",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "rr-org-hosts",
+      "query": "\u0022Example Corp\u0022 (site:github.com OR site:gitlab.com OR site:bitbucket.org)"
+    },
+    {
+      "id": "rr-org-github",
+      "query": "\u0022Example Corp\u0022 site:github.com"
+    },
+    {
+      "id": "rr-org-pastes",
+      "query": "\u0022Example Corp\u0022 (site:gist.github.com OR site:pastebin.com)"
+    }
+  ],
+  "expectedContains": []
+}

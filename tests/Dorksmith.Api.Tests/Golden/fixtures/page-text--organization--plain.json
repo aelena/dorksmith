@@ -1,0 +1,32 @@
+{
+  "name": "page-text / organization (plain)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "page-text",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "pt-balanced",
+      "query": "intext:\u0022Example Corp\u0022"
+    },
+    {
+      "id": "pt-precise",
+      "query": "intext:\u0022Example Corp\u0022 intitle:\u0022Example Corp\u0022"
+    },
+    {
+      "id": "pt-docs",
+      "query": "intext:\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "pt-any",
+      "query": "(intext:Example OR intext:Corp)"
+    },
+    {
+      "id": "pt-noise",
+      "query": "intext:\u0022Example Corp\u0022 -login -jobs"
+    }
+  ],
+  "expectedContains": []
+}

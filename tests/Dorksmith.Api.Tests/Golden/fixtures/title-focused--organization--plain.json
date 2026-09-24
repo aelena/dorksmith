@@ -1,0 +1,32 @@
+{
+  "name": "title-focused / organization (plain)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "title-focused",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "tf-balanced",
+      "query": "intitle:\u0022Example Corp\u0022"
+    },
+    {
+      "id": "tf-precise",
+      "query": "intitle:\u0022Example Corp\u0022 intext:\u0022Example Corp\u0022"
+    },
+    {
+      "id": "tf-docs",
+      "query": "intitle:\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx)"
+    },
+    {
+      "id": "tf-any",
+      "query": "(intitle:Example OR intitle:Corp)"
+    },
+    {
+      "id": "tf-noise",
+      "query": "intitle:\u0022Example Corp\u0022 -login -signup"
+    }
+  ],
+  "expectedContains": []
+}

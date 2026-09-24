@@ -1,0 +1,40 @@
+{
+  "name": "general-discovery / technology (plain)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "general-discovery",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "gd-balanced",
+      "query": "Kubernetes"
+    },
+    {
+      "id": "gd-precise",
+      "query": "\u0022Kubernetes\u0022"
+    },
+    {
+      "id": "gd-title",
+      "query": "intitle:Kubernetes"
+    },
+    {
+      "id": "gd-docs",
+      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "gd-noise",
+      "query": "\u0022Kubernetes\u0022 -jobs -careers -login -signup"
+    },
+    {
+      "id": "gd-url",
+      "query": "inurl:Kubernetes"
+    },
+    {
+      "id": "gd-text",
+      "query": "intext:Kubernetes"
+    }
+  ],
+  "expectedContains": []
+}

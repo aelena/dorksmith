@@ -1,0 +1,36 @@
+{
+  "name": "public-documents / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "public-documents",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "pd-domain-balanced",
+      "query": "site:example.com (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx)"
+    },
+    {
+      "id": "pd-domain-first",
+      "query": "site:example.com filetype:pdf"
+    },
+    {
+      "id": "pd-domain-titles",
+      "query": "site:example.com (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx) (intitle:report OR intitle:policy OR intitle:presentation OR intitle:\u0022annual report\u0022)"
+    },
+    {
+      "id": "pd-domain-sheets",
+      "query": "site:example.com (filetype:xlsx OR filetype:xls OR filetype:csv)"
+    },
+    {
+      "id": "pd-domain-offsite",
+      "query": "\u0022example.com\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx) -site:example.com"
+    },
+    {
+      "id": "pd-domain-slides",
+      "query": "site:example.com (filetype:pptx OR filetype:ppt)"
+    }
+  ],
+  "expectedContains": []
+}

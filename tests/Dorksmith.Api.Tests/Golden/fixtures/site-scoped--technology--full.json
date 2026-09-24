@@ -1,0 +1,51 @@
+{
+  "name": "site-scoped / technology (full)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "site-scoped",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "ss-balanced",
+      "query": "Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ss-precise",
+      "query": "\u0022Kubernetes\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ss-title",
+      "query": "intitle:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ss-url",
+      "query": "inurl:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ss-docs",
+      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ss-text",
+      "query": "intext:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,32 @@
+{
+  "name": "title-focused / person (plain)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "title-focused",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "tf-balanced",
+      "query": "intitle:\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "tf-precise",
+      "query": "intitle:\u0022Alice Smith\u0022 intext:\u0022Alice Smith\u0022"
+    },
+    {
+      "id": "tf-docs",
+      "query": "intitle:\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx)"
+    },
+    {
+      "id": "tf-any",
+      "query": "(intitle:Alice OR intitle:Smith)"
+    },
+    {
+      "id": "tf-noise",
+      "query": "intitle:\u0022Alice Smith\u0022 -login -signup"
+    }
+  ],
+  "expectedContains": []
+}

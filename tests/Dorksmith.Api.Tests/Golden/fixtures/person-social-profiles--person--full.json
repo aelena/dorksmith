@@ -1,0 +1,51 @@
+{
+  "name": "person-social-profiles / person (full)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "person-social-profiles",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "ps-social",
+      "query": "\u0022Alice Smith\u0022 (site:x.com OR site:instagram.com OR site:facebook.com OR site:tiktok.com OR site:threads.net OR site:bsky.app) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ps-linkedin",
+      "query": "\u0022Alice Smith\u0022 site:linkedin.com/in -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ps-professional",
+      "query": "\u0022Alice Smith\u0022 (site:linkedin.com OR site:xing.com OR site:wellfound.com OR site:about.me OR site:researchgate.net) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ps-context",
+      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 \u0022Madrid\u0022 \u0022CTO\u0022 \u0022Alice Smith\u0022 site:linkedin.com/in"
+    },
+    {
+      "id": "ps-developer",
+      "query": "\u0022Alice Smith\u0022 (site:github.com OR site:stackoverflow.com OR site:medium.com OR site:substack.com OR site:dev.to) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "ps-creator",
+      "query": "\u0022Alice Smith\u0022 (site:youtube.com OR site:twitch.tv OR site:medium.com OR site:substack.com OR site:linktr.ee OR site:soundcloud.com) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,32 @@
+{
+  "name": "general-discovery / domain (plain)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "general-discovery",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "gd-domain-mentions",
+      "query": "\u0022example.com\u0022 -site:example.com"
+    },
+    {
+      "id": "gd-domain-all",
+      "query": "site:example.com"
+    },
+    {
+      "id": "gd-domain-docs",
+      "query": "site:example.com (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "gd-domain-subs",
+      "query": "site:*.example.com -inurl:www"
+    },
+    {
+      "id": "gd-domain-title",
+      "query": "site:example.com intitle:example"
+    }
+  ],
+  "expectedContains": []
+}

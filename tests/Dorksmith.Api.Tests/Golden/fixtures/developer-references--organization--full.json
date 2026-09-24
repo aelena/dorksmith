@@ -1,0 +1,43 @@
+{
+  "name": "developer-references / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "developer-references",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "dr-org-hosts",
+      "query": "\u0022Example Corp\u0022 (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "dr-org-github",
+      "query": "\u0022Example Corp\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "dr-org-registries",
+      "query": "\u0022Example Corp\u0022 (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "dr-org-pastes",
+      "query": "\u0022Example Corp\u0022 (site:gist.github.com OR site:pastebin.com) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

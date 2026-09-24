@@ -1,0 +1,38 @@
+{
+  "name": "date-bounded / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "date-bounded",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "db-domain",
+      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "db-domain-docs",
+      "query": "site:example.com (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "db-domain-mentions",
+      "query": "\u0022example.com\u0022 -site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

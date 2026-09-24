@@ -1,0 +1,47 @@
+{
+  "name": "url-focused / keyword (full)",
+  "input": "quarterly roadmap",
+  "inputType": "keyword",
+  "intent": "url-focused",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "uf-balanced",
+      "query": "inurl:\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "uf-precise",
+      "query": "inurl:\u0022quarterly roadmap\u0022 \u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "uf-any",
+      "query": "(inurl:quarterly OR inurl:roadmap) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "uf-docs",
+      "query": "inurl:\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "uf-title",
+      "query": "inurl:\u0022quarterly roadmap\u0022 intitle:\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

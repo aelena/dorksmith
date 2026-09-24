@@ -28,7 +28,8 @@ public static class StaticWeb
             OnPrepareResponse = ctx => ctx.Context.Response.Headers.CacheControl =
                 ctx.File.Name.EndsWith(".html", StringComparison.OrdinalIgnoreCase) ? "no-cache" : "public, max-age=3600",
         });
-        app.MapFallbackToFile("index.html", new StaticFileOptions { FileProvider = provider });
+        // SPA fallback for client routes only; /api and /health must keep returning real 404s.
+        app.MapFallbackToFile("{*path:regex(^(?!api/|health/).*$)}", "index.html", new StaticFileOptions { FileProvider = provider });
         app.Logger.LogInformation("Serving static web from {Path}", path);
         return app;
     }

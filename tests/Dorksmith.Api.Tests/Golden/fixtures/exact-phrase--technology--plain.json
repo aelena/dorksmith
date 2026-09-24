@@ -1,0 +1,32 @@
+{
+  "name": "exact-phrase / technology (plain)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "exact-phrase",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "ep-balanced",
+      "query": "\u0022Kubernetes\u0022"
+    },
+    {
+      "id": "ep-text",
+      "query": "intext:Kubernetes"
+    },
+    {
+      "id": "ep-docs",
+      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "ep-title",
+      "query": "intitle:Kubernetes"
+    },
+    {
+      "id": "ep-noise",
+      "query": "\u0022Kubernetes\u0022 -jobs -careers"
+    }
+  ],
+  "expectedContains": []
+}

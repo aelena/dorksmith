@@ -1,0 +1,47 @@
+{
+  "name": "person-role / person (full)",
+  "input": "Alice Smith",
+  "inputType": "person",
+  "intent": "person-role",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "pr-balanced",
+      "query": "\u0022Alice Smith\u0022 \u0022CTO\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-proximity",
+      "query": "\u0022Alice Smith\u0022 AROUND(5) \u0022CTO\u0022"
+    },
+    {
+      "id": "pr-title",
+      "query": "intitle:\u0022Alice Smith\u0022 \u0022CTO\u0022 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-linkedin",
+      "query": "\u0022Alice Smith\u0022 \u0022CTO\u0022 site:linkedin.com/in -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "pr-broad",
+      "query": "Alice Smith \u0022CTO\u0022 -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

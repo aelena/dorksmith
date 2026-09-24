@@ -1,0 +1,46 @@
+{
+  "name": "subdomain-references / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "subdomain-references",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "sr-wildcard",
+      "query": "site:*.example.com -inurl:www -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sr-exclude-www",
+      "query": "site:*.example.com -site:www.example.com -site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sr-environments",
+      "query": "site:*.example.com (inurl:dev OR inurl:staging OR inurl:test OR inurl:uat OR inurl:api OR inurl:admin OR inurl:portal) -inurl:www -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sr-docs",
+      "query": "site:*.example.com -inurl:www (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sr-mentions",
+      "query": "\u0022example.com\u0022 -site:example.com (inurl:subdomain OR intext:\u0022subdomain\u0022 OR intext:\u0022*.example.com\u0022) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

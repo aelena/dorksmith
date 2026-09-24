@@ -1,0 +1,46 @@
+{
+  "name": "source-map-references / domain (full)",
+  "input": "example.com",
+  "inputType": "domain",
+  "intent": "source-map-references",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "sm-filetype",
+      "query": "site:example.com filetype:map -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sm-paths",
+      "query": "site:example.com (inurl:\u0022.js.map\u0022 OR inurl:\u0022.css.map\u0022) -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sm-reference",
+      "query": "site:example.com intext:sourceMappingURL -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sm-subs",
+      "query": "site:*.example.com filetype:map -inurl:www -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "sm-static",
+      "query": "site:example.com (inurl:\u0022/static/\u0022 OR inurl:\u0022/assets/\u0022 OR inurl:\u0022/dist/\u0022) (filetype:map OR filetype:js) -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

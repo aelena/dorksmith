@@ -1,0 +1,59 @@
+{
+  "name": "general-discovery / organization (full)",
+  "input": "Example Corp",
+  "inputType": "organization",
+  "intent": "general-discovery",
+  "options": {
+    "fileTypes": [
+      "pdf",
+      "docx"
+    ],
+    "excludeTerms": [
+      "jobs",
+      "privacy policy"
+    ],
+    "after": "2024-01-01",
+    "before": "2024-12-31",
+    "site": "example.com",
+    "maxVariants": 12,
+    "organization": "Example Corp",
+    "location": "Madrid",
+    "role": "CTO",
+    "displayName": "Alice Smith"
+  },
+  "expected": [
+    {
+      "id": "gd-balanced",
+      "query": "Example Corp site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-recent",
+      "query": "\u0022Example Corp\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-title",
+      "query": "intitle:\u0022Example Corp\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-precise",
+      "query": "\u0022Example Corp\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-docs",
+      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-noise",
+      "query": "\u0022Example Corp\u0022 site:example.com -jobs -\u0022privacy policy\u0022 -careers -login -signup"
+    },
+    {
+      "id": "gd-broad",
+      "query": "(Example OR Corp) site:example.com -jobs -\u0022privacy policy\u0022"
+    },
+    {
+      "id": "gd-text",
+      "query": "intext:\u0022Example Corp\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+    }
+  ],
+  "expectedContains": []
+}

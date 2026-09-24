@@ -1,0 +1,24 @@
+{
+  "name": "technology-mentions / technology (plain)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "technology-mentions",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "tm-tech-powered",
+      "query": "\u0022Kubernetes\u0022 (\u0022powered by\u0022 OR \u0022built with\u0022)"
+    },
+    {
+      "id": "tm-tech-stackshare",
+      "query": "\u0022Kubernetes\u0022 site:stackshare.io"
+    },
+    {
+      "id": "tm-tech-jobs",
+      "query": "\u0022Kubernetes\u0022 (inurl:jobs OR inurl:careers)"
+    }
+  ],
+  "expectedContains": []
+}

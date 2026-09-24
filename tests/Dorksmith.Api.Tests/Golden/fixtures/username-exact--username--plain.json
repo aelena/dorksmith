@@ -1,0 +1,44 @@
+{
+  "name": "username-exact / username (plain)",
+  "input": "@alice42",
+  "inputType": "username",
+  "intent": "username-exact",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "ue-quoted",
+      "query": "\u0022alice42\u0022"
+    },
+    {
+      "id": "ue-at",
+      "query": "\u0022@alice42\u0022"
+    },
+    {
+      "id": "ue-profile-paths",
+      "query": "\u0022alice42\u0022 (inurl:user OR inurl:users OR inurl:profile OR inurl:members OR inurl:u)"
+    },
+    {
+      "id": "ue-title",
+      "query": "intitle:alice42"
+    },
+    {
+      "id": "ue-noise",
+      "query": "\u0022alice42\u0022 -site:pinterest.com -site:amazon.com -site:ebay.com -site:etsy.com"
+    },
+    {
+      "id": "ue-inurl",
+      "query": "inurl:alice42"
+    },
+    {
+      "id": "ue-both",
+      "query": "\u0022alice42\u0022 \u0022@alice42\u0022"
+    },
+    {
+      "id": "ue-hashtag",
+      "query": "#alice42"
+    }
+  ],
+  "expectedContains": []
+}

@@ -1,0 +1,28 @@
+{
+  "name": "title-focused / technology (plain)",
+  "input": "Kubernetes",
+  "inputType": "technology",
+  "intent": "title-focused",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "tf-balanced",
+      "query": "intitle:Kubernetes"
+    },
+    {
+      "id": "tf-precise",
+      "query": "intitle:Kubernetes intext:Kubernetes"
+    },
+    {
+      "id": "tf-docs",
+      "query": "intitle:Kubernetes (filetype:pdf OR filetype:docx OR filetype:pptx)"
+    },
+    {
+      "id": "tf-noise",
+      "query": "intitle:Kubernetes -login -signup"
+    }
+  ],
+  "expectedContains": []
+}
