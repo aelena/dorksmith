@@ -5,6 +5,7 @@ import { storage } from './storage.js';
 import { copyText, flashCopied } from './clipboard.js';
 import { renderQuery } from './query-format.js';
 import { operatorByToken } from './operators-ui.js';
+import { analyzeInput } from './validator.js';
 
 const state = {
   config: null,
@@ -140,6 +141,16 @@ function onInputChanged() {
   }
   hint.dataset.detected = inferred ? `Detected: ${labelForType(inferred)}${state.typeTouched ? ' (using your selection)' : ''}` : '';
   updateHint();
+  renderInputWarnings(raw);
+}
+
+let warnTimer = null;
+function renderInputWarnings(raw) {
+  clearTimeout(warnTimer);
+  warnTimer = setTimeout(() => {
+    const list = clear($('#input-warnings'));
+    for (const w of analyzeInput(raw)) list.append(el('li', { text: w }));
+  }, 150);
 }
 
 function labelForType(type) {

@@ -4,6 +4,7 @@ import { storage } from './storage.js';
 import { api } from './api.js';
 import { initOperatorsUi } from './operators-ui.js';
 import { initGeneratorUi } from './generator-ui.js';
+import { initAutocomplete } from './autocomplete.js';
 
 const VIEWS = ['generator', 'handles', 'operators', 'about'];
 
@@ -107,4 +108,4 @@ initTabs();
 initShortcuts();
 initHistoryControls();
 initNotices();
-initOperatorsUi().then(() => initGeneratorUi());
+initOperatorsUi().then(() => initGeneratorUi()).then(() => initAutocomplete());
