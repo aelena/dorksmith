@@ -69,10 +69,6 @@ function initShortcuts() {
       $('#input').focus();
       $('#input').select();
     }
-    if (e.altKey && !e.ctrlKey && !e.metaKey && e.key >= '1' && e.key <= '4') {
-      e.preventDefault();
-      showView(VIEWS[Number(e.key) - 1]);
-    }
   });
 }
 

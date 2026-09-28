@@ -86,11 +86,13 @@ test.describe('Generator', () => {
     await expect(box).toContainText('19 minutes');
   });
 
-  test('"/" focuses the target box and Alt+3 switches to the operator guide', async ({ page }) => {
+  test('"/" focuses the target box and arrow keys move between tabs', async ({ page }) => {
     await page.locator('body').click();
     await page.keyboard.press('/');
     await expect(page.locator('#input')).toBeFocused();
-    await page.keyboard.press('Alt+3');
+    await page.locator('#tab-generator').focus();
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('ArrowRight');
     await expect(page.locator('#panel-operators')).toBeVisible();
     await expect(page.locator('#panel-generator')).toBeHidden();
   });
