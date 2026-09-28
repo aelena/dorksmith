@@ -1,6 +1,6 @@
 {
   "name": "dorksmith",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Deterministic search-dork generator and OSINT query workbench engine. Catalog-driven, zero dependencies, runs in browsers and Node.",
   "license": "MIT",
   "author": "aelena",
