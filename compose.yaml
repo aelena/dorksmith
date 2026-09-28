@@ -1,5 +1,5 @@
 # Local topology: nginx (web) serves the SPA and proxies /api + /health to the API.
-#   docker compose up --build   ->   http://localhost:8080
+#   docker compose up --build   ->   http://localhost:7077
 name: dorksmith
 
 services:
@@ -44,7 +44,7 @@ services:
       context: ./web
     image: dorksmith-web:local
     ports:
-      - "${WEB_PORT:-8080}:8080"
+      - "${WEB_PORT:-7077}:8080"
     depends_on:
       api:
         condition: service_healthy

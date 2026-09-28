@@ -1,5 +1,15 @@
 # Dorksmith — search query workbench
 
+<!-- badges-start -->
+[![CI](https://img.shields.io/github/actions/workflow/status/aelena/search-query-workbench/ci.yml?style=flat&logo=github&label=CI)](https://github.com/aelena/search-query-workbench/actions/workflows/ci.yml) [![Last commit](https://img.shields.io/github/last-commit/aelena/search-query-workbench?style=flat)](https://github.com/aelena/search-query-workbench/commits/main)
+
+[![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/) [![ASP.NET Core minimal API](https://img.shields.io/badge/ASP.NET%20Core-minimal%20API-5C2D91?style=flat)](src/Dorksmith.Api) [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS%2C%20no%20build-F7DF1E?style=flat&logo=javascript&logoColor=black)](web) [![SQLite](https://img.shields.io/badge/storage-SQLite-003B57?style=flat&logo=sqlite&logoColor=white)](src/Dorksmith.Api/Logging) [![Docker Compose](https://img.shields.io/badge/docker-compose-2496ED?style=flat&logo=docker&logoColor=white)](compose.yaml)
+
+[![Tests: xunit](https://img.shields.io/badge/tests-xunit%20%2B%20golden%20fixtures-brightgreen?style=flat)](tests/Dorksmith.Api.Tests) [![E2E: Playwright](https://img.shields.io/badge/e2e-Playwright-45ba4b?style=flat&logo=playwright&logoColor=white)](web/tests) [![Dependency scan](https://img.shields.io/badge/deps-vulnerability%20scanned%20in%20CI-blue?style=flat)](.github/workflows/ci.yml) [![No LLM](https://img.shields.io/badge/LLM-none%2C%20deterministic-blue?style=flat)](#main-features)
+
+[![License: MIT](https://img.shields.io/github/license/aelena/search-query-workbench?style=flat)](LICENSE) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat)](https://github.com/aelena/search-query-workbench/pulls) [![Top language](https://img.shields.io/github/languages/top/aelena/search-query-workbench?style=flat)](https://github.com/aelena/search-query-workbench) [![Issues](https://img.shields.io/github/issues/aelena/search-query-workbench?style=flat)](https://github.com/aelena/search-query-workbench/issues) [![Stars](https://img.shields.io/github/stars/aelena/search-query-workbench?style=flat)](https://github.com/aelena/search-query-workbench/stargazers)
+<!-- badges-end -->
+
 ```plaintext
 
 ██████╗  ██████╗ ██████╗ ██╗  ██╗███████╗███╗   ███╗██╗████████╗██╗  ██╗
@@ -49,6 +59,7 @@ Same input + same catalog version = same output, every time.
 - [Catalog maintenance](#catalog-maintenance)
 - [Architecture](#architecture)
 - [Development and testing](#development-and-testing)
+- [Continuous integration](#continuous-integration)
 - [Safety boundaries](#safety-boundaries)
 - [Roadmap](#roadmap)
 
@@ -79,7 +90,7 @@ cp .env.example .env            # set IP_HMAC_SECRET (see below)
 docker compose up --build
 ```
 
-Open <http://localhost:8080>.
+Open <http://localhost:7077>.
 
 Topology: `web` (unprivileged nginx) serves the SPA and proxies `/api` and `/health` to `api` (ASP.NET Core 8, non-root, read-only filesystem). The search log lives in the named volume `dorksmith-state`.
 
@@ -146,7 +157,7 @@ All examples use `curl` against a local instance. Responses are abbreviated to t
 ### 1. Documents about a topic, recent only
 
 ```bash
-curl -s localhost:8080/api/v1/dorks/generate -H 'content-type: application/json' -d '{
+curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' -d '{
   "input": "quarterly roadmap", "inputType": "keyword", "intent": "documents",
   "options": { "fileTypes": ["pdf", "pptx"], "after": "2025-01-01", "maxVariants": 4 }
 }' | jq -r '.variants[] | "\(.label)\t\(.query)"'
@@ -161,7 +172,7 @@ Broad              quarterly roadmap (filetype:pdf OR filetype:pptx)
 ### 2. Defensive exposure check on your own domain
 
 ```bash
-curl -s localhost:8080/api/v1/dorks/generate -H 'content-type: application/json' -d '{
+curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' -d '{
   "input": "example.com", "inputType": "domain", "intent": "exposed-config-files"
 }' | jq -r '.variants[].query'
 ```
@@ -179,7 +190,7 @@ Override the default extensions with `options.fileTypes` — e.g. `["yml", "yaml
 ### 3. Sub-domains, without touching DNS
 
 ```bash
-curl -s localhost:8080/api/v1/dorks/generate -H 'content-type: application/json' \
+curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' \
   -d '{"input":"example.com","inputType":"domain","intent":"subdomain-references","options":{"maxVariants":3}}' \
   | jq -r '.variants[].query'
 ```
@@ -192,7 +203,7 @@ site:*.example.com (inurl:dev OR inurl:staging OR inurl:test OR inurl:uat OR inu
 ### 4. Person + organisation, with proximity
 
 ```bash
-curl -s localhost:8080/api/v1/dorks/generate -H 'content-type: application/json' -d '{
+curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' -d '{
   "input": "Alice Smith", "inputType": "person", "intent": "person-organization",
   "options": { "organization": "Example Corp", "maxVariants": 3 }
 }' | jq -r '.variants[] | "\(.query)\n   ↳ \(.explanation)"'
@@ -226,7 +237,7 @@ Raise `maxVariants` to see the remaining variants, e.g. `"A. Smith"` (first init
 ### 6. Username across platforms
 
 ```bash
-curl -s localhost:8080/api/v1/dorks/generate -H 'content-type: application/json' \
+curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' \
   -d '{"input":"@alice42","inputType":"username","intent":"username-profiles","options":{"maxVariants":3}}' \
   | jq -r '.variants[].query'
 ```
@@ -241,7 +252,7 @@ Platform lists come from `data/platforms.json`, ordered by weight, so editing th
 ### 7. Expand a handle into profile URLs
 
 ```bash
-curl -s localhost:8080/api/v1/handles/expand -H 'content-type: application/json' \
+curl -s localhost:7077/api/v1/handles/expand -H 'content-type: application/json' \
   -d '{"username":"alice42","categories":["developer"],"maxPlatforms":3}' | jq
 ```
 ```json
@@ -296,7 +307,7 @@ intext:"alice@example.com"
 ### 10. Validate a hand-written query (expert mode)
 
 ```bash
-curl -s localhost:8080/api/v1/dorks/validate -H 'content-type: application/json' \
+curl -s localhost:7077/api/v1/dorks/validate -H 'content-type: application/json' \
   -d '{"query":"cache:example.com site:example.com or filetype:.pdf"}' | jq
 ```
 ```json
@@ -662,6 +673,38 @@ They cover the generate flow, copy, autocomplete keyboard navigation, operator g
 CI (`.github/workflows/ci.yml`): build + tests + `dotnet list package --vulnerable`, Playwright suite, and both container images.
 
 Performance: generation is pure in-memory template expansion; a full 12-variant request takes well under 5 ms on a laptop, and catalogs are pre-serialised with ETags so the SPA's first load is one HTML file, one stylesheet and ten small modules — no bundler, no third-party scripts.
+
+---
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on every push to `main` and on every pull request, with read-only repository permissions. It has three jobs; the badge at the top of this page reflects the latest run.
+
+| Job | Runs on | What it does |
+|---|---|---|
+| **backend** | `ubuntu-latest`, .NET 8 SDK | `dotnet restore` → `dotnet build -c Release` → `dotnet test` (unit, golden and integration tests) → dependency vulnerability scan. Test results (`.trx`) are uploaded as an artifact even when the job fails. |
+| **frontend** | `ubuntu-latest`, .NET 8 SDK + Node 20 | Needs **backend** to pass first. Builds the API, runs `npm ci` in `web/tests` (the lock file drives the npm cache), installs Chromium with its system dependencies, then runs the Playwright suite with `CI=true` (one retry per test, HTML report). The report is uploaded only on failure. |
+| **containers** | `ubuntu-latest`, Buildx | Builds the API image (`src/Dorksmith.Api/Dockerfile`, repository root as context) and the web image (`web/`). Nothing is pushed; this proves both Dockerfiles stay buildable. |
+
+The vulnerability gate is deliberately simple:
+
+```bash
+dotnet list Dorksmith.sln package --vulnerable --include-transitive | tee vuln.txt
+if grep -q "has the following vulnerable packages" vuln.txt; then exit 1; fi
+```
+
+`dotnet list package --vulnerable` queries the GitHub Advisory Database through nuget.org, and `--include-transitive` matters: both findings fixed so far were transitive (a native SQLite library pulled in by `Microsoft.Data.Sqlite`, and an older `System.Text.Json` pulled in by the test host). The fix in those cases is an explicit `PackageReference` to a patched version, which NuGet then prefers over the transitive one.
+
+Reproduce the whole pipeline locally:
+
+```bash
+dotnet build -c Release && dotnet test -c Release --no-build
+dotnet list Dorksmith.sln package --vulnerable --include-transitive
+cd web/tests && npm ci && npx playwright install chromium && npx playwright test && cd ../..
+docker compose build
+```
+
+Extending it: to publish images, add a registry login step and set `push: true` with `tags` pointing at your registry in the **containers** job; to run on a schedule (for example a weekly vulnerability re-scan), add a `schedule:` trigger with a cron expression under `on:`.
 
 ---
 
