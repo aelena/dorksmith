@@ -60,6 +60,7 @@ Same input + same catalog version = same output, every time.
 - [Architecture](#architecture)
 - [Development and testing](#development-and-testing)
 - [Continuous integration](#continuous-integration)
+- [Packages: npm and PyPI](#packages-npm-and-pypi)
 - [Safety boundaries](#safety-boundaries)
 - [Roadmap](#roadmap)
 
@@ -706,6 +707,56 @@ docker compose build
 ```
 
 Extending it: to publish images, add a registry login step and set `push: true` with `tags` pointing at your registry in the **containers** job; to run on a schedule (for example a weekly vulnerability re-scan), add a `schedule:` trigger with a cron expression under `on:`.
+
+---
+
+## Packages: npm and PyPI
+
+The engine is pure and deterministic, so it also ships as two standalone libraries with the catalogs embedded. Both are ports of the C# engine and are conformance-tested against the **same 151 golden fixtures**, so all three implementations produce identical queries for identical input.
+
+| Package | Folder | Install | Runtime | Tests |
+|---|---|---|---|---|
+| [`dorksmith` on npm](packages/dorksmith-js) | `packages/dorksmith-js` | `npm install dorksmith` | ESM, zero dependencies, browsers and Node ≥ 20, TypeScript types, CLI | 166 (unit + golden) |
+| [`dorksmith` on PyPI](packages/dorksmith-py) | `packages/dorksmith-py` | `pip install dorksmith` | pure Python ≥ 3.10, zero dependencies, typed, CLI | 177 (unit + golden) |
+
+```js
+import { generate } from 'dorksmith';
+generate({ input: 'example.com', inputType: 'domain', intent: 'exposed-config-files', options: { maxVariants: 2 } }).variants.map(v => v.query);
+// [ 'site:example.com (filetype:env OR filetype:ini OR ...)', 'site:example.com (inurl:".env" OR inurl:"config.php" OR ...)' ]
+```
+
+```python
+from dorksmith import generate
+[v.query for v in generate("Alice Smith", "person", "person-organization", options={"organization": "Example Corp", "maxVariants": 2}).variants]
+# ['"Alice Smith" "Example Corp"', '"Alice Smith" AROUND(5) "Example Corp"']
+```
+
+Both CLIs mirror each other: `npx dorksmith generate example.com --intent public-documents` and `dorksmith generate example.com --intent public-documents`.
+
+### Keeping the catalogs in sync
+
+`data/` stays the single source of truth. Each package has a sync script that copies the catalogs in (`npm run sync-catalogs`, `python scripts/sync_catalogs.py`), and both package workflows fail if the embedded copies drift from `data/`. Bump the package versions when the catalogs change behaviour.
+
+### Releasing
+
+Each package has its own workflow (`.github/workflows/js-package.yml`, `py-package.yml`) that tests on every change under its folder, `data/` or the golden fixtures, and publishes when a version tag is pushed:
+
+```bash
+# npm: bump packages/dorksmith-js/package.json, then
+git tag js-v0.1.0 && git push origin js-v0.1.0
+
+# PyPI: bump packages/dorksmith-py/pyproject.toml (and __version__), then
+git tag py-v0.1.0 && git push origin py-v0.1.0
+```
+
+The workflows refuse to publish when the tag does not match the version in the manifest.
+
+One-time setup:
+
+- **npm** — create a granular access token with publish rights for the `dorksmith` package and store it as the `NPM_TOKEN` secret in a GitHub environment named `npm`. The workflow publishes with `--provenance`, which attaches a signed build attestation visible on the npm page. (npm's newer OIDC trusted publishing removes the token entirely; switch to it by configuring the trusted publisher on npmjs.com and dropping `NODE_AUTH_TOKEN`.)
+- **PyPI** — no token. On pypi.org add a *trusted publisher* for project `dorksmith`: owner `aelena`, repository `dorksmith`, workflow `py-package.yml`, environment `pypi`. Create the matching `pypi` environment in the GitHub repository settings (optionally with required reviewers as a manual release gate).
+
+Where else the ESM package can live: once on npm it is automatically served by CDNs such as jsDelivr, unpkg and esm.sh, which is what a static build of this app on GitHub Pages would import. GitHub Packages also hosts npm packages but requires authentication to install, so it suits private use only; JSR (jsr.io) is a further option for TypeScript-native publishing.
 
 ---
 

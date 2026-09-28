@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dorksmith"
+version = "0.1.0"
+description = "Deterministic search-dork generator and OSINT/SOCMINT query engine. Catalog-driven, pure Python, no dependencies."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "aelena" }]
+requires-python = ">=3.10"
+keywords = ["osint", "socmint", "google-dorks", "search-operators", "dork", "security", "deterministic"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Information Technology",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.urls]
+Homepage = "https://github.com/aelena/dorksmith"
+Repository = "https://github.com/aelena/dorksmith"
+Issues = "https://github.com/aelena/dorksmith/issues"
+Changelog = "https://github.com/aelena/dorksmith/commits/main/packages/dorksmith-py"
+
+[project.scripts]
+dorksmith = "dorksmith.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dorksmith"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/dorksmith", "tests", "scripts", "README.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,76 @@
+name: py-package
+
+on:
+  push:
+    branches: [main]
+    tags: ['py-v*']
+    paths: ['packages/dorksmith-py/**', 'data/**', 'tests/Dorksmith.Api.Tests/Golden/**', '.github/workflows/py-package.yml']
+  pull_request:
+    paths: ['packages/dorksmith-py/**', 'data/**', 'tests/Dorksmith.Api.Tests/Golden/**', '.github/workflows/py-package.yml']
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: packages/dorksmith-py
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[test]"
+      - name: Embedded catalogs must match data/
+        run: python scripts/sync_catalogs.py --check
+      - run: python -m pytest -q
+
+  build:
+    name: Build distributions
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --upgrade pip build twine
+      - name: Tag must match project version
+        if: startsWith(github.ref, 'refs/tags/py-v')
+        run: |
+          tag="${GITHUB_REF_NAME#py-v}"
+          version="$(python -c 'import tomllib;print(tomllib.load(open("pyproject.toml","rb"))["project"]["version"])')"
+          if [ "$tag" != "$version" ]; then echo "::error::tag py-v$tag != pyproject version $version"; exit 1; fi
+      - run: python -m build
+      - run: python -m twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-dist
+          path: packages/dorksmith-py/dist/
+
+  publish:
+    name: Publish to PyPI
+    if: startsWith(github.ref, 'refs/tags/py-v')
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/dorksmith
+    permissions:
+      id-token: write   # PyPI trusted publishing (OIDC), no API token needed
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: python-dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/

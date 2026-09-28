@@ -41,3 +41,15 @@ graft/
 web/tests/node_modules/
 web/tests/playwright-report/
 web/tests/test-results/
+
+# Packages
+packages/dorksmith-js/node_modules/
+packages/dorksmith-js/dist/
+packages/dorksmith-py/dist/
+packages/dorksmith-py/build/
+packages/dorksmith-py/*.egg-info/
+packages/dorksmith-py/src/*.egg-info/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
