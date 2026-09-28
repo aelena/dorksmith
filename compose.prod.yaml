@@ -4,6 +4,8 @@
 services:
   api:
     environment:
+      # Public deployment: pseudonymise client addresses (requires IP_HMAC_SECRET in .env).
+      IP_LOGGING_MODE: ${IP_LOGGING_MODE:-Hmac}
       # Two trusted hops in front of the API: caddy -> web (nginx) -> api.
       FORWARD_LIMIT: "2"
     logging:

@@ -14,7 +14,8 @@ services:
       RATE_LIMIT_PERMIT_LIMIT: ${RATE_LIMIT_PERMIT_LIMIT:-25}
       RATE_LIMIT_WINDOW_MINUTES: ${RATE_LIMIT_WINDOW_MINUTES:-60}
       SEARCH_LOG_RETENTION_DAYS: ${SEARCH_LOG_RETENTION_DAYS:-30}
-      IP_LOGGING_MODE: ${IP_LOGGING_MODE:-Hmac}
+      # Local single-user default: no client address is stored at all. compose.prod.yaml switches to Hmac.
+      IP_LOGGING_MODE: ${IP_LOGGING_MODE:-None}
       IP_HMAC_SECRET: ${IP_HMAC_SECRET:-}
       SQLITE_PATH: /app/state/dorksmith.db
       MAX_QUERY_LENGTH: ${MAX_QUERY_LENGTH:-500}

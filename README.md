@@ -86,7 +86,7 @@ Same input + same catalog version = same output, every time.
 ```bash
 git clone https://github.com/aelena/dorksmith.git
 cd dorksmith
-cp .env.example .env            # set IP_HMAC_SECRET (see below)
+cp .env.example .env            # optional locally; needed for production (IP_HMAC_SECRET)
 docker compose up --build
 ```
 
@@ -457,8 +457,8 @@ Environment variables (flat names map onto `appsettings.json` sections; the stan
 | `SEARCH_LOG_ENABLED` | `true` | write one row per request |
 | `SEARCH_LOG_RETENTION_DAYS` | `30` | rows older than this are deleted hourly; `0` keeps forever |
 | `SQLITE_PATH` | `/app/state/dorksmith.db` | `:memory:` for tests |
-| `IP_LOGGING_MODE` | `Hmac` | `Hmac` · `Raw` · `None` |
-| `IP_HMAC_SECRET` | *(unset)* | **set this** — ≥ 16 chars; unset means an ephemeral per-process key |
+| `IP_LOGGING_MODE` | `Hmac` (app) · `None` in `compose.yaml` · `Hmac` in `compose.prod.yaml` | `Hmac` · `Raw` · `None` |
+| `IP_HMAC_SECRET` | *(unset)* | **set this for public deployments** — ≥ 16 chars; unset means an ephemeral per-process key (harmless in `None` mode) |
 | `MAX_QUERY_LENGTH` | `500` | main input length |
 | `MAX_VARIANTS` | `12` | upper bound for `options.maxVariants` |
 | `DEFAULT_VARIANTS` | `6` | when the client omits it |
@@ -481,7 +481,8 @@ openssl rand -hex 32
 ## Privacy defaults
 
 - **What is logged:** one row per generate/expand request: id, UTC time, client key, IP mode, input type, intent, engine, normalised input, options JSON, variant count, HTTP status, duration, catalog version, and a coarse user-agent family (`browser` / `cli` / `bot` / `other`). Nothing else. No headers, cookies, fingerprints or results.
-- **Client key:** `HMAC-SHA256(IP_HMAC_SECRET, normalized_ip)` by default. IPv4-mapped IPv6 addresses are normalised first so the same client gets the same key. The raw IP exists only in memory during the request. `Raw` stores the address; `None` stores nothing (rate limiting still works from a transient HMAC).
+- **Local runs store no address at all.** `compose.yaml` sets `IP_LOGGING_MODE=None` because a laptop instance is single-user; the production overlay switches to `Hmac`. Rate limiting still works in `None` mode from a transient in-memory key.
+- **Client key:** `HMAC-SHA256(IP_HMAC_SECRET, normalized_ip)` in `Hmac` mode. IPv4-mapped IPv6 addresses are normalised first so the same client gets the same key. The raw IP exists only in memory during the request. `Raw` stores the address; `None` stores nothing (rate limiting still works from a transient HMAC).
 - **Retention:** 30 days by default, enforced by a background job; configurable, documented in the app's About tab and footer (values come from `/config/public`).
 - **Rate limiting:** 25 requests per hour per client by default. Catalog reads are never limited.
 - **No cookies.** Optional local history and theme preference live in the browser's `localStorage` only, behind an explicit opt-in.

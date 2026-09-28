@@ -30,7 +30,10 @@ public sealed class ClientKeyProvider
         {
             _secret = RandomNumberGenerator.GetBytes(32);
             UsingEphemeralSecret = true;
-            logger.LogWarning("IP_HMAC_SECRET is missing or shorter than 16 characters; using an ephemeral per-process secret. Client keys will not be stable across restarts");
+            if (_mode == IpLoggingMode.None)
+                logger.LogInformation("IP logging mode is None; using an ephemeral per-process secret for in-memory rate-limit keys only");
+            else
+                logger.LogWarning("IP_HMAC_SECRET is missing or shorter than 16 characters; using an ephemeral per-process secret. Client keys will not be stable across restarts");
         }
         else
         {
