@@ -24,7 +24,7 @@
     "sync-catalogs": "node scripts/sync-catalogs.mjs",
     "check-catalogs": "node scripts/sync-catalogs.mjs --check",
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test \"test/**/*.test.mjs\"",
+    "test": "npm run build && node --test test/golden.test.mjs test/unit.test.mjs",
     "prepack": "npm run check-catalogs && npm run build"
   },
   "devDependencies": {
