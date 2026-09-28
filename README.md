@@ -1,6 +1,18 @@
 # Dorksmith — search query workbench
 
-A fast, no-login web app that **compiles advanced search queries ("dorks")** for legitimate research: defensive exposure reviews, OSINT/SOCMINT, journalism, troubleshooting and plain power-searching.
+```plaintext
+
+██████╗  ██████╗ ██████╗ ██╗  ██╗███████╗███╗   ███╗██╗████████╗██╗  ██╗
+██╔══██╗██╔═══██╗██╔══██╗██║ ██╔╝██╔════╝████╗ ████║██║╚══██╔══╝██║  ██║
+██║  ██║██║   ██║██████╔╝█████╔╝ ███████╗██╔████╔██║██║   ██║   ███████║
+██║  ██║██║   ██║██╔══██╗██╔═██╗ ╚════██║██║╚██╔╝██║██║   ██║   ██╔══██║
+██████╔╝╚██████╔╝██║  ██║██║  ██╗███████║██║ ╚═╝ ██║██║   ██║   ██║  ██║
+╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝   ╚═╝   ╚═╝  ╚═╝
+                                                                        
+```
+Most "dork generators" are either a static list of copy-pasted strings from 2012 (half of which still recommend `cache:` and `link:`), or a novelty wrapper around a language model that invents operators. Dorksmith is built like a small query compiler instead:
+
+Dorksmith, is a fast, no-login web app that **compiles advanced search queries ("dorks")** for legitimate research: defensive exposure reviews, OSINT/SOCMINT, journalism, troubleshooting and plain power-searching.
 
 Give it a target, an input type and an intent. It returns several ranked query variants, explains why each exists and which operators it uses, and warns when an operator is unreliable or no longer works. Everything is generated **deterministically from versioned JSON catalogs** — no LLM, no external AI API, no result scraping.
 
@@ -26,7 +38,7 @@ Same input + same catalog version = same output, every time.
 
 ## Contents
 
-- [Why](#why)
+- [Main Features](#main-features)
 - [Quick start](#quick-start)
 - [Using the app](#using-the-app)
 - [Examples](#examples)
@@ -42,9 +54,7 @@ Same input + same catalog version = same output, every time.
 
 ---
 
-## Why
-
-Most "dork generators" are either a static list of copy-pasted strings from 2012 (half of which still recommend `cache:` and `link:`), or a novelty wrapper around a language model that invents operators. Dorksmith is built like a small query compiler instead:
+## Main features
 
 | | Dorksmith |
 |---|---|
