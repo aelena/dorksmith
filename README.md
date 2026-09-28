@@ -1,13 +1,13 @@
 # Dorksmith — search query workbench
 
 <!-- badges-start -->
-[![CI](https://img.shields.io/github/actions/workflow/status/aelena/search-query-workbench/ci.yml?style=flat&logo=github&label=CI)](https://github.com/aelena/search-query-workbench/actions/workflows/ci.yml) [![Last commit](https://img.shields.io/github/last-commit/aelena/search-query-workbench?style=flat)](https://github.com/aelena/search-query-workbench/commits/main)
+[![CI](https://img.shields.io/github/actions/workflow/status/aelena/dorksmith/ci.yml?style=flat&logo=github&label=CI)](https://github.com/aelena/dorksmith/actions/workflows/ci.yml) [![Last commit](https://img.shields.io/github/last-commit/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith/commits/main)
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/) [![ASP.NET Core minimal API](https://img.shields.io/badge/ASP.NET%20Core-minimal%20API-5C2D91?style=flat)](src/Dorksmith.Api) [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS%2C%20no%20build-F7DF1E?style=flat&logo=javascript&logoColor=black)](web) [![SQLite](https://img.shields.io/badge/storage-SQLite-003B57?style=flat&logo=sqlite&logoColor=white)](src/Dorksmith.Api/Logging) [![Docker Compose](https://img.shields.io/badge/docker-compose-2496ED?style=flat&logo=docker&logoColor=white)](compose.yaml)
 
 [![Tests: xunit](https://img.shields.io/badge/tests-xunit%20%2B%20golden%20fixtures-brightgreen?style=flat)](tests/Dorksmith.Api.Tests) [![E2E: Playwright](https://img.shields.io/badge/e2e-Playwright-45ba4b?style=flat&logo=playwright&logoColor=white)](web/tests) [![Dependency scan](https://img.shields.io/badge/deps-vulnerability%20scanned%20in%20CI-blue?style=flat)](.github/workflows/ci.yml) [![No LLM](https://img.shields.io/badge/LLM-none%2C%20deterministic-blue?style=flat)](#main-features)
 
-[![License: MIT](https://img.shields.io/github/license/aelena/search-query-workbench?style=flat)](LICENSE) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat)](https://github.com/aelena/search-query-workbench/pulls) [![Top language](https://img.shields.io/github/languages/top/aelena/search-query-workbench?style=flat)](https://github.com/aelena/search-query-workbench) [![Issues](https://img.shields.io/github/issues/aelena/search-query-workbench?style=flat)](https://github.com/aelena/search-query-workbench/issues) [![Stars](https://img.shields.io/github/stars/aelena/search-query-workbench?style=flat)](https://github.com/aelena/search-query-workbench/stargazers)
+[![License: MIT](https://img.shields.io/github/license/aelena/dorksmith?style=flat)](LICENSE) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat)](https://github.com/aelena/dorksmith/pulls) [![Top language](https://img.shields.io/github/languages/top/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith) [![Issues](https://img.shields.io/github/issues/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith/issues) [![Stars](https://img.shields.io/github/stars/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith/stargazers)
 <!-- badges-end -->
 
 ```plaintext
@@ -84,8 +84,8 @@ Same input + same catalog version = same output, every time.
 ### Docker (recommended)
 
 ```bash
-git clone https://github.com/aelena/search-query-workbench.git
-cd search-query-workbench
+git clone https://github.com/aelena/dorksmith.git
+cd dorksmith
 cp .env.example .env            # set IP_HMAC_SECRET (see below)
 docker compose up --build
 ```
@@ -495,7 +495,7 @@ openssl rand -hex 32
 
 ```bash
 # on the server
-git clone https://github.com/aelena/search-query-workbench.git /opt/dorksmith && cd /opt/dorksmith
+git clone https://github.com/aelena/dorksmith.git /opt/dorksmith && cd /opt/dorksmith
 cp .env.example .env && $EDITOR .env        # IP_HMAC_SECRET, rate limits, retention
 DORKSMITH_DOMAIN=dorks.example.org ACME_EMAIL=ops@example.org \
   docker compose -f compose.yaml -f compose.prod.yaml up -d --build
