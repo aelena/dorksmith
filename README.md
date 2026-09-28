@@ -3,6 +3,8 @@
 <!-- badges-start -->
 [![CI](https://img.shields.io/github/actions/workflow/status/aelena/dorksmith/ci.yml?style=flat&logo=github&label=CI)](https://github.com/aelena/dorksmith/actions/workflows/ci.yml) [![Last commit](https://img.shields.io/github/last-commit/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith/commits/main)
 
+[![npm](https://img.shields.io/npm/v/dorksmith?style=flat&logo=npm&label=npm)](https://www.npmjs.com/package/dorksmith) [![npm downloads](https://img.shields.io/npm/dm/dorksmith?style=flat)](https://www.npmjs.com/package/dorksmith) [![PyPI](https://img.shields.io/pypi/v/dorksmith?style=flat&logo=pypi&logoColor=white&label=PyPI)](https://pypi.org/project/dorksmith/) [![Python versions](https://img.shields.io/pypi/pyversions/dorksmith?style=flat)](https://pypi.org/project/dorksmith/)
+
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/) [![ASP.NET Core minimal API](https://img.shields.io/badge/ASP.NET%20Core-minimal%20API-5C2D91?style=flat)](src/Dorksmith.Api) [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS%2C%20no%20build-F7DF1E?style=flat&logo=javascript&logoColor=black)](web) [![SQLite](https://img.shields.io/badge/storage-SQLite-003B57?style=flat&logo=sqlite&logoColor=white)](src/Dorksmith.Api/Logging) [![Docker Compose](https://img.shields.io/badge/docker-compose-2496ED?style=flat&logo=docker&logoColor=white)](compose.yaml)
 
 [![Tests: xunit](https://img.shields.io/badge/tests-xunit%20%2B%20golden%20fixtures-brightgreen?style=flat)](tests/Dorksmith.Api.Tests) [![E2E: Playwright](https://img.shields.io/badge/e2e-Playwright-45ba4b?style=flat&logo=playwright&logoColor=white)](web/tests) [![Dependency scan](https://img.shields.io/badge/deps-vulnerability%20scanned%20in%20CI-blue?style=flat)](.github/workflows/ci.yml) [![No LLM](https://img.shields.io/badge/LLM-none%2C%20deterministic-blue?style=flat)](#main-features)
@@ -716,8 +718,8 @@ The engine is pure and deterministic, so it also ships as two standalone librari
 
 | Package | Folder | Install | Runtime | Tests |
 |---|---|---|---|---|
-| [`dorksmith` on npm](packages/dorksmith-js) | `packages/dorksmith-js` | `npm install dorksmith` | ESM, zero dependencies, browsers and Node ≥ 20, TypeScript types, CLI | 166 (unit + golden) |
-| [`dorksmith` on PyPI](packages/dorksmith-py) | `packages/dorksmith-py` | `pip install dorksmith` | pure Python ≥ 3.10, zero dependencies, typed, CLI | 177 (unit + golden) |
+| [`dorksmith` on npm](https://www.npmjs.com/package/dorksmith) ([source](packages/dorksmith-js)) | `packages/dorksmith-js` | `npm install dorksmith` | ESM, zero dependencies, browsers and Node ≥ 20, TypeScript types, CLI | 166 (unit + golden) |
+| [`dorksmith` on PyPI](https://pypi.org/project/dorksmith/) ([source](packages/dorksmith-py)) | `packages/dorksmith-py` | `pip install dorksmith` | pure Python ≥ 3.10, zero dependencies, typed, CLI | 177 (unit + golden) |
 
 ```js
 import { generate } from 'dorksmith';
@@ -739,19 +741,19 @@ Both CLIs mirror each other: `npx dorksmith generate example.com --intent public
 
 ### Releasing
 
-Each package has its own workflow (`.github/workflows/js-package.yml`, `py-package.yml`) that tests on every change under its folder, `data/` or the golden fixtures, and publishes when a version tag is pushed:
+Each package has its own workflow (`.github/workflows/js-package.yml`, `py-package.yml`) that tests on every change under its folder, `data/` or the golden fixtures, and publishes when a version tag is pushed. Both registries are configured for trusted publishing (OIDC), so releases need no stored credentials. Published so far: npm 0.1.1, PyPI 0.1.0.
 
 ```bash
 # npm: bump packages/dorksmith-js/package.json, then
-git tag js-v0.1.0 && git push origin js-v0.1.0
+git tag js-v0.1.2 && git push origin js-v0.1.2
 
 # PyPI: bump packages/dorksmith-py/pyproject.toml (and __version__), then
-git tag py-v0.1.0 && git push origin py-v0.1.0
+git tag py-v0.1.1 && git push origin py-v0.1.1
 ```
 
-The workflows refuse to publish when the tag does not match the version in the manifest.
+The workflows refuse to publish when the tag does not match the version in the manifest. A tag can be re-pushed to retry a failed publish (`git push --delete origin js-v0.1.2 && git push origin js-v0.1.2`), as long as that version is not already on the registry.
 
-One-time setup:
+One-time setup (already done for this repository; documented for forks):
 
 - **npm** — trusted publishing is configured on the *package's* settings page, so the package must exist first. Publish `0.1.0` once from your machine (`cd packages/dorksmith-js && npm login && npm publish --access public`, which uses your normal 2FA), then on npmjs.com open `dorksmith` → Settings → Trusted Publisher → GitHub Actions and enter user `aelena`, repository `dorksmith`, workflow filename `js-package.yml`, environment `npm`. Create the matching `npm` environment in the GitHub repository settings. From then on the workflow publishes by identity: no token, no 2FA bypass, and provenance attestations are attached automatically.
 - **PyPI** — no token. On pypi.org add a *trusted publisher* for project `dorksmith`: owner `aelena`, repository `dorksmith`, workflow `py-package.yml`, environment `pypi`. Create the matching `pypi` environment in the GitHub repository settings (optionally with required reviewers as a manual release gate).
