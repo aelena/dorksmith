@@ -115,6 +115,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .tabs [role="tab"]:hover { color: var(--fg); background: var(--bg-sunken); }
 .tabs [role="tab"][aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); font-weight: 600; }
+.tabs .ak { font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
 .topbar-actions { display: flex; gap: .4rem; }
 .icon-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); width: 2rem; height: 2rem; cursor: pointer; color: var(--fg); font-size: 1rem; }
 .icon-btn:hover { background: var(--bg-sunken); }

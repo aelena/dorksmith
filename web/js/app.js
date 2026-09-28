@@ -8,6 +8,8 @@ import { initAutocomplete } from './autocomplete.js';
 import { initHandlesUi } from './handles-ui.js';
 
 const VIEWS = ['generator', 'handles', 'operators', 'about'];
+// Alt + initial letter. Physical key codes keep it layout-independent; AltGr arrives as Ctrl+Alt and is ignored.
+const VIEW_KEYS = { KeyG: 'generator', KeyU: 'handles', KeyO: 'operators', KeyA: 'about' };
 
 /* ---------- Views (tabs) ---------- */
 export function showView(name) {
@@ -68,6 +70,11 @@ function initShortcuts() {
       showView('generator');
       $('#input').focus();
       $('#input').select();
+    }
+    if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && VIEW_KEYS[e.code]) {
+      e.preventDefault();
+      showView(VIEW_KEYS[e.code]);
+      $(`#tab-${VIEW_KEYS[e.code]}`).focus();
     }
   });
 }

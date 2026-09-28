@@ -111,7 +111,7 @@ dotnet test                     # 334 unit, golden and integration tests
 
 ## Using the app
 
-Four sections, switchable with the tabs (arrow keys move between them once a tab has focus):
+Four sections, switchable with the tabs or <kbd>Alt</kbd>+<kbd>G</kbd> / <kbd>U</kbd> / <kbd>O</kbd> / <kbd>A</kbd> (the underlined initial of each tab):
 
 1. **Generator** — target, input type (auto-detected, overridable), intent, options, results.
 2. **Username Search** — expands a handle into profile URLs and site-scoped queries by platform category.
