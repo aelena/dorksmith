@@ -21,8 +21,8 @@ RUN addgroup -S -g 10001 dorksmith \
 COPY --from=build --chown=dorksmith:dorksmith /app/publish ./
 COPY --chown=dorksmith:dorksmith data/ /app/data/
 
-ENV ASPNETCORE_URLS=http://+:8080 \
-    ASPNETCORE_ENVIRONMENT=Production \
+# The aspnet base image already binds http://+:8080 through ASPNETCORE_HTTP_PORTS.
+ENV ASPNETCORE_ENVIRONMENT=Production \
     DOTNET_EnableDiagnostics=0 \
     CATALOG_PATH=/app/data \
     SQLITE_PATH=/app/state/dorksmith.db \
