@@ -21,6 +21,7 @@ export function unquote(phrase: string | null | undefined): string {
 export function looksLikeSyntax(s: string): boolean {
   if (RESERVED.has(s)) return true;
   if ('-+~()|'.includes(s[0])) return true;
+  if (s.length > 1 && (s[0] === '@' || s[0] === '#')) return true; // social-handle / hashtag operators
   const last = s[s.length - 1];
   if (last === '(' || last === ')') return true;
   const colon = s.indexOf(':');
@@ -29,9 +30,14 @@ export function looksLikeSyntax(s: string): boolean {
   return false;
 }
 
-/** A single word emitted unquoted; words that would parse as syntax are quoted so they stay literal. */
+/**
+ * A single term emitted unquoted; terms that would parse as syntax are quoted so they stay literal,
+ * and a term the user already quoted ("antonio elena") is kept as a quoted phrase.
+ */
 export function safeTerm(word: string | null | undefined): string {
-  const s = (word ?? '').trim().replace(/"/g, '');
+  const raw = (word ?? '').trim();
+  if (raw.length >= 2 && raw[0] === '"' && raw[raw.length - 1] === '"') return quote(raw);
+  const s = raw.replace(/"/g, '');
   if (!s) return '';
   if (looksLikeSyntax(s)) return `"${s.startsWith('AROUND(') ? s : s.replace(/^[()]+|[()]+$/g, '')}"`;
   return s;

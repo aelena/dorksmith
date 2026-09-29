@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "tm-org-powered",
-      "query": "\u0022Example Corp\u0022 (\u0022powered by\u0022 OR \u0022built with\u0022 OR \u0022tech stack\u0022 OR \u0022we use\u0022)"
+      "query": "\"Example Corp\" (\"powered by\" OR \"built with\" OR \"tech stack\" OR \"we use\")"
     },
     {
       "id": "tm-org-stackshare",
-      "query": "\u0022Example Corp\u0022 site:stackshare.io"
+      "query": "\"Example Corp\" site:stackshare.io"
     },
     {
       "id": "tm-org-devs",
-      "query": "\u0022Example Corp\u0022 (site:stackoverflow.com OR site:github.com)"
+      "query": "\"Example Corp\" (site:stackoverflow.com OR site:github.com)"
     },
     {
       "id": "tm-org-jobs",
-      "query": "\u0022Example Corp\u0022 (inurl:jobs OR inurl:careers) (\u0022experience with\u0022 OR \u0022familiarity with\u0022 OR \u0022proficiency in\u0022)"
+      "query": "\"Example Corp\" (inurl:jobs OR inurl:careers) (\"experience with\" OR \"familiarity with\" OR \"proficiency in\")"
     }
   ],
   "expectedContains": []

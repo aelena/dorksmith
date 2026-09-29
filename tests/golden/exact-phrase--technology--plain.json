@@ -9,7 +9,7 @@
   "expected": [
     {
       "id": "ep-balanced",
-      "query": "\u0022Kubernetes\u0022"
+      "query": "\"Kubernetes\""
     },
     {
       "id": "ep-text",
@@ -17,7 +17,7 @@
     },
     {
       "id": "ep-docs",
-      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "\"Kubernetes\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "ep-title",
@@ -25,7 +25,7 @@
     },
     {
       "id": "ep-noise",
-      "query": "\u0022Kubernetes\u0022 -jobs -careers"
+      "query": "\"Kubernetes\" -jobs -careers"
     }
   ],
   "expectedContains": []

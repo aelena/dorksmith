@@ -24,19 +24,19 @@
   "expected": [
     {
       "id": "db-balanced",
-      "query": "Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "db-precise",
-      "query": "\u0022Kubernetes\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "db-docs",
-      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx) site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" (filetype:pdf OR filetype:docx) site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "db-title",
-      "query": "intitle:Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

@@ -24,35 +24,35 @@
   "expected": [
     {
       "id": "ue-quoted",
-      "query": "\u0022alice42\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice42\" -jobs -\"privacy policy\""
     },
     {
       "id": "ue-at",
-      "query": "\u0022@alice42\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "\"@alice42\" -jobs -\"privacy policy\""
     },
     {
       "id": "ue-profile-paths",
-      "query": "\u0022alice42\u0022 (inurl:user OR inurl:users OR inurl:profile OR inurl:members OR inurl:u) -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice42\" (inurl:user OR inurl:users OR inurl:profile OR inurl:members OR inurl:u) -jobs -\"privacy policy\""
     },
     {
       "id": "ue-title",
-      "query": "intitle:alice42 -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:alice42 -jobs -\"privacy policy\""
     },
     {
       "id": "ue-inurl",
-      "query": "inurl:alice42 -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:alice42 -jobs -\"privacy policy\""
     },
     {
       "id": "ue-noise",
-      "query": "\u0022alice42\u0022 -site:pinterest.com -site:amazon.com -site:ebay.com -site:etsy.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice42\" -site:pinterest.com -site:amazon.com -site:ebay.com -site:etsy.com -jobs -\"privacy policy\""
     },
     {
       "id": "ue-hashtag",
-      "query": "#alice42 -jobs -\u0022privacy policy\u0022"
+      "query": "#alice42 -jobs -\"privacy policy\""
     },
     {
       "id": "ue-both",
-      "query": "\u0022alice42\u0022 \u0022@alice42\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice42\" \"@alice42\" -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

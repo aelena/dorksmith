@@ -13,7 +13,7 @@
     },
     {
       "id": "uf-precise",
-      "query": "inurl:Kubernetes \u0022Kubernetes\u0022"
+      "query": "inurl:Kubernetes \"Kubernetes\""
     },
     {
       "id": "uf-title",

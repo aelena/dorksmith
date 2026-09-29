@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "pr-domain-slides",
-      "query": "site:example.com (filetype:pptx OR filetype:ppt) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pptx OR filetype:ppt) -jobs -\"privacy policy\""
     },
     {
       "id": "pr-domain-reports",
-      "query": "site:example.com filetype:pdf (intitle:report OR intitle:\u0022annual report\u0022 OR intitle:whitepaper OR intitle:overview) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com filetype:pdf (intitle:report OR intitle:\"annual report\" OR intitle:whitepaper OR intitle:overview) -jobs -\"privacy policy\""
     },
     {
       "id": "pr-domain-slide-sites",
-      "query": "\u0022example\u0022 (site:slideshare.net OR site:speakerdeck.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" (site:slideshare.net OR site:speakerdeck.com) -jobs -\"privacy policy\""
     },
     {
       "id": "pr-domain-doc-sites",
-      "query": "\u0022example\u0022 (site:scribd.com OR site:issuu.com OR site:docdroid.net) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" (site:scribd.com OR site:issuu.com OR site:docdroid.net) -jobs -\"privacy policy\""
     },
     {
       "id": "pr-domain-offsite",
-      "query": "\u0022example.com\u0022 (filetype:pptx OR filetype:pdf) -site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (filetype:pptx OR filetype:pdf) -site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

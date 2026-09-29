@@ -9,27 +9,27 @@
   "expected": [
     {
       "id": "ep-balanced",
-      "query": "\u0022Example Corp\u0022"
+      "query": "\"Example Corp\""
     },
     {
       "id": "ep-text",
-      "query": "intext:\u0022Example Corp\u0022"
+      "query": "intext:\"Example Corp\""
     },
     {
       "id": "ep-title",
-      "query": "intitle:\u0022Example Corp\u0022"
+      "query": "intitle:\"Example Corp\""
     },
     {
       "id": "ep-docs",
-      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "\"Example Corp\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "ep-wildcard",
-      "query": "\u0022Example * Corp\u0022"
+      "query": "\"Example * Corp\""
     },
     {
       "id": "ep-noise",
-      "query": "\u0022Example Corp\u0022 -jobs -careers"
+      "query": "\"Example Corp\" -jobs -careers"
     },
     {
       "id": "ep-any",

@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "gd-domain-mentions",
-      "query": "\u0022example.com\u0022 -site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" -site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "gd-domain-all",
-      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "gd-domain-docs",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "gd-domain-subs",
-      "query": "site:*.example.com -inurl:www -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com -inurl:www -jobs -\"privacy policy\""
     },
     {
       "id": "gd-domain-title",
-      "query": "site:example.com intitle:example -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com intitle:example -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

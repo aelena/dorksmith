@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "cp-org-contact",
-      "query": "\u0022Example Corp\u0022 (intitle:contact OR \u0022contact us\u0022)"
+      "query": "\"Example Corp\" (intitle:contact OR \"contact us\")"
     },
     {
       "id": "cp-org-about",
-      "query": "\u0022Example Corp\u0022 (intitle:about OR \u0022our team\u0022 OR leadership)"
+      "query": "\"Example Corp\" (intitle:about OR \"our team\" OR leadership)"
     },
     {
       "id": "cp-org-details",
-      "query": "\u0022Example Corp\u0022 (email OR phone OR address)"
+      "query": "\"Example Corp\" (email OR phone OR address)"
     }
   ],
   "expectedContains": []

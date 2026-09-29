@@ -13,19 +13,19 @@
     },
     {
       "id": "sp-domain-linkedin",
-      "query": "\u0022example\u0022 site:linkedin.com/in"
+      "query": "\"example\" site:linkedin.com/in"
     },
     {
       "id": "sp-domain-emails",
-      "query": "\u0022@example.com\u0022 -site:example.com"
+      "query": "\"@example.com\" -site:example.com"
     },
     {
       "id": "sp-domain-platforms",
-      "query": "\u0022example\u0022 (site:linkedin.com OR site:xing.com OR site:github.com OR site:x.com)"
+      "query": "\"example\" (site:linkedin.com OR site:xing.com OR site:github.com OR site:x.com)"
     },
     {
       "id": "sp-domain-titles",
-      "query": "site:example.com (\u0022head of\u0022 OR director OR manager OR engineer OR \u0022chief\u0022)"
+      "query": "site:example.com (\"head of\" OR director OR manager OR engineer OR \"chief\")"
     }
   ],
   "expectedContains": []

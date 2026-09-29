@@ -23,15 +23,15 @@
   "expected": [
     {
       "id": "db-domain",
-      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "db-domain-docs",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "db-domain-mentions",
-      "query": "\u0022example.com\u0022 -site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" -site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

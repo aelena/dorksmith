@@ -9,7 +9,7 @@
   "expected": [
     {
       "id": "st-domain-status",
-      "query": "site:example.com (intitle:status OR inurl:status OR intitle:\u0022system status\u0022)"
+      "query": "site:example.com (intitle:status OR inurl:status OR intitle:\"system status\")"
     },
     {
       "id": "st-domain-help",
@@ -21,11 +21,11 @@
     },
     {
       "id": "st-domain-hosted-status",
-      "query": "\u0022example\u0022 (site:statuspage.io OR site:status.io OR site:instatus.com OR site:betteruptime.com)"
+      "query": "\"example\" (site:statuspage.io OR site:status.io OR site:instatus.com OR site:betteruptime.com)"
     },
     {
       "id": "st-domain-hosted-help",
-      "query": "\u0022example\u0022 (site:zendesk.com OR site:freshdesk.com OR site:helpscout.net OR site:intercom.help)"
+      "query": "\"example\" (site:zendesk.com OR site:freshdesk.com OR site:helpscout.net OR site:intercom.help)"
     }
   ],
   "expectedContains": []

@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "dl-index-of",
-      "query": "site:example.com intitle:\u0022index of\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com intitle:\"index of\" -jobs -\"privacy policy\""
     },
     {
       "id": "dl-broad",
-      "query": "site:example.com (intitle:\u0022index of\u0022 OR intext:\u0022parent directory\u0022 OR intitle:\u0022directory listing\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (intitle:\"index of\" OR intext:\"parent directory\" OR intitle:\"directory listing\") -jobs -\"privacy policy\""
     },
     {
       "id": "dl-sensitive-paths",
-      "query": "site:example.com intitle:\u0022index of\u0022 (inurl:upload OR inurl:uploads OR inurl:files OR inurl:backup OR inurl:private OR inurl:admin) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com intitle:\"index of\" (inurl:upload OR inurl:uploads OR inurl:files OR inurl:backup OR inurl:private OR inurl:admin) -jobs -\"privacy policy\""
     },
     {
       "id": "dl-precise",
-      "query": "site:example.com intitle:\u0022index of\u0022 \u0022last modified\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com intitle:\"index of\" \"last modified\" -jobs -\"privacy policy\""
     },
     {
       "id": "dl-subs",
-      "query": "site:*.example.com -inurl:www intitle:\u0022index of\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com -inurl:www intitle:\"index of\" -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

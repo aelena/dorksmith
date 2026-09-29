@@ -51,12 +51,34 @@ def normalize_text(value: str | None) -> str:
 
 
 def words(normalized: str) -> tuple[list[str], bool]:
-    """Split normalised text into words, unwrapping a fully quoted phrase ("a b" -> a b)."""
+    """Split normalised text into terms.
+
+    A fully quoted input ("a b") is unwrapped; quoted phrases inside the text (alice "antonio elena")
+    are kept as single terms, quotes included, so templates preserve them.
+    """
     s = normalized
     quoted = len(s) >= 2 and s[0] == '"' and s[-1] == '"' and s.find('"', 1) == len(s) - 1
     if quoted:
         s = s[1:-1].strip()
-    return [w for w in (p.strip() for p in s.split(" ")) if w], quoted
+    out: list[str] = []
+    i, n = 0, len(s)
+    while i < n:
+        if s[i] == " ":
+            i += 1
+            continue
+        if s[i] == '"':
+            end = s.find('"', i + 1)
+            inner = (s[i + 1:] if end < 0 else s[i + 1:end]).strip()
+            if inner:
+                out.append(f'"{inner}"')
+            i = n if end < 0 else end + 1
+            continue
+        j = i
+        while j < n and s[j] != " ":
+            j += 1
+        out.append(s[i:j])
+        i = j
+    return out, quoted
 
 
 def try_normalize_domain(value: str | None) -> str | None:

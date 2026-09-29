@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "ue-quoted",
-      "query": "\u0022alice42\u0022"
+      "query": "\"alice42\""
     },
     {
       "id": "ue-at",
-      "query": "\u0022@alice42\u0022"
+      "query": "\"@alice42\""
     },
     {
       "id": "ue-profile-paths",
-      "query": "\u0022alice42\u0022 (inurl:user OR inurl:users OR inurl:profile OR inurl:members OR inurl:u)"
+      "query": "\"alice42\" (inurl:user OR inurl:users OR inurl:profile OR inurl:members OR inurl:u)"
     },
     {
       "id": "ue-title",
@@ -25,7 +25,7 @@
     },
     {
       "id": "ue-noise",
-      "query": "\u0022alice42\u0022 -site:pinterest.com -site:amazon.com -site:ebay.com -site:etsy.com"
+      "query": "\"alice42\" -site:pinterest.com -site:amazon.com -site:ebay.com -site:etsy.com"
     },
     {
       "id": "ue-inurl",
@@ -33,7 +33,7 @@
     },
     {
       "id": "ue-both",
-      "query": "\u0022alice42\u0022 \u0022@alice42\u0022"
+      "query": "\"alice42\" \"@alice42\""
     },
     {
       "id": "ue-hashtag",

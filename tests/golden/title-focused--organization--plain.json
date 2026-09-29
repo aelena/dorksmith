@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "tf-balanced",
-      "query": "intitle:\u0022Example Corp\u0022"
+      "query": "intitle:\"Example Corp\""
     },
     {
       "id": "tf-precise",
-      "query": "intitle:\u0022Example Corp\u0022 intext:\u0022Example Corp\u0022"
+      "query": "intitle:\"Example Corp\" intext:\"Example Corp\""
     },
     {
       "id": "tf-docs",
-      "query": "intitle:\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx)"
+      "query": "intitle:\"Example Corp\" (filetype:pdf OR filetype:docx OR filetype:pptx)"
     },
     {
       "id": "tf-any",
@@ -25,7 +25,7 @@
     },
     {
       "id": "tf-noise",
-      "query": "intitle:\u0022Example Corp\u0022 -login -signup"
+      "query": "intitle:\"Example Corp\" -login -signup"
     }
   ],
   "expectedContains": []

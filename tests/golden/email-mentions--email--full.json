@@ -24,27 +24,27 @@
   "expected": [
     {
       "id": "em-quoted",
-      "query": "\u0022alice@example.com\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice@example.com\" -jobs -\"privacy policy\""
     },
     {
       "id": "em-local-part",
-      "query": "\u0022alice\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "em-offsite",
-      "query": "\u0022alice@example.com\u0022 -site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice@example.com\" -site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "em-docs",
-      "query": "\u0022alice@example.com\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice@example.com\" (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "em-platforms",
-      "query": "\u0022alice@example.com\u0022 (site:github.com OR site:linkedin.com OR site:x.com OR site:facebook.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice@example.com\" (site:github.com OR site:linkedin.com OR site:x.com OR site:facebook.com) -jobs -\"privacy policy\""
     },
     {
       "id": "em-text",
-      "query": "intext:\u0022alice@example.com\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "intext:\"alice@example.com\" -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

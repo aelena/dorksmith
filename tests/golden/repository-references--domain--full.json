@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "rr-domain-hosts",
-      "query": "\u0022example.com\u0022 (site:github.com OR site:gitlab.com OR site:bitbucket.org OR site:codeberg.org) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (site:github.com OR site:gitlab.com OR site:bitbucket.org OR site:codeberg.org) -jobs -\"privacy policy\""
     },
     {
       "id": "rr-domain-github",
-      "query": "\u0022example.com\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" site:github.com -jobs -\"privacy policy\""
     },
     {
       "id": "rr-domain-pastes",
-      "query": "\u0022example.com\u0022 (site:gist.github.com OR site:pastebin.com OR site:paste.ee) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (site:gist.github.com OR site:pastebin.com OR site:paste.ee) -jobs -\"privacy policy\""
     },
     {
       "id": "rr-domain-emails",
-      "query": "\u0022@example.com\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"@example.com\" site:github.com -jobs -\"privacy policy\""
     },
     {
       "id": "rr-domain-registries",
-      "query": "\u0022example.com\u0022 (site:hub.docker.com OR site:npmjs.com OR site:pypi.org) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (site:hub.docker.com OR site:npmjs.com OR site:pypi.org) -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

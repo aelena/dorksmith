@@ -21,11 +21,11 @@
     },
     {
       "id": "lg-traces",
-      "query": "site:example.com (intext:\u0022stack trace\u0022 OR intext:traceback OR intext:\u0022exception in\u0022) -inurl:blog -inurl:docs"
+      "query": "site:example.com (intext:\"stack trace\" OR intext:traceback OR intext:\"exception in\") -inurl:blog -inurl:docs"
     },
     {
       "id": "lg-listings",
-      "query": "site:example.com (intitle:\u0022index of\u0022 OR intext:\u0022parent directory\u0022) (log OR logs OR debug)"
+      "query": "site:example.com (intitle:\"index of\" OR intext:\"parent directory\") (log OR logs OR debug)"
     },
     {
       "id": "lg-subs",

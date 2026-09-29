@@ -23,31 +23,31 @@
   "expected": [
     {
       "id": "pd-domain-balanced",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "pd-domain-titles",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) (intitle:report OR intitle:policy OR intitle:presentation OR intitle:\u0022annual report\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pdf OR filetype:docx) (intitle:report OR intitle:policy OR intitle:presentation OR intitle:\"annual report\") -jobs -\"privacy policy\""
     },
     {
       "id": "pd-domain-recent",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "pd-domain-sheets",
-      "query": "site:example.com (filetype:xlsx OR filetype:xls OR filetype:csv) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:xlsx OR filetype:xls OR filetype:csv) -jobs -\"privacy policy\""
     },
     {
       "id": "pd-domain-first",
-      "query": "site:example.com filetype:pdf -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com filetype:pdf -jobs -\"privacy policy\""
     },
     {
       "id": "pd-domain-offsite",
-      "query": "\u0022example.com\u0022 (filetype:pdf OR filetype:docx) -site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (filetype:pdf OR filetype:docx) -site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pd-domain-slides",
-      "query": "site:example.com (filetype:pptx OR filetype:ppt) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pptx OR filetype:ppt) -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

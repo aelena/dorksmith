@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "ed-traces",
-      "query": "site:example.com (intext:\u0022stack trace\u0022 OR intext:\u0022traceback (most recent call last)\u0022 OR intext:\u0022unhandled exception\u0022 OR intext:\u0022fatal error\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (intext:\"stack trace\" OR intext:\"traceback (most recent call last)\" OR intext:\"unhandled exception\" OR intext:\"fatal error\") -jobs -\"privacy policy\""
     },
     {
       "id": "ed-titles",
-      "query": "site:example.com (intitle:\u0022server error\u0022 OR intitle:\u0022application error\u0022 OR intitle:whoops OR intitle:exception) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (intitle:\"server error\" OR intitle:\"application error\" OR intitle:whoops OR intitle:exception) -jobs -\"privacy policy\""
     },
     {
       "id": "ed-database",
-      "query": "site:example.com (intext:\u0022warning: mysql\u0022 OR intext:\u0022ORA-\u0022 OR intext:SQLSTATE OR intext:\u0022syntax error\u0022 OR intext:\u0022pg_query\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (intext:\"warning: mysql\" OR intext:\"ORA-\" OR intext:SQLSTATE OR intext:\"syntax error\" OR intext:\"pg_query\") -jobs -\"privacy policy\""
     },
     {
       "id": "ed-debug-paths",
-      "query": "site:example.com (inurl:debug OR inurl:trace OR inurl:\u0022elmah.axd\u0022 OR inurl:phpinfo) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (inurl:debug OR inurl:trace OR inurl:\"elmah.axd\" OR inurl:phpinfo) -jobs -\"privacy policy\""
     },
     {
       "id": "ed-frameworks",
-      "query": "site:example.com (intext:\u0022DEBUG = True\u0022 OR intext:\u0022Whoops, looks like something went wrong\u0022 OR intext:\u0022Laravel\u0022 intext:\u0022Stack trace\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (intext:\"DEBUG = True\" OR intext:\"Whoops, looks like something went wrong\" OR intext:\"Laravel\" intext:\"Stack trace\") -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

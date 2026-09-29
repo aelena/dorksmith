@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "en-balanced",
-      "query": "Alice Smith -jobs -careers -inurl:login -inurl:signup -intitle:\u0022privacy policy\u0022"
+      "query": "Alice Smith -jobs -careers -inurl:login -inurl:signup -intitle:\"privacy policy\""
     },
     {
       "id": "en-precise",
-      "query": "\u0022Alice Smith\u0022 -jobs -careers"
+      "query": "\"Alice Smith\" -jobs -careers"
     },
     {
       "id": "en-social",
-      "query": "\u0022Alice Smith\u0022 -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com"
+      "query": "\"Alice Smith\" -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com"
     },
     {
       "id": "en-docs",
-      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -brochure -newsletter"
+      "query": "\"Alice Smith\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -brochure -newsletter"
     }
   ],
   "expectedContains": []

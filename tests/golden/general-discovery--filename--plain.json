@@ -9,7 +9,7 @@
   "expected": [
     {
       "id": "gd-filename-doc",
-      "query": "\u0022annual-report\u0022 filetype:pdf"
+      "query": "\"annual-report\" filetype:pdf"
     },
     {
       "id": "gd-balanced",
@@ -17,7 +17,7 @@
     },
     {
       "id": "gd-precise",
-      "query": "\u0022annual-report.pdf\u0022"
+      "query": "\"annual-report.pdf\""
     },
     {
       "id": "gd-title",

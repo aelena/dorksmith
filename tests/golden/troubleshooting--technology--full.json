@@ -24,27 +24,27 @@
   "expected": [
     {
       "id": "ts-qa",
-      "query": "\u0022Kubernetes\u0022 (site:stackoverflow.com OR site:github.com OR site:serverfault.com OR site:superuser.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" (site:stackoverflow.com OR site:github.com OR site:serverfault.com OR site:superuser.com) -jobs -\"privacy policy\""
     },
     {
       "id": "ts-issues",
-      "query": "\u0022Kubernetes\u0022 site:github.com inurl:issues -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" site:github.com inurl:issues -jobs -\"privacy policy\""
     },
     {
       "id": "ts-docs",
-      "query": "\u0022Kubernetes\u0022 (inurl:docs OR inurl:documentation OR intitle:documentation) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" (inurl:docs OR inurl:documentation OR intitle:documentation) -jobs -\"privacy policy\""
     },
     {
       "id": "ts-recent",
-      "query": "\u0022Kubernetes\u0022 after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "ts-forums",
-      "query": "\u0022Kubernetes\u0022 (site:reddit.com OR site:stackexchange.com OR site:news.ycombinator.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" (site:reddit.com OR site:stackexchange.com OR site:news.ycombinator.com) -jobs -\"privacy policy\""
     },
     {
       "id": "ts-broad",
-      "query": "Kubernetes (error OR exception OR \u0022not working\u0022 OR fix) -jobs -\u0022privacy policy\u0022"
+      "query": "Kubernetes (error OR exception OR \"not working\" OR fix) -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

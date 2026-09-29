@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "pdoc-balanced",
-      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "\"Alice Smith\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "pdoc-pdf",
-      "query": "\u0022Alice Smith\u0022 filetype:pdf"
+      "query": "\"Alice Smith\" filetype:pdf"
     },
     {
       "id": "pdoc-cv",
-      "query": "\u0022Alice Smith\u0022 filetype:pdf (intitle:cv OR intitle:resume OR intitle:\u0022curriculum vitae\u0022)"
+      "query": "\"Alice Smith\" filetype:pdf (intitle:cv OR intitle:resume OR intitle:\"curriculum vitae\")"
     },
     {
       "id": "pdoc-slides",
-      "query": "\u0022Alice Smith\u0022 (filetype:pptx OR filetype:ppt)"
+      "query": "\"Alice Smith\" (filetype:pptx OR filetype:ppt)"
     }
   ],
   "expectedContains": []

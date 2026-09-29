@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "pdoc-balanced",
-      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pdoc-context",
-      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 \u0022Madrid\u0022 \u0022CTO\u0022 \u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"Example Corp\" \"Madrid\" \"CTO\" \"Alice Smith\" (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "pdoc-cv",
-      "query": "\u0022Alice Smith\u0022 filetype:pdf (intitle:cv OR intitle:resume OR intitle:\u0022curriculum vitae\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" filetype:pdf (intitle:cv OR intitle:resume OR intitle:\"curriculum vitae\") -jobs -\"privacy policy\""
     },
     {
       "id": "pdoc-slides",
-      "query": "\u0022Alice Smith\u0022 (filetype:pptx OR filetype:ppt) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" (filetype:pptx OR filetype:ppt) -jobs -\"privacy policy\""
     },
     {
       "id": "pdoc-pdf",
-      "query": "\u0022Alice Smith\u0022 filetype:pdf site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" filetype:pdf site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

@@ -1,0 +1,47 @@
+{
+  "name": "general-discovery / keyword (a leading @ is quoted so it is not read as the social operator)",
+  "input": "@aelena antonio elena",
+  "inputType": "keyword",
+  "intent": "general-discovery",
+  "options": {
+    "maxVariants": 12
+  },
+  "expected": [
+    {
+      "id": "gd-balanced",
+      "query": "\"@aelena\" antonio elena"
+    },
+    {
+      "id": "gd-precise",
+      "query": "\"@aelena antonio elena\""
+    },
+    {
+      "id": "gd-title",
+      "query": "intitle:\"@aelena antonio elena\""
+    },
+    {
+      "id": "gd-docs",
+      "query": "\"@aelena antonio elena\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+    },
+    {
+      "id": "gd-url",
+      "query": "inurl:\"@aelena antonio elena\""
+    },
+    {
+      "id": "gd-noise",
+      "query": "\"@aelena antonio elena\" -jobs -careers -login -signup"
+    },
+    {
+      "id": "gd-text",
+      "query": "intext:\"@aelena antonio elena\""
+    },
+    {
+      "id": "gd-broad",
+      "query": "(\"@aelena\" OR antonio OR elena)"
+    }
+  ],
+  "expectedContains": [
+    "\"@aelena\" antonio elena",
+    "\"@aelena antonio elena\""
+  ]
+}

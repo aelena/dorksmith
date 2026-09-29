@@ -13,7 +13,7 @@
     },
     {
       "id": "gd-precise",
-      "query": "\u0022Kubernetes\u0022"
+      "query": "\"Kubernetes\""
     },
     {
       "id": "gd-title",
@@ -21,11 +21,11 @@
     },
     {
       "id": "gd-docs",
-      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "\"Kubernetes\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "gd-noise",
-      "query": "\u0022Kubernetes\u0022 -jobs -careers -login -signup"
+      "query": "\"Kubernetes\" -jobs -careers -login -signup"
     },
     {
       "id": "gd-url",

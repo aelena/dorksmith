@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "sr-wildcard",
-      "query": "site:*.example.com -inurl:www -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com -inurl:www -jobs -\"privacy policy\""
     },
     {
       "id": "sr-exclude-www",
-      "query": "site:*.example.com -site:www.example.com -site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com -site:www.example.com -site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "sr-environments",
-      "query": "site:*.example.com (inurl:dev OR inurl:staging OR inurl:test OR inurl:uat OR inurl:api OR inurl:admin OR inurl:portal) -inurl:www -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com (inurl:dev OR inurl:staging OR inurl:test OR inurl:uat OR inurl:api OR inurl:admin OR inurl:portal) -inurl:www -jobs -\"privacy policy\""
     },
     {
       "id": "sr-docs",
-      "query": "site:*.example.com -inurl:www (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com -inurl:www (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "sr-mentions",
-      "query": "\u0022example.com\u0022 -site:example.com (inurl:subdomain OR intext:\u0022subdomain\u0022 OR intext:\u0022*.example.com\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" -site:example.com (inurl:subdomain OR intext:\"subdomain\" OR intext:\"*.example.com\") -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

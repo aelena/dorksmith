@@ -24,27 +24,27 @@
   "expected": [
     {
       "id": "um-quoted",
-      "query": "\u0022https://example.com/docs/api\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "\"https://example.com/docs/api\" -jobs -\"privacy policy\""
     },
     {
       "id": "um-bare",
-      "query": "\u0022example.com/docs/api\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com/docs/api\" -jobs -\"privacy policy\""
     },
     {
       "id": "um-path",
-      "query": "site:example.com inurl:\u0022docs/api\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com inurl:\"docs/api\" -jobs -\"privacy policy\""
     },
     {
       "id": "um-offsite",
-      "query": "\u0022example.com/docs/api\u0022 -site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com/docs/api\" -site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "um-host",
-      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "um-text",
-      "query": "intext:\u0022https://example.com/docs/api\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "intext:\"https://example.com/docs/api\" -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

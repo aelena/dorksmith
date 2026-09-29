@@ -25,7 +25,7 @@
     },
     {
       "id": "sr-mentions",
-      "query": "\u0022example.com\u0022 -site:example.com (inurl:subdomain OR intext:\u0022subdomain\u0022 OR intext:\u0022*.example.com\u0022)"
+      "query": "\"example.com\" -site:example.com (inurl:subdomain OR intext:\"subdomain\" OR intext:\"*.example.com\")"
     }
   ],
   "expectedContains": []

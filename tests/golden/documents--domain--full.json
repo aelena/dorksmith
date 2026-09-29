@@ -23,7 +23,7 @@
   "expected": [
     {
       "id": "doc-domain",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "doc-domain-recent",
@@ -31,11 +31,11 @@
     },
     {
       "id": "doc-domain-first",
-      "query": "site:example.com filetype:pdf -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com filetype:pdf -jobs -\"privacy policy\""
     },
     {
       "id": "doc-domain-mentions",
-      "query": "\u0022example.com\u0022 (filetype:pdf OR filetype:docx) -site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (filetype:pdf OR filetype:docx) -site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

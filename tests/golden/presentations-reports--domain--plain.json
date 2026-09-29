@@ -13,19 +13,19 @@
     },
     {
       "id": "pr-domain-reports",
-      "query": "site:example.com filetype:pdf (intitle:report OR intitle:\u0022annual report\u0022 OR intitle:whitepaper OR intitle:overview)"
+      "query": "site:example.com filetype:pdf (intitle:report OR intitle:\"annual report\" OR intitle:whitepaper OR intitle:overview)"
     },
     {
       "id": "pr-domain-slide-sites",
-      "query": "\u0022example\u0022 (site:slideshare.net OR site:speakerdeck.com)"
+      "query": "\"example\" (site:slideshare.net OR site:speakerdeck.com)"
     },
     {
       "id": "pr-domain-doc-sites",
-      "query": "\u0022example\u0022 (site:scribd.com OR site:issuu.com OR site:docdroid.net)"
+      "query": "\"example\" (site:scribd.com OR site:issuu.com OR site:docdroid.net)"
     },
     {
       "id": "pr-domain-offsite",
-      "query": "\u0022example.com\u0022 (filetype:pptx OR filetype:pdf) -site:example.com"
+      "query": "\"example.com\" (filetype:pptx OR filetype:pdf) -site:example.com"
     }
   ],
   "expectedContains": []

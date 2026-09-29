@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "doc-balanced",
-      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "\"Alice Smith\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "doc-first",
-      "query": "\u0022Alice Smith\u0022 filetype:pdf"
+      "query": "\"Alice Smith\" filetype:pdf"
     },
     {
       "id": "doc-title",
-      "query": "intitle:\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "intitle:\"Alice Smith\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "doc-broad",
@@ -25,11 +25,11 @@
     },
     {
       "id": "doc-sheets",
-      "query": "\u0022Alice Smith\u0022 (filetype:xlsx OR filetype:xls OR filetype:csv)"
+      "query": "\"Alice Smith\" (filetype:xlsx OR filetype:xls OR filetype:csv)"
     },
     {
       "id": "doc-slides",
-      "query": "\u0022Alice Smith\u0022 (filetype:pptx OR filetype:ppt)"
+      "query": "\"Alice Smith\" (filetype:pptx OR filetype:ppt)"
     }
   ],
   "expectedContains": []

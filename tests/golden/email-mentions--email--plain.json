@@ -9,27 +9,27 @@
   "expected": [
     {
       "id": "em-quoted",
-      "query": "\u0022alice@example.com\u0022"
+      "query": "\"alice@example.com\""
     },
     {
       "id": "em-offsite",
-      "query": "\u0022alice@example.com\u0022 -site:example.com"
+      "query": "\"alice@example.com\" -site:example.com"
     },
     {
       "id": "em-local-part",
-      "query": "\u0022alice\u0022 site:example.com"
+      "query": "\"alice\" site:example.com"
     },
     {
       "id": "em-docs",
-      "query": "\u0022alice@example.com\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:txt)"
+      "query": "\"alice@example.com\" (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:txt)"
     },
     {
       "id": "em-platforms",
-      "query": "\u0022alice@example.com\u0022 (site:github.com OR site:linkedin.com OR site:x.com OR site:facebook.com)"
+      "query": "\"alice@example.com\" (site:github.com OR site:linkedin.com OR site:x.com OR site:facebook.com)"
     },
     {
       "id": "em-text",
-      "query": "intext:\u0022alice@example.com\u0022"
+      "query": "intext:\"alice@example.com\""
     }
   ],
   "expectedContains": []

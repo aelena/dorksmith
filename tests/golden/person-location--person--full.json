@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "pl-balanced",
-      "query": "\u0022Alice Smith\u0022 \u0022Madrid\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"Madrid\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pl-proximity",
-      "query": "\u0022Alice Smith\u0022 AROUND(8) \u0022Madrid\u0022"
+      "query": "\"Alice Smith\" AROUND(8) \"Madrid\""
     },
     {
       "id": "pl-docs",
-      "query": "\u0022Alice Smith\u0022 \u0022Madrid\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"Madrid\" (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "pl-broad",
-      "query": "Alice Smith \u0022Madrid\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "Alice Smith \"Madrid\" -jobs -\"privacy policy\""
     },
     {
       "id": "pl-linkedin",
-      "query": "\u0022Alice Smith\u0022 \u0022Madrid\u0022 site:linkedin.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"Madrid\" site:linkedin.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

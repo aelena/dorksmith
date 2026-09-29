@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "dr-org-hosts",
-      "query": "\u0022Example Corp\u0022 (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com)"
+      "query": "\"Example Corp\" (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com)"
     },
     {
       "id": "dr-org-github",
-      "query": "\u0022Example Corp\u0022 site:github.com"
+      "query": "\"Example Corp\" site:github.com"
     },
     {
       "id": "dr-org-registries",
-      "query": "\u0022Example Corp\u0022 (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com)"
+      "query": "\"Example Corp\" (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com)"
     },
     {
       "id": "dr-org-pastes",
-      "query": "\u0022Example Corp\u0022 (site:gist.github.com OR site:pastebin.com)"
+      "query": "\"Example Corp\" (site:gist.github.com OR site:pastebin.com)"
     }
   ],
   "expectedContains": []

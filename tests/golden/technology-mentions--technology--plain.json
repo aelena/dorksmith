@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "tm-tech-powered",
-      "query": "\u0022Kubernetes\u0022 (\u0022powered by\u0022 OR \u0022built with\u0022)"
+      "query": "\"Kubernetes\" (\"powered by\" OR \"built with\")"
     },
     {
       "id": "tm-tech-stackshare",
-      "query": "\u0022Kubernetes\u0022 site:stackshare.io"
+      "query": "\"Kubernetes\" site:stackshare.io"
     },
     {
       "id": "tm-tech-jobs",
-      "query": "\u0022Kubernetes\u0022 (inurl:jobs OR inurl:careers)"
+      "query": "\"Kubernetes\" (inurl:jobs OR inurl:careers)"
     }
   ],
   "expectedContains": []

@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "sm-filetype",
-      "query": "site:example.com filetype:map -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com filetype:map -jobs -\"privacy policy\""
     },
     {
       "id": "sm-paths",
-      "query": "site:example.com (inurl:\u0022.js.map\u0022 OR inurl:\u0022.css.map\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (inurl:\".js.map\" OR inurl:\".css.map\") -jobs -\"privacy policy\""
     },
     {
       "id": "sm-reference",
-      "query": "site:example.com intext:sourceMappingURL -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com intext:sourceMappingURL -jobs -\"privacy policy\""
     },
     {
       "id": "sm-subs",
-      "query": "site:*.example.com filetype:map -inurl:www -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com filetype:map -inurl:www -jobs -\"privacy policy\""
     },
     {
       "id": "sm-static",
-      "query": "site:example.com (inurl:\u0022/static/\u0022 OR inurl:\u0022/assets/\u0022 OR inurl:\u0022/dist/\u0022) (filetype:map OR filetype:js) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (inurl:\"/static/\" OR inurl:\"/assets/\" OR inurl:\"/dist/\") (filetype:map OR filetype:js) -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

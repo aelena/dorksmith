@@ -13,7 +13,7 @@
     },
     {
       "id": "uf-precise",
-      "query": "inurl:annual-report.pdf \u0022annual-report.pdf\u0022"
+      "query": "inurl:annual-report.pdf \"annual-report.pdf\""
     },
     {
       "id": "uf-title",

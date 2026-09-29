@@ -24,31 +24,31 @@
   "expected": [
     {
       "id": "pn-exact",
-      "query": "\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pn-recent",
-      "query": "\u0022Alice Smith\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "pn-reversed",
-      "query": "\u0022Smith Alice\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Smith Alice\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pn-wildcard",
-      "query": "\u0022Alice * Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice * Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pn-noise",
-      "query": "\u0022Alice Smith\u0022 -site:pinterest.com -site:amazon.com -site:ebay.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" -site:pinterest.com -site:amazon.com -site:ebay.com -jobs -\"privacy policy\""
     },
     {
       "id": "pn-title",
-      "query": "intitle:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:\"Alice Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pn-initial",
-      "query": "\u0022A. Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"A. Smith\" site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

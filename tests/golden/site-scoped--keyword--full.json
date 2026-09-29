@@ -24,27 +24,27 @@
   "expected": [
     {
       "id": "ss-balanced",
-      "query": "quarterly roadmap site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "quarterly roadmap site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "ss-precise",
-      "query": "\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"quarterly roadmap\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-docs",
-      "query": "\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"quarterly roadmap\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-title",
-      "query": "intitle:\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:\"quarterly roadmap\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-url",
-      "query": "inurl:\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:\"quarterly roadmap\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-text",
-      "query": "intext:\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intext:\"quarterly roadmap\" site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

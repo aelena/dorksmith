@@ -13,7 +13,7 @@
     },
     {
       "id": "ad-titles",
-      "query": "site:example.com (intitle:\u0022swagger ui\u0022 OR intitle:\u0022api documentation\u0022 OR intitle:redoc OR intitle:\u0022graphql playground\u0022)"
+      "query": "site:example.com (intitle:\"swagger ui\" OR intitle:\"api documentation\" OR intitle:redoc OR intitle:\"graphql playground\")"
     },
     {
       "id": "ad-specs",
@@ -25,7 +25,7 @@
     },
     {
       "id": "ad-versions",
-      "query": "site:example.com (inurl:\u0022/v1/\u0022 OR inurl:\u0022/v2/\u0022 OR inurl:\u0022/api/v\u0022)"
+      "query": "site:example.com (inurl:\"/v1/\" OR inurl:\"/v2/\" OR inurl:\"/api/v\")"
     }
   ],
   "expectedContains": []

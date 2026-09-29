@@ -24,19 +24,19 @@
   "expected": [
     {
       "id": "uf-balanced",
-      "query": "inurl:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:Kubernetes site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-precise",
-      "query": "inurl:Kubernetes \u0022Kubernetes\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:Kubernetes \"Kubernetes\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-docs",
-      "query": "inurl:Kubernetes (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:Kubernetes (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-title",
-      "query": "inurl:Kubernetes intitle:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:Kubernetes intitle:Kubernetes site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

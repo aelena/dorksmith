@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "st-org-status",
-      "query": "\u0022Example Corp\u0022 (intitle:status OR \u0022system status\u0022 OR \u0022service status\u0022)"
+      "query": "\"Example Corp\" (intitle:status OR \"system status\" OR \"service status\")"
     },
     {
       "id": "st-org-hosted-status",
-      "query": "\u0022Example Corp\u0022 (site:statuspage.io OR site:status.io OR site:instatus.com)"
+      "query": "\"Example Corp\" (site:statuspage.io OR site:status.io OR site:instatus.com)"
     },
     {
       "id": "st-org-help",
-      "query": "\u0022Example Corp\u0022 (\u0022help center\u0022 OR \u0022knowledge base\u0022 OR \u0022support portal\u0022)"
+      "query": "\"Example Corp\" (\"help center\" OR \"knowledge base\" OR \"support portal\")"
     },
     {
       "id": "st-org-hosted-help",
-      "query": "\u0022Example Corp\u0022 (site:zendesk.com OR site:freshdesk.com OR site:intercom.help)"
+      "query": "\"Example Corp\" (site:zendesk.com OR site:freshdesk.com OR site:intercom.help)"
     }
   ],
   "expectedContains": []

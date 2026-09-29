@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "pd-org-balanced",
-      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx)"
+      "query": "\"Example Corp\" (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx)"
     },
     {
       "id": "pd-org-titles",
-      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx) (intitle:report OR intitle:presentation OR intitle:policy)"
+      "query": "\"Example Corp\" (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx) (intitle:report OR intitle:presentation OR intitle:policy)"
     },
     {
       "id": "pd-org-first",
-      "query": "\u0022Example Corp\u0022 filetype:pdf"
+      "query": "\"Example Corp\" filetype:pdf"
     },
     {
       "id": "pd-org-intitle",
-      "query": "intitle:\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx)"
+      "query": "intitle:\"Example Corp\" (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:pptx)"
     }
   ],
   "expectedContains": []

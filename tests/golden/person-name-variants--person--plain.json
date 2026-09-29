@@ -9,27 +9,27 @@
   "expected": [
     {
       "id": "pn-exact",
-      "query": "\u0022Alice Smith\u0022"
+      "query": "\"Alice Smith\""
     },
     {
       "id": "pn-wildcard",
-      "query": "\u0022Alice * Smith\u0022"
+      "query": "\"Alice * Smith\""
     },
     {
       "id": "pn-reversed",
-      "query": "\u0022Smith Alice\u0022"
+      "query": "\"Smith Alice\""
     },
     {
       "id": "pn-title",
-      "query": "intitle:\u0022Alice Smith\u0022"
+      "query": "intitle:\"Alice Smith\""
     },
     {
       "id": "pn-noise",
-      "query": "\u0022Alice Smith\u0022 -site:pinterest.com -site:amazon.com -site:ebay.com"
+      "query": "\"Alice Smith\" -site:pinterest.com -site:amazon.com -site:ebay.com"
     },
     {
       "id": "pn-initial",
-      "query": "\u0022A. Smith\u0022"
+      "query": "\"A. Smith\""
     }
   ],
   "expectedContains": []

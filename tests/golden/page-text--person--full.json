@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "pt-balanced",
-      "query": "intext:\u0022Alice Smith\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "intext:\"Alice Smith\" site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "pt-precise",
-      "query": "intext:\u0022Alice Smith\u0022 intitle:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intext:\"Alice Smith\" intitle:\"Alice Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pt-docs",
-      "query": "intext:\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intext:\"Alice Smith\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pt-any",
-      "query": "(intext:Alice OR intext:Smith) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "(intext:Alice OR intext:Smith) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pt-noise",
-      "query": "intext:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022 -login"
+      "query": "intext:\"Alice Smith\" site:example.com -jobs -\"privacy policy\" -login"
     }
   ],
   "expectedContains": []

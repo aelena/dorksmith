@@ -9,23 +9,23 @@
   "expected": [
     {
       "id": "rr-domain-hosts",
-      "query": "\u0022example.com\u0022 (site:github.com OR site:gitlab.com OR site:bitbucket.org OR site:codeberg.org)"
+      "query": "\"example.com\" (site:github.com OR site:gitlab.com OR site:bitbucket.org OR site:codeberg.org)"
     },
     {
       "id": "rr-domain-github",
-      "query": "\u0022example.com\u0022 site:github.com"
+      "query": "\"example.com\" site:github.com"
     },
     {
       "id": "rr-domain-pastes",
-      "query": "\u0022example.com\u0022 (site:gist.github.com OR site:pastebin.com OR site:paste.ee)"
+      "query": "\"example.com\" (site:gist.github.com OR site:pastebin.com OR site:paste.ee)"
     },
     {
       "id": "rr-domain-emails",
-      "query": "\u0022@example.com\u0022 site:github.com"
+      "query": "\"@example.com\" site:github.com"
     },
     {
       "id": "rr-domain-registries",
-      "query": "\u0022example.com\u0022 (site:hub.docker.com OR site:npmjs.com OR site:pypi.org)"
+      "query": "\"example.com\" (site:hub.docker.com OR site:npmjs.com OR site:pypi.org)"
     }
   ],
   "expectedContains": []

@@ -71,7 +71,7 @@ Exit codes: `0` ok, `2` invalid input (or a query with syntax errors for `valida
 ```bash
 python -m pip install -e ".[test]"
 python scripts/sync_catalogs.py      # copies ../../data/*.json into src/dorksmith/data
-python -m pytest -q                  # unit tests + the 151 golden fixtures from the monorepo
+python -m pytest -q                  # unit tests + the 153 golden fixtures from the monorepo
 python -m build                      # sdist + wheel
 ```
 

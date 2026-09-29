@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "ss-balanced",
-      "query": "Alice Smith site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "Alice Smith site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "ss-precise",
-      "query": "\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-docs",
-      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-title",
-      "query": "intitle:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:\"Alice Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-text",
-      "query": "intext:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intext:\"Alice Smith\" site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

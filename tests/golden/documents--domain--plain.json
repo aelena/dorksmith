@@ -17,7 +17,7 @@
     },
     {
       "id": "doc-domain-mentions",
-      "query": "\u0022example.com\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -site:example.com"
+      "query": "\"example.com\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -site:example.com"
     }
   ],
   "expectedContains": []

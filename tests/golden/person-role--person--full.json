@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "pr-balanced",
-      "query": "\u0022Alice Smith\u0022 \u0022CTO\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"CTO\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pr-proximity",
-      "query": "\u0022Alice Smith\u0022 AROUND(5) \u0022CTO\u0022"
+      "query": "\"Alice Smith\" AROUND(5) \"CTO\""
     },
     {
       "id": "pr-title",
-      "query": "intitle:\u0022Alice Smith\u0022 \u0022CTO\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:\"Alice Smith\" \"CTO\" -jobs -\"privacy policy\""
     },
     {
       "id": "pr-linkedin",
-      "query": "\u0022Alice Smith\u0022 \u0022CTO\u0022 site:linkedin.com/in -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"CTO\" site:linkedin.com/in -jobs -\"privacy policy\""
     },
     {
       "id": "pr-broad",
-      "query": "Alice Smith \u0022CTO\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "Alice Smith \"CTO\" -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

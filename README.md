@@ -7,7 +7,7 @@
 
 [![Runs in the browser](https://img.shields.io/badge/runs-100%25%20client--side-0f6e6a?style=flat)](#architecture) [![Hosted on GitHub Pages](https://img.shields.io/badge/hosted%20on-GitHub%20Pages-222?style=flat&logo=github)](https://aelena.github.io/dorksmith/) [![TypeScript](https://img.shields.io/badge/engine-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](packages/dorksmith-js) [![Python](https://img.shields.io/badge/engine-Python%203.10%2B-3776AB?style=flat&logo=python&logoColor=white)](packages/dorksmith-py) [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS%2C%20no%20bundler-F7DF1E?style=flat&logo=javascript&logoColor=black)](web)
 
-[![Golden fixtures](https://img.shields.io/badge/golden%20fixtures-151%20shared%20by%20both%20engines-brightgreen?style=flat)](tests/golden) [![E2E: Playwright](https://img.shields.io/badge/e2e-Playwright-45ba4b?style=flat&logo=playwright&logoColor=white)](web/tests) [![No LLM](https://img.shields.io/badge/LLM-none%2C%20deterministic-blue?style=flat)](#main-features) [![License: MIT](https://img.shields.io/github/license/aelena/dorksmith?style=flat)](LICENSE) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat)](https://github.com/aelena/dorksmith/pulls)
+[![Golden fixtures](https://img.shields.io/badge/golden%20fixtures-153%20shared%20by%20both%20engines-brightgreen?style=flat)](tests/golden) [![E2E: Playwright](https://img.shields.io/badge/e2e-Playwright-45ba4b?style=flat&logo=playwright&logoColor=white)](web/tests) [![No LLM](https://img.shields.io/badge/LLM-none%2C%20deterministic-blue?style=flat)](#main-features) [![License: MIT](https://img.shields.io/github/license/aelena/dorksmith?style=flat)](LICENSE) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat)](https://github.com/aelena/dorksmith/pulls)
 <!-- badges-end -->
 
 ```plaintext
@@ -317,7 +317,24 @@ dorksmith generate '-secret site:evil.com OR' --max 2
 
 Tokens that look like operators are quoted, so a pasted string cannot smuggle `-site:` exclusions or `OR` logic into a generated query. Excluded terms do allow known, generatable operators (`site:pinterest.com` → `-site:pinterest.com`), but deprecated ones are neutralised (`cache:x` → `-"cache:x"`).
 
-### 12. As a library
+### 12. Quoted phrases and handles inside free text are kept
+
+```bash
+dorksmith generate 'aelena "antonio elena"' --max 3
+dorksmith generate '@aelena antonio elena' --max 2
+```
+```
+aelena "antonio elena"                   ← Balanced: your phrase stays a phrase
+"aelena antonio elena"                   ← Precise: the whole input as one phrase
+intitle:"aelena antonio elena"
+
+"@aelena" antonio elena                  ← a leading @ is quoted so Google does not read it as the social operator
+"@aelena antonio elena"
+```
+
+The Broad variant treats the phrase as one alternative: `(aelena OR "antonio elena")`.
+
+### 13. As a library
 
 ```js
 import { generate, expandHandle, validateQuery, searchUrl } from 'dorksmith';   // Node or browser
@@ -337,10 +354,10 @@ Both throw/raise `InputValidationError` with `field` and `unprocessable` (true w
 
 | Package | Folder | Install | Runtime | Tests |
 |---|---|---|---|---|
-| [`dorksmith` on npm](https://www.npmjs.com/package/dorksmith) ([source](packages/dorksmith-js)) | `packages/dorksmith-js` | `npm install dorksmith` | ESM, zero dependencies, browsers and Node ≥ 20, TypeScript types, CLI | 166 (unit + golden) |
-| [`dorksmith` on PyPI](https://pypi.org/project/dorksmith/) ([source](packages/dorksmith-py)) | `packages/dorksmith-py` | `pip install dorksmith` | pure Python ≥ 3.10, zero dependencies, typed, CLI | 177 (unit + golden) |
+| [`dorksmith` on npm](https://www.npmjs.com/package/dorksmith) ([source](packages/dorksmith-js)) | `packages/dorksmith-js` | `npm install dorksmith` | ESM, zero dependencies, browsers and Node ≥ 20, TypeScript types, CLI | 172 (unit + golden) |
+| [`dorksmith` on PyPI](https://pypi.org/project/dorksmith/) ([source](packages/dorksmith-py)) | `packages/dorksmith-py` | `pip install dorksmith` | pure Python ≥ 3.10, zero dependencies, typed, CLI | 183 (unit + golden) |
 
-Both packages are conformance-tested against the same 151 golden fixtures, so they produce identical queries for identical input. The web app uses the npm package's build directly. Each package README documents its full API.
+Both packages are conformance-tested against the same 153 golden fixtures, so they produce identical queries for identical input. The web app uses the npm package's build directly. Each package README documents its full API.
 
 ### Releasing
 
@@ -459,11 +476,11 @@ raw input → normalise → classify/validate → load intent templates → reso
           → drop invalid → canonicalise → de-duplicate → score & rank → top N + explanations
 ```
 
-The pipeline is a pure function of (request, catalogs). It is implemented twice, in TypeScript and in Python, and the 151 golden fixtures keep the two byte-for-byte identical.
+The pipeline is a pure function of (request, catalogs). It is implemented twice, in TypeScript and in Python, and the 153 golden fixtures keep the two byte-for-byte identical.
 
 ```
 data/                        versioned catalogs — the single source of truth
-tests/golden/                151 golden fixtures shared by both engines
+tests/golden/                153 golden fixtures shared by both engines
 packages/dorksmith-js/       TypeScript engine → npm "dorksmith" (also the engine of the web app)
   src/normalizer.ts · quoting.ts · resolver.ts · analyzer.ts · ranker.ts · generator.ts · handles.ts
   src/catalog-validator.ts · infer.ts · cli.ts · catalogs.generated.ts (embedded data/)
@@ -500,8 +517,8 @@ npm run build                                   # engine → web/js/engine
 npm run serve                                   # http://localhost:5080
 npm test                                        # Playwright suite (needs `npx playwright install chromium` once)
 
-cd packages/dorksmith-js && npm test            # 166 tests: unit + golden fixtures
-cd packages/dorksmith-py && python -m pip install -e ".[test]" && python -m pytest -q   # 177 tests
+cd packages/dorksmith-js && npm test            # 172 tests: unit + golden fixtures
+cd packages/dorksmith-py && python -m pip install -e ".[test]" && python -m pytest -q   # 183 tests
 ```
 
 The browser suite covers the generate flow, copy, autocomplete keyboard navigation, operator guide search and filters, username expansion, 400/422 rendering, keyboard shortcuts, and asserts that no request leaves the page after load.

@@ -24,19 +24,19 @@
   "expected": [
     {
       "id": "dr-org-hosts",
-      "query": "\u0022Example Corp\u0022 (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com) -jobs -\"privacy policy\""
     },
     {
       "id": "dr-org-github",
-      "query": "\u0022Example Corp\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" site:github.com -jobs -\"privacy policy\""
     },
     {
       "id": "dr-org-registries",
-      "query": "\u0022Example Corp\u0022 (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com) -jobs -\"privacy policy\""
     },
     {
       "id": "dr-org-pastes",
-      "query": "\u0022Example Corp\u0022 (site:gist.github.com OR site:pastebin.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (site:gist.github.com OR site:pastebin.com) -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

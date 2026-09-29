@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "pt-balanced",
-      "query": "intext:\u0022quarterly roadmap\u0022"
+      "query": "intext:\"quarterly roadmap\""
     },
     {
       "id": "pt-precise",
-      "query": "intext:\u0022quarterly roadmap\u0022 intitle:\u0022quarterly roadmap\u0022"
+      "query": "intext:\"quarterly roadmap\" intitle:\"quarterly roadmap\""
     },
     {
       "id": "pt-docs",
-      "query": "intext:\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "intext:\"quarterly roadmap\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "pt-any",
@@ -25,7 +25,7 @@
     },
     {
       "id": "pt-noise",
-      "query": "intext:\u0022quarterly roadmap\u0022 -login -jobs"
+      "query": "intext:\"quarterly roadmap\" -login -jobs"
     }
   ],
   "expectedContains": []

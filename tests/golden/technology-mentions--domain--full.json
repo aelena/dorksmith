@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "tm-domain-powered",
-      "query": "site:example.com (\u0022powered by\u0022 OR \u0022built with\u0022 OR \u0022running on\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (\"powered by\" OR \"built with\" OR \"running on\") -jobs -\"privacy policy\""
     },
     {
       "id": "tm-domain-stack-sites",
-      "query": "\u0022example.com\u0022 (site:stackshare.io OR site:builtwith.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (site:stackshare.io OR site:builtwith.com) -jobs -\"privacy policy\""
     },
     {
       "id": "tm-domain-devs",
-      "query": "\u0022example.com\u0022 (site:stackoverflow.com OR site:github.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (site:stackoverflow.com OR site:github.com) -jobs -\"privacy policy\""
     },
     {
       "id": "tm-domain-paths",
-      "query": "site:example.com (inurl:wp-content OR inurl:wp-includes OR inurl:sites/default OR inurl:_next OR inurl:static/js) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (inurl:wp-content OR inurl:wp-includes OR inurl:sites/default OR inurl:_next OR inurl:static/js) -jobs -\"privacy policy\""
     },
     {
       "id": "tm-domain-api",
-      "query": "site:example.com API (inurl:docs OR inurl:developer OR inurl:developers) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com API (inurl:docs OR inurl:developer OR inurl:developers) -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

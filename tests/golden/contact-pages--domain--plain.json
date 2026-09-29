@@ -9,11 +9,11 @@
   "expected": [
     {
       "id": "cp-domain-contact",
-      "query": "site:example.com (intitle:contact OR inurl:contact OR intitle:\u0022contact us\u0022)"
+      "query": "site:example.com (intitle:contact OR inurl:contact OR intitle:\"contact us\")"
     },
     {
       "id": "cp-domain-emails",
-      "query": "site:example.com \u0022@example.com\u0022"
+      "query": "site:example.com \"@example.com\""
     },
     {
       "id": "cp-domain-about",
@@ -21,7 +21,7 @@
     },
     {
       "id": "cp-domain-offsite",
-      "query": "\u0022@example.com\u0022 -site:example.com"
+      "query": "\"@example.com\" -site:example.com"
     },
     {
       "id": "cp-domain-press",

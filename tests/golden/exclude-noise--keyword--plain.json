@@ -9,23 +9,23 @@
   "expected": [
     {
       "id": "en-balanced",
-      "query": "quarterly roadmap -jobs -careers -inurl:login -inurl:signup -intitle:\u0022privacy policy\u0022"
+      "query": "quarterly roadmap -jobs -careers -inurl:login -inurl:signup -intitle:\"privacy policy\""
     },
     {
       "id": "en-precise",
-      "query": "\u0022quarterly roadmap\u0022 -jobs -careers"
+      "query": "\"quarterly roadmap\" -jobs -careers"
     },
     {
       "id": "en-social",
-      "query": "\u0022quarterly roadmap\u0022 -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com"
+      "query": "\"quarterly roadmap\" -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com"
     },
     {
       "id": "en-docs",
-      "query": "\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -brochure -newsletter"
+      "query": "\"quarterly roadmap\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -brochure -newsletter"
     },
     {
       "id": "en-commerce",
-      "query": "\u0022quarterly roadmap\u0022 -site:amazon.com -site:ebay.com -shop -buy -price"
+      "query": "\"quarterly roadmap\" -site:amazon.com -site:ebay.com -shop -buy -price"
     }
   ],
   "expectedContains": []

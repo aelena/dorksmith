@@ -24,31 +24,31 @@
   "expected": [
     {
       "id": "ep-balanced",
-      "query": "\u0022Alice Smith\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "ep-text",
-      "query": "intext:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intext:\"Alice Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ep-docs",
-      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ep-wildcard",
-      "query": "\u0022Alice * Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice * Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ep-title",
-      "query": "intitle:\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:\"Alice Smith\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ep-noise",
-      "query": "\u0022Alice Smith\u0022 site:example.com -jobs -\u0022privacy policy\u0022 -careers"
+      "query": "\"Alice Smith\" site:example.com -jobs -\"privacy policy\" -careers"
     },
     {
       "id": "ep-any",
-      "query": "(Alice OR Smith) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "(Alice OR Smith) site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

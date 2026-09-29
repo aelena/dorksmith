@@ -80,7 +80,7 @@ npx dorksmith intents
 ```bash
 npm install
 npm run sync-catalogs   # copies ../../data/*.json in and regenerates src/catalogs.generated.ts
-npm test                # builds, then runs unit tests + the 151 golden fixtures from the monorepo
+npm test                # builds, then runs unit tests + the 153 golden fixtures from the monorepo
 ```
 
 Publishing is done by the `js-package` GitHub workflow when a `js-v*` tag is pushed (see the repository README).

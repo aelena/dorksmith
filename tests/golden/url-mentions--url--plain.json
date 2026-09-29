@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "um-quoted",
-      "query": "\u0022https://example.com/docs/api\u0022"
+      "query": "\"https://example.com/docs/api\""
     },
     {
       "id": "um-offsite",
-      "query": "\u0022example.com/docs/api\u0022 -site:example.com"
+      "query": "\"example.com/docs/api\" -site:example.com"
     },
     {
       "id": "um-bare",
-      "query": "\u0022example.com/docs/api\u0022"
+      "query": "\"example.com/docs/api\""
     },
     {
       "id": "um-path",
-      "query": "site:example.com inurl:\u0022docs/api\u0022"
+      "query": "site:example.com inurl:\"docs/api\""
     },
     {
       "id": "um-host",
@@ -29,7 +29,7 @@
     },
     {
       "id": "um-text",
-      "query": "intext:\u0022https://example.com/docs/api\u0022"
+      "query": "intext:\"https://example.com/docs/api\""
     }
   ],
   "expectedContains": []

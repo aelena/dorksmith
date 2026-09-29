@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "tm-domain-powered",
-      "query": "site:example.com (\u0022powered by\u0022 OR \u0022built with\u0022 OR \u0022running on\u0022)"
+      "query": "site:example.com (\"powered by\" OR \"built with\" OR \"running on\")"
     },
     {
       "id": "tm-domain-stack-sites",
-      "query": "\u0022example.com\u0022 (site:stackshare.io OR site:builtwith.com)"
+      "query": "\"example.com\" (site:stackshare.io OR site:builtwith.com)"
     },
     {
       "id": "tm-domain-devs",
-      "query": "\u0022example.com\u0022 (site:stackoverflow.com OR site:github.com)"
+      "query": "\"example.com\" (site:stackoverflow.com OR site:github.com)"
     },
     {
       "id": "tm-domain-paths",

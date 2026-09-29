@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "tf-balanced",
-      "query": "intitle:\u0022quarterly roadmap\u0022"
+      "query": "intitle:\"quarterly roadmap\""
     },
     {
       "id": "tf-precise",
-      "query": "intitle:\u0022quarterly roadmap\u0022 intext:\u0022quarterly roadmap\u0022"
+      "query": "intitle:\"quarterly roadmap\" intext:\"quarterly roadmap\""
     },
     {
       "id": "tf-docs",
-      "query": "intitle:\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx)"
+      "query": "intitle:\"quarterly roadmap\" (filetype:pdf OR filetype:docx OR filetype:pptx)"
     },
     {
       "id": "tf-any",
@@ -25,7 +25,7 @@
     },
     {
       "id": "tf-noise",
-      "query": "intitle:\u0022quarterly roadmap\u0022 -login -signup"
+      "query": "intitle:\"quarterly roadmap\" -login -signup"
     }
   ],
   "expectedContains": []

@@ -17,7 +17,7 @@
     },
     {
       "id": "en-domain-mentions",
-      "query": "\u0022example.com\u0022 -site:example.com -site:pinterest.com -site:facebook.com -site:x.com -site:linkedin.com"
+      "query": "\"example.com\" -site:example.com -site:pinterest.com -site:facebook.com -site:x.com -site:linkedin.com"
     }
   ],
   "expectedContains": []

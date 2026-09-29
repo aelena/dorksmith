@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "en-balanced",
-      "query": "quarterly roadmap site:example.com -jobs -\u0022privacy policy\u0022 -careers -inurl:login -inurl:signup -intitle:\u0022privacy policy\u0022"
+      "query": "quarterly roadmap site:example.com -jobs -\"privacy policy\" -careers -inurl:login -inurl:signup -intitle:\"privacy policy\""
     },
     {
       "id": "en-precise",
-      "query": "\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022 -careers"
+      "query": "\"quarterly roadmap\" site:example.com -jobs -\"privacy policy\" -careers"
     },
     {
       "id": "en-social",
-      "query": "\u0022quarterly roadmap\u0022 -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"quarterly roadmap\" -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com -jobs -\"privacy policy\""
     },
     {
       "id": "en-docs",
-      "query": "\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022 -brochure -newsletter"
+      "query": "\"quarterly roadmap\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\" -brochure -newsletter"
     },
     {
       "id": "en-commerce",
-      "query": "\u0022quarterly roadmap\u0022 -site:amazon.com -site:ebay.com -shop -buy -price -jobs -\u0022privacy policy\u0022"
+      "query": "\"quarterly roadmap\" -site:amazon.com -site:ebay.com -shop -buy -price -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

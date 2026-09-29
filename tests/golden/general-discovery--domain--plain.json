@@ -9,7 +9,7 @@
   "expected": [
     {
       "id": "gd-domain-mentions",
-      "query": "\u0022example.com\u0022 -site:example.com"
+      "query": "\"example.com\" -site:example.com"
     },
     {
       "id": "gd-domain-all",

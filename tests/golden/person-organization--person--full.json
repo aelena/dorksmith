@@ -24,27 +24,27 @@
   "expected": [
     {
       "id": "po-balanced",
-      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"Example Corp\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "po-proximity",
-      "query": "\u0022Alice Smith\u0022 AROUND(5) \u0022Example Corp\u0022"
+      "query": "\"Alice Smith\" AROUND(5) \"Example Corp\""
     },
     {
       "id": "po-title",
-      "query": "intitle:\u0022Alice Smith\u0022 \u0022Example Corp\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:\"Alice Smith\" \"Example Corp\" -jobs -\"privacy policy\""
     },
     {
       "id": "po-docs",
-      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"Example Corp\" (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "po-linkedin",
-      "query": "\u0022Alice Smith\u0022 \u0022Example Corp\u0022 site:linkedin.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" \"Example Corp\" site:linkedin.com -jobs -\"privacy policy\""
     },
     {
       "id": "po-broad",
-      "query": "Alice Smith \u0022Example Corp\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "Alice Smith \"Example Corp\" -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

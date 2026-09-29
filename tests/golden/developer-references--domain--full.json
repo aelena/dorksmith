@@ -23,27 +23,27 @@
   "expected": [
     {
       "id": "dr-domain-hosts",
-      "query": "\u0022example.com\u0022 (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (site:github.com OR site:stackoverflow.com OR site:gitlab.com OR site:bitbucket.org OR site:news.ycombinator.com OR site:npmjs.com) -jobs -\"privacy policy\""
     },
     {
       "id": "dr-domain-github",
-      "query": "\u0022example.com\u0022 site:github.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" site:github.com -jobs -\"privacy policy\""
     },
     {
       "id": "dr-domain-registries",
-      "query": "\u0022example.com\u0022 (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (site:npmjs.com OR site:pypi.org OR site:nuget.org OR site:hub.docker.com) -jobs -\"privacy policy\""
     },
     {
       "id": "dr-domain-so",
-      "query": "\u0022example.com\u0022 site:stackoverflow.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" site:stackoverflow.com -jobs -\"privacy policy\""
     },
     {
       "id": "dr-domain-pastes",
-      "query": "\u0022example.com\u0022 (site:gist.github.com OR site:pastebin.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (site:gist.github.com OR site:pastebin.com) -jobs -\"privacy policy\""
     },
     {
       "id": "dr-domain-label",
-      "query": "\u0022example\u0022 (site:github.com OR site:gitlab.com) inurl:example -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" (site:github.com OR site:gitlab.com) inurl:example -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

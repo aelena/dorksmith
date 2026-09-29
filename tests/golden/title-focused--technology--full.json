@@ -24,19 +24,19 @@
   "expected": [
     {
       "id": "tf-balanced",
-      "query": "intitle:Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "tf-precise",
-      "query": "intitle:Kubernetes intext:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:Kubernetes intext:Kubernetes site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "tf-docs",
-      "query": "intitle:Kubernetes (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:Kubernetes (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "tf-noise",
-      "query": "intitle:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022 -login -signup"
+      "query": "intitle:Kubernetes site:example.com -jobs -\"privacy policy\" -login -signup"
     }
   ],
   "expectedContains": []

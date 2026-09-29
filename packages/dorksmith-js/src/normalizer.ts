@@ -27,12 +27,31 @@ export function normalizeText(input: string | null | undefined): string {
   return out.replace(/\s+/g, ' ').trim();
 }
 
-/** Splits normalised text into words, unwrapping a fully quoted phrase ("a b" → a b). */
+/**
+ * Splits normalised text into terms. A fully quoted input ("a b") is unwrapped; quoted phrases inside the
+ * text (alice "antonio elena") are kept as single terms, quotes included, so templates preserve them.
+ */
 export function words(normalized: string): { words: string[]; wasQuoted: boolean } {
   let s = normalized;
   const quoted = s.length >= 2 && s[0] === '"' && s[s.length - 1] === '"' && s.indexOf('"', 1) === s.length - 1;
   if (quoted) s = s.slice(1, -1).trim();
-  return { words: s.split(' ').map(w => w.trim()).filter(Boolean), wasQuoted: quoted };
+  const out: string[] = [];
+  let i = 0;
+  while (i < s.length) {
+    if (s[i] === ' ') { i++; continue; }
+    if (s[i] === '"') {
+      const end = s.indexOf('"', i + 1);
+      const inner = (end < 0 ? s.slice(i + 1) : s.slice(i + 1, end)).trim();
+      if (inner) out.push(`"${inner}"`);
+      i = end < 0 ? s.length : end + 1;
+      continue;
+    }
+    let j = i;
+    while (j < s.length && s[j] !== ' ') j++;
+    out.push(s.slice(i, j));
+    i = j;
+  }
+  return { words: out, wasQuoted: quoted };
 }
 
 /** Accepts host names with optional scheme/path/port; returns the bare lower-case host without a leading www. */

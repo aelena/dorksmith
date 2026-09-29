@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "tf-balanced",
-      "query": "intitle:\u0022Alice Smith\u0022"
+      "query": "intitle:\"Alice Smith\""
     },
     {
       "id": "tf-precise",
-      "query": "intitle:\u0022Alice Smith\u0022 intext:\u0022Alice Smith\u0022"
+      "query": "intitle:\"Alice Smith\" intext:\"Alice Smith\""
     },
     {
       "id": "tf-docs",
-      "query": "intitle:\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx)"
+      "query": "intitle:\"Alice Smith\" (filetype:pdf OR filetype:docx OR filetype:pptx)"
     },
     {
       "id": "tf-any",
@@ -25,7 +25,7 @@
     },
     {
       "id": "tf-noise",
-      "query": "intitle:\u0022Alice Smith\u0022 -login -signup"
+      "query": "intitle:\"Alice Smith\" -login -signup"
     }
   ],
   "expectedContains": []

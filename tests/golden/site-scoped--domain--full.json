@@ -23,19 +23,19 @@
   "expected": [
     {
       "id": "ss-domain-all",
-      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "ss-domain-subs",
-      "query": "site:*.example.com -inurl:www -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com -inurl:www -jobs -\"privacy policy\""
     },
     {
       "id": "ss-domain-docs",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "ss-domain-noise",
-      "query": "site:example.com -inurl:tag -inurl:category -inurl:page -inurl:login -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com -inurl:tag -inurl:category -inurl:page -inurl:login -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

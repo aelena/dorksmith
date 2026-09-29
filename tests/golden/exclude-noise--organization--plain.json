@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "en-balanced",
-      "query": "Example Corp -jobs -careers -inurl:login -inurl:signup -intitle:\u0022privacy policy\u0022"
+      "query": "Example Corp -jobs -careers -inurl:login -inurl:signup -intitle:\"privacy policy\""
     },
     {
       "id": "en-precise",
-      "query": "\u0022Example Corp\u0022 -jobs -careers"
+      "query": "\"Example Corp\" -jobs -careers"
     },
     {
       "id": "en-social",
-      "query": "\u0022Example Corp\u0022 -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com"
+      "query": "\"Example Corp\" -site:pinterest.com -site:facebook.com -site:x.com -site:twitter.com -site:instagram.com -site:linkedin.com"
     },
     {
       "id": "en-docs",
-      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -brochure -newsletter"
+      "query": "\"Example Corp\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx) -brochure -newsletter"
     }
   ],
   "expectedContains": []

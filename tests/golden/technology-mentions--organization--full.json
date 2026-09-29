@@ -24,19 +24,19 @@
   "expected": [
     {
       "id": "tm-org-powered",
-      "query": "\u0022Example Corp\u0022 (\u0022powered by\u0022 OR \u0022built with\u0022 OR \u0022tech stack\u0022 OR \u0022we use\u0022) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (\"powered by\" OR \"built with\" OR \"tech stack\" OR \"we use\") site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "tm-org-stackshare",
-      "query": "\u0022Example Corp\u0022 site:stackshare.io -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" site:stackshare.io -jobs -\"privacy policy\""
     },
     {
       "id": "tm-org-devs",
-      "query": "\u0022Example Corp\u0022 (site:stackoverflow.com OR site:github.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (site:stackoverflow.com OR site:github.com) -jobs -\"privacy policy\""
     },
     {
       "id": "tm-org-jobs",
-      "query": "\u0022Example Corp\u0022 (inurl:jobs OR inurl:careers) (\u0022experience with\u0022 OR \u0022familiarity with\u0022 OR \u0022proficiency in\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (inurl:jobs OR inurl:careers) (\"experience with\" OR \"familiarity with\" OR \"proficiency in\") -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

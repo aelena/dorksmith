@@ -9,19 +9,19 @@
   "expected": [
     {
       "id": "sp-org-linkedin",
-      "query": "\u0022Example Corp\u0022 site:linkedin.com/in"
+      "query": "\"Example Corp\" site:linkedin.com/in"
     },
     {
       "id": "sp-org-titles",
-      "query": "\u0022Example Corp\u0022 (\u0022head of\u0022 OR director OR manager OR engineer OR chief)"
+      "query": "\"Example Corp\" (\"head of\" OR director OR manager OR engineer OR chief)"
     },
     {
       "id": "sp-org-platforms",
-      "query": "\u0022Example Corp\u0022 (site:linkedin.com OR site:xing.com OR site:github.com OR site:x.com)"
+      "query": "\"Example Corp\" (site:linkedin.com OR site:xing.com OR site:github.com OR site:x.com)"
     },
     {
       "id": "sp-org-team",
-      "query": "\u0022Example Corp\u0022 (intitle:team OR inurl:team OR \u0022our team\u0022 OR leadership)"
+      "query": "\"Example Corp\" (intitle:team OR inurl:team OR \"our team\" OR leadership)"
     }
   ],
   "expectedContains": []

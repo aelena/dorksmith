@@ -24,35 +24,35 @@
   "expected": [
     {
       "id": "gd-balanced",
-      "query": "Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "gd-precise",
-      "query": "\u0022Kubernetes\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "gd-title",
-      "query": "intitle:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:Kubernetes site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "gd-recent",
-      "query": "\u0022Kubernetes\u0022 site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "gd-docs",
-      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "gd-url",
-      "query": "inurl:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:Kubernetes site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "gd-text",
-      "query": "intext:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intext:Kubernetes site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "gd-noise",
-      "query": "\u0022Kubernetes\u0022 site:example.com -jobs -\u0022privacy policy\u0022 -careers -login -signup"
+      "query": "\"Kubernetes\" site:example.com -jobs -\"privacy policy\" -careers -login -signup"
     }
   ],
   "expectedContains": []

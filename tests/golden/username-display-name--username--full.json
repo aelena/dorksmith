@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "ud-balanced",
-      "query": "\u0022alice42\u0022 \u0022Alice Smith\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice42\" \"Alice Smith\" -jobs -\"privacy policy\""
     },
     {
       "id": "ud-social",
-      "query": "\u0022alice42\u0022 \u0022Alice Smith\u0022 (site:x.com OR site:instagram.com OR site:facebook.com OR site:tiktok.com OR site:threads.net OR site:bsky.app) -jobs -\u0022privacy policy\u0022"
+      "query": "\"alice42\" \"Alice Smith\" (site:x.com OR site:instagram.com OR site:facebook.com OR site:tiktok.com OR site:threads.net OR site:bsky.app) -jobs -\"privacy policy\""
     },
     {
       "id": "ud-at",
-      "query": "\u0022@alice42\u0022 \u0022Alice Smith\u0022 -jobs -\u0022privacy policy\u0022"
+      "query": "\"@alice42\" \"Alice Smith\" -jobs -\"privacy policy\""
     },
     {
       "id": "ud-professional",
-      "query": "\u0022Alice Smith\u0022 (site:linkedin.com OR site:xing.com OR site:wellfound.com OR site:about.me) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" (site:linkedin.com OR site:xing.com OR site:wellfound.com OR site:about.me) -jobs -\"privacy policy\""
     },
     {
       "id": "ud-inurl",
-      "query": "\u0022Alice Smith\u0022 inurl:alice42 -jobs -\u0022privacy policy\u0022"
+      "query": "\"Alice Smith\" inurl:alice42 -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

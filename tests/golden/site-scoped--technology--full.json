@@ -24,27 +24,27 @@
   "expected": [
     {
       "id": "ss-balanced",
-      "query": "Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "Kubernetes site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "ss-precise",
-      "query": "\u0022Kubernetes\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-title",
-      "query": "intitle:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:Kubernetes site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-url",
-      "query": "inurl:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:Kubernetes site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-docs",
-      "query": "\u0022Kubernetes\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Kubernetes\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "ss-text",
-      "query": "intext:Kubernetes site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intext:Kubernetes site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

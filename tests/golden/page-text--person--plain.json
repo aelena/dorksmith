@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "pt-balanced",
-      "query": "intext:\u0022Alice Smith\u0022"
+      "query": "intext:\"Alice Smith\""
     },
     {
       "id": "pt-precise",
-      "query": "intext:\u0022Alice Smith\u0022 intitle:\u0022Alice Smith\u0022"
+      "query": "intext:\"Alice Smith\" intitle:\"Alice Smith\""
     },
     {
       "id": "pt-docs",
-      "query": "intext:\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "intext:\"Alice Smith\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "pt-any",
@@ -25,7 +25,7 @@
     },
     {
       "id": "pt-noise",
-      "query": "intext:\u0022Alice Smith\u0022 -login -jobs"
+      "query": "intext:\"Alice Smith\" -login -jobs"
     }
   ],
   "expectedContains": []

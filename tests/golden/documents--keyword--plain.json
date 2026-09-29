@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "doc-balanced",
-      "query": "\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "\"quarterly roadmap\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "doc-first",
-      "query": "\u0022quarterly roadmap\u0022 filetype:pdf"
+      "query": "\"quarterly roadmap\" filetype:pdf"
     },
     {
       "id": "doc-title",
-      "query": "intitle:\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "intitle:\"quarterly roadmap\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "doc-broad",
@@ -25,11 +25,11 @@
     },
     {
       "id": "doc-sheets",
-      "query": "\u0022quarterly roadmap\u0022 (filetype:xlsx OR filetype:xls OR filetype:csv)"
+      "query": "\"quarterly roadmap\" (filetype:xlsx OR filetype:xls OR filetype:csv)"
     },
     {
       "id": "doc-slides",
-      "query": "\u0022quarterly roadmap\u0022 (filetype:pptx OR filetype:ppt)"
+      "query": "\"quarterly roadmap\" (filetype:pptx OR filetype:ppt)"
     }
   ],
   "expectedContains": []

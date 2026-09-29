@@ -24,19 +24,19 @@
   "expected": [
     {
       "id": "uf-balanced",
-      "query": "inurl:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:annual-report.pdf site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-precise",
-      "query": "inurl:annual-report.pdf \u0022annual-report.pdf\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:annual-report.pdf \"annual-report.pdf\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-docs",
-      "query": "inurl:annual-report.pdf (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:annual-report.pdf (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-title",
-      "query": "inurl:annual-report.pdf intitle:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:annual-report.pdf intitle:annual-report.pdf site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

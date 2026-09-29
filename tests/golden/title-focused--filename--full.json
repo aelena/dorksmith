@@ -24,19 +24,19 @@
   "expected": [
     {
       "id": "tf-balanced",
-      "query": "intitle:annual-report.pdf site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:annual-report.pdf site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "tf-precise",
-      "query": "intitle:annual-report.pdf intext:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:annual-report.pdf intext:annual-report.pdf site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "tf-docs",
-      "query": "intitle:annual-report.pdf (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:annual-report.pdf (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "tf-noise",
-      "query": "intitle:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022 -login -signup"
+      "query": "intitle:annual-report.pdf site:example.com -jobs -\"privacy policy\" -login -signup"
     }
   ],
   "expectedContains": []

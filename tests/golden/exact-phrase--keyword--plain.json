@@ -9,27 +9,27 @@
   "expected": [
     {
       "id": "ep-balanced",
-      "query": "\u0022quarterly roadmap\u0022"
+      "query": "\"quarterly roadmap\""
     },
     {
       "id": "ep-text",
-      "query": "intext:\u0022quarterly roadmap\u0022"
+      "query": "intext:\"quarterly roadmap\""
     },
     {
       "id": "ep-title",
-      "query": "intitle:\u0022quarterly roadmap\u0022"
+      "query": "intitle:\"quarterly roadmap\""
     },
     {
       "id": "ep-docs",
-      "query": "\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "\"quarterly roadmap\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "ep-wildcard",
-      "query": "\u0022quarterly * roadmap\u0022"
+      "query": "\"quarterly * roadmap\""
     },
     {
       "id": "ep-noise",
-      "query": "\u0022quarterly roadmap\u0022 -jobs -careers"
+      "query": "\"quarterly roadmap\" -jobs -careers"
     },
     {
       "id": "ep-any",

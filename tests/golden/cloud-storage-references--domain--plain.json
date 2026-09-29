@@ -9,27 +9,27 @@
   "expected": [
     {
       "id": "cs-domain-all",
-      "query": "\u0022example\u0022 (site:s3.amazonaws.com OR site:blob.core.windows.net OR site:storage.googleapis.com)"
+      "query": "\"example\" (site:s3.amazonaws.com OR site:blob.core.windows.net OR site:storage.googleapis.com)"
     },
     {
       "id": "cs-domain-s3",
-      "query": "\u0022example\u0022 site:s3.amazonaws.com"
+      "query": "\"example\" site:s3.amazonaws.com"
     },
     {
       "id": "cs-domain-azure",
-      "query": "\u0022example\u0022 site:blob.core.windows.net"
+      "query": "\"example\" site:blob.core.windows.net"
     },
     {
       "id": "cs-domain-others",
-      "query": "\u0022example\u0022 (site:digitaloceanspaces.com OR site:r2.dev OR site:backblazeb2.com OR site:wasabisys.com)"
+      "query": "\"example\" (site:digitaloceanspaces.com OR site:r2.dev OR site:backblazeb2.com OR site:wasabisys.com)"
     },
     {
       "id": "cs-domain-gcs",
-      "query": "\u0022example\u0022 site:storage.googleapis.com"
+      "query": "\"example\" site:storage.googleapis.com"
     },
     {
       "id": "cs-domain-links",
-      "query": "\u0022example.com\u0022 (inurl:s3.amazonaws.com OR inurl:blob.core.windows.net OR inurl:storage.googleapis.com) -site:example.com"
+      "query": "\"example.com\" (inurl:s3.amazonaws.com OR inurl:blob.core.windows.net OR inurl:storage.googleapis.com) -site:example.com"
     }
   ],
   "expectedContains": []

@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "gd-balanced",
-      "query": "annual-report.pdf site:example.com after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "annual-report.pdf site:example.com after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "gd-filename-doc",
-      "query": "\u0022annual-report\u0022 filetype:pdf site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"annual-report\" filetype:pdf site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "gd-precise",
-      "query": "\u0022annual-report.pdf\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"annual-report.pdf\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "gd-title",
-      "query": "intitle:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:annual-report.pdf site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "gd-url",
-      "query": "inurl:annual-report.pdf site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:annual-report.pdf site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

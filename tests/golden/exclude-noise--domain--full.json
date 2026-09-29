@@ -23,15 +23,15 @@
   "expected": [
     {
       "id": "en-domain",
-      "query": "site:example.com -inurl:login -inurl:signup -inurl:tag -inurl:category -inurl:page -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com -inurl:login -inurl:signup -inurl:tag -inurl:category -inurl:page -jobs -\"privacy policy\""
     },
     {
       "id": "en-domain-docs",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022 -brochure -newsletter"
+      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\" -brochure -newsletter"
     },
     {
       "id": "en-domain-mentions",
-      "query": "\u0022example.com\u0022 -site:example.com -site:pinterest.com -site:facebook.com -site:x.com -site:linkedin.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" -site:example.com -site:pinterest.com -site:facebook.com -site:x.com -site:linkedin.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

@@ -9,23 +9,23 @@
   "expected": [
     {
       "id": "ts-qa",
-      "query": "\u0022Kubernetes\u0022 (site:stackoverflow.com OR site:github.com OR site:serverfault.com OR site:superuser.com)"
+      "query": "\"Kubernetes\" (site:stackoverflow.com OR site:github.com OR site:serverfault.com OR site:superuser.com)"
     },
     {
       "id": "ts-issues",
-      "query": "\u0022Kubernetes\u0022 site:github.com inurl:issues"
+      "query": "\"Kubernetes\" site:github.com inurl:issues"
     },
     {
       "id": "ts-docs",
-      "query": "\u0022Kubernetes\u0022 (inurl:docs OR inurl:documentation OR intitle:documentation)"
+      "query": "\"Kubernetes\" (inurl:docs OR inurl:documentation OR intitle:documentation)"
     },
     {
       "id": "ts-forums",
-      "query": "\u0022Kubernetes\u0022 (site:reddit.com OR site:stackexchange.com OR site:news.ycombinator.com)"
+      "query": "\"Kubernetes\" (site:reddit.com OR site:stackexchange.com OR site:news.ycombinator.com)"
     },
     {
       "id": "ts-broad",
-      "query": "Kubernetes (error OR exception OR \u0022not working\u0022 OR fix)"
+      "query": "Kubernetes (error OR exception OR \"not working\" OR fix)"
     }
   ],
   "expectedContains": []

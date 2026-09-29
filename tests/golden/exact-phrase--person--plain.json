@@ -9,27 +9,27 @@
   "expected": [
     {
       "id": "ep-balanced",
-      "query": "\u0022Alice Smith\u0022"
+      "query": "\"Alice Smith\""
     },
     {
       "id": "ep-text",
-      "query": "intext:\u0022Alice Smith\u0022"
+      "query": "intext:\"Alice Smith\""
     },
     {
       "id": "ep-title",
-      "query": "intitle:\u0022Alice Smith\u0022"
+      "query": "intitle:\"Alice Smith\""
     },
     {
       "id": "ep-docs",
-      "query": "\u0022Alice Smith\u0022 (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
+      "query": "\"Alice Smith\" (filetype:pdf OR filetype:docx OR filetype:pptx OR filetype:xlsx)"
     },
     {
       "id": "ep-wildcard",
-      "query": "\u0022Alice * Smith\u0022"
+      "query": "\"Alice * Smith\""
     },
     {
       "id": "ep-noise",
-      "query": "\u0022Alice Smith\u0022 -jobs -careers"
+      "query": "\"Alice Smith\" -jobs -careers"
     },
     {
       "id": "ep-any",

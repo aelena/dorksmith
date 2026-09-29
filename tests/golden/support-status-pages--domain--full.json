@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "st-domain-status",
-      "query": "site:example.com (intitle:status OR inurl:status OR intitle:\u0022system status\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (intitle:status OR inurl:status OR intitle:\"system status\") -jobs -\"privacy policy\""
     },
     {
       "id": "st-domain-help",
-      "query": "site:example.com (inurl:support OR inurl:help OR inurl:faq OR inurl:kb OR inurl:docs) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (inurl:support OR inurl:help OR inurl:faq OR inurl:kb OR inurl:docs) -jobs -\"privacy policy\""
     },
     {
       "id": "st-domain-subs",
-      "query": "site:*.example.com (inurl:status OR inurl:support OR inurl:help) -inurl:www -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com (inurl:status OR inurl:support OR inurl:help) -inurl:www -jobs -\"privacy policy\""
     },
     {
       "id": "st-domain-hosted-status",
-      "query": "\u0022example\u0022 (site:statuspage.io OR site:status.io OR site:instatus.com OR site:betteruptime.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" (site:statuspage.io OR site:status.io OR site:instatus.com OR site:betteruptime.com) -jobs -\"privacy policy\""
     },
     {
       "id": "st-domain-hosted-help",
-      "query": "\u0022example\u0022 (site:zendesk.com OR site:freshdesk.com OR site:helpscout.net OR site:intercom.help) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" (site:zendesk.com OR site:freshdesk.com OR site:helpscout.net OR site:intercom.help) -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

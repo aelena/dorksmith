@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "uf-balanced",
-      "query": "inurl:\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:\"quarterly roadmap\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-precise",
-      "query": "inurl:\u0022quarterly roadmap\u0022 \u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:\"quarterly roadmap\" \"quarterly roadmap\" site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-any",
-      "query": "(inurl:quarterly OR inurl:roadmap) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "(inurl:quarterly OR inurl:roadmap) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-docs",
-      "query": "inurl:\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:\"quarterly roadmap\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "uf-title",
-      "query": "inurl:\u0022quarterly roadmap\u0022 intitle:\u0022quarterly roadmap\u0022 site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "inurl:\"quarterly roadmap\" intitle:\"quarterly roadmap\" site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

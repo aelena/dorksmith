@@ -24,23 +24,23 @@
   "expected": [
     {
       "id": "pd-org-balanced",
-      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (filetype:pdf OR filetype:docx) site:example.com -jobs -\"privacy policy\""
     },
     {
       "id": "pd-org-titles",
-      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) (intitle:report OR intitle:presentation OR intitle:policy) -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (filetype:pdf OR filetype:docx) (intitle:report OR intitle:presentation OR intitle:policy) -jobs -\"privacy policy\""
     },
     {
       "id": "pd-org-intitle",
-      "query": "intitle:\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) -jobs -\u0022privacy policy\u0022"
+      "query": "intitle:\"Example Corp\" (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\""
     },
     {
       "id": "pd-org-recent",
-      "query": "\u0022Example Corp\u0022 (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31 -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" (filetype:pdf OR filetype:docx) after:2024-01-01 before:2024-12-31 -jobs -\"privacy policy\""
     },
     {
       "id": "pd-org-first",
-      "query": "\u0022Example Corp\u0022 filetype:pdf site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"Example Corp\" filetype:pdf site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

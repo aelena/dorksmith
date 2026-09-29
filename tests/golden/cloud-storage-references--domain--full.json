@@ -23,27 +23,27 @@
   "expected": [
     {
       "id": "cs-domain-all",
-      "query": "\u0022example\u0022 (site:s3.amazonaws.com OR site:blob.core.windows.net OR site:storage.googleapis.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" (site:s3.amazonaws.com OR site:blob.core.windows.net OR site:storage.googleapis.com) -jobs -\"privacy policy\""
     },
     {
       "id": "cs-domain-s3",
-      "query": "\u0022example\u0022 site:s3.amazonaws.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" site:s3.amazonaws.com -jobs -\"privacy policy\""
     },
     {
       "id": "cs-domain-azure",
-      "query": "\u0022example\u0022 site:blob.core.windows.net -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" site:blob.core.windows.net -jobs -\"privacy policy\""
     },
     {
       "id": "cs-domain-gcs",
-      "query": "\u0022example\u0022 site:storage.googleapis.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" site:storage.googleapis.com -jobs -\"privacy policy\""
     },
     {
       "id": "cs-domain-others",
-      "query": "\u0022example\u0022 (site:digitaloceanspaces.com OR site:r2.dev OR site:backblazeb2.com OR site:wasabisys.com) -jobs -\u0022privacy policy\u0022"
+      "query": "\"example\" (site:digitaloceanspaces.com OR site:r2.dev OR site:backblazeb2.com OR site:wasabisys.com) -jobs -\"privacy policy\""
     },
     {
       "id": "cs-domain-links",
-      "query": "\u0022example.com\u0022 (inurl:s3.amazonaws.com OR inurl:blob.core.windows.net OR inurl:storage.googleapis.com) -site:example.com -jobs -\u0022privacy policy\u0022"
+      "query": "\"example.com\" (inurl:s3.amazonaws.com OR inurl:blob.core.windows.net OR inurl:storage.googleapis.com) -site:example.com -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []

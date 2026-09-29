@@ -9,15 +9,15 @@
   "expected": [
     {
       "id": "uf-balanced",
-      "query": "inurl:\u0022quarterly roadmap\u0022"
+      "query": "inurl:\"quarterly roadmap\""
     },
     {
       "id": "uf-precise",
-      "query": "inurl:\u0022quarterly roadmap\u0022 \u0022quarterly roadmap\u0022"
+      "query": "inurl:\"quarterly roadmap\" \"quarterly roadmap\""
     },
     {
       "id": "uf-title",
-      "query": "inurl:\u0022quarterly roadmap\u0022 intitle:\u0022quarterly roadmap\u0022"
+      "query": "inurl:\"quarterly roadmap\" intitle:\"quarterly roadmap\""
     },
     {
       "id": "uf-any",
@@ -25,7 +25,7 @@
     },
     {
       "id": "uf-docs",
-      "query": "inurl:\u0022quarterly roadmap\u0022 (filetype:pdf OR filetype:docx OR filetype:xlsx)"
+      "query": "inurl:\"quarterly roadmap\" (filetype:pdf OR filetype:docx OR filetype:xlsx)"
     }
   ],
   "expectedContains": []

@@ -27,6 +27,8 @@ def looks_like_syntax(s: str) -> bool:
         return True
     if s[0] in "-+~()|":
         return True
+    if len(s) > 1 and s[0] in "@#":  # social-handle / hashtag operators
+        return True
     if s[-1] in "()":
         return True
     colon = s.find(":")
@@ -36,8 +38,12 @@ def looks_like_syntax(s: str) -> bool:
 
 
 def safe_term(word: str | None) -> str:
-    """A single word emitted unquoted; words that would parse as syntax are quoted so they stay literal."""
-    s = (word or "").strip().replace('"', "")
+    """A single term emitted unquoted; terms that would parse as syntax are quoted so they stay literal,
+    and a term the user already quoted ("antonio elena") is kept as a quoted phrase."""
+    raw = (word or "").strip()
+    if len(raw) >= 2 and raw[0] == '"' and raw[-1] == '"':
+        return quote(raw)
+    s = raw.replace('"', "")
     if not s:
         return ""
     if looks_like_syntax(s):

@@ -23,23 +23,23 @@
   "expected": [
     {
       "id": "ad-paths",
-      "query": "site:example.com (inurl:swagger OR inurl:api-docs OR inurl:openapi OR inurl:redoc OR inurl:graphql) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (inurl:swagger OR inurl:api-docs OR inurl:openapi OR inurl:redoc OR inurl:graphql) -jobs -\"privacy policy\""
     },
     {
       "id": "ad-titles",
-      "query": "site:example.com (intitle:\u0022swagger ui\u0022 OR intitle:\u0022api documentation\u0022 OR intitle:redoc OR intitle:\u0022graphql playground\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (intitle:\"swagger ui\" OR intitle:\"api documentation\" OR intitle:redoc OR intitle:\"graphql playground\") -jobs -\"privacy policy\""
     },
     {
       "id": "ad-specs",
-      "query": "site:example.com (filetype:json OR filetype:yaml OR filetype:yml) (intext:openapi OR intext:swagger) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (filetype:json OR filetype:yaml OR filetype:yml) (intext:openapi OR intext:swagger) -jobs -\"privacy policy\""
     },
     {
       "id": "ad-subs",
-      "query": "site:*.example.com (inurl:api OR inurl:swagger OR inurl:graphql) -inurl:www -jobs -\u0022privacy policy\u0022"
+      "query": "site:*.example.com (inurl:api OR inurl:swagger OR inurl:graphql) -inurl:www -jobs -\"privacy policy\""
     },
     {
       "id": "ad-versions",
-      "query": "site:example.com (inurl:\u0022/v1/\u0022 OR inurl:\u0022/v2/\u0022 OR inurl:\u0022/api/v\u0022) -jobs -\u0022privacy policy\u0022"
+      "query": "site:example.com (inurl:\"/v1/\" OR inurl:\"/v2/\" OR inurl:\"/api/v\") -jobs -\"privacy policy\""
     }
   ],
   "expectedContains": []
