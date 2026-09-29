@@ -361,17 +361,17 @@ Both packages are conformance-tested against the same 153 golden fixtures, so th
 
 ### Releasing
 
-Each package has its own workflow (`.github/workflows/js-package.yml`, `py-package.yml`) that tests on every change under its folder, `data/` or `tests/golden/`, and publishes when a version tag is pushed. Both registries use trusted publishing (OIDC), so no credentials are stored anywhere. Published so far: npm 0.1.1, PyPI 0.1.0.
+Each package has its own workflow (`.github/workflows/js-package.yml`, `py-package.yml`) that tests on every change under its folder, `data/` or `tests/golden/`, and publishes when a version tag is pushed. Both registries use trusted publishing (OIDC), so no credentials are stored anywhere. Published so far: npm 0.2.0, PyPI 0.2.0 (versions are kept aligned).
 
 ```bash
 # npm: bump packages/dorksmith-js/package.json, then
-git tag js-v0.1.2 && git push origin js-v0.1.2
+git tag js-v0.2.1 && git push origin js-v0.2.1
 
 # PyPI: bump packages/dorksmith-py/pyproject.toml (and __version__), then
-git tag py-v0.1.1 && git push origin py-v0.1.1
+git tag py-v0.2.1 && git push origin py-v0.2.1
 ```
 
-The workflows refuse to publish when the tag does not match the version in the manifest. A tag can be re-pushed to retry a failed publish (`git push --delete origin js-v0.1.2 && git push origin js-v0.1.2`) as long as that version is not already on the registry.
+The workflows refuse to publish when the tag does not match the version in the manifest. A tag can be re-pushed to retry a failed publish (`git push --delete origin js-v0.2.1 && git push origin js-v0.2.1`) as long as that version is not already on the registry.
 
 One-time setup (already done for this repository; documented for forks):
 

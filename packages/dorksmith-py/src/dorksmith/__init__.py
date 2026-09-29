@@ -29,7 +29,7 @@ from .placeholders import ALL_PLACEHOLDERS, OPTIONAL_BY_DEFAULT, placeholders_in
 from .quoting import exclusion, looks_like_syntax, operator_value, or_group, quote, safe_term, safe_terms, unquote
 from .validator import validate_catalogs
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 
 def catalog_version(catalogs: Catalogs | None = None) -> str:

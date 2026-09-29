@@ -1,6 +1,6 @@
 {
   "name": "dorksmith",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Deterministic search-dork generator and OSINT query workbench engine. Catalog-driven, zero dependencies, runs in browsers and Node.",
   "license": "MIT",
   "author": "aelena",
@@ -24,7 +24,7 @@
     "sync-catalogs": "node scripts/sync-catalogs.mjs",
     "check-catalogs": "node scripts/sync-catalogs.mjs --check",
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test test/golden.test.mjs test/unit.test.mjs",
+    "test": "npm run build && node --test test/golden.test.mjs test/unit.test.mjs test/phrases.test.mjs",
     "prepack": "npm run check-catalogs && npm run build"
   },
   "devDependencies": {
