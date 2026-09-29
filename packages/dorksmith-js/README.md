@@ -31,7 +31,7 @@ validateQuery('cache:example.com site:example.com or filetype:.pdf').warnings;
 // [ "Lower-case 'or' is treated as an ordinary word; ...", "filetype: values take no leading dot ...", "cache: is deprecated: ..." ]
 ```
 
-In the browser it works straight from a CDN, which is how a static (GitHub Pages) build of the app can run entirely client-side:
+In the browser it works straight from a CDN; the Dorksmith web app itself ships this same build and runs entirely client-side:
 
 ```html
 <script type="module">
@@ -49,12 +49,12 @@ In the browser it works straight from a CDN, which is how a static (GitHub Pages
 | `expandHandle(request, catalogs?, limits?)` | Profile URLs (`status` always `not-checked`) and site-scoped queries from the platform catalog. |
 | `inferInputType(text, knownExtensions?)` | Deterministic input-type suggestion (domain, email, url, username, filename, person, keyword). |
 | `searchUrl(query, engine?)` | Search-engine URL built with `encodeURIComponent`. |
-| `validateCatalogs(catalogs)` | Structural/cross-reference validation, same rules as the API's readiness check. |
+| `validateCatalogs(catalogs)` | Structural/cross-reference validation of the catalogs. |
 | `createEngine(catalogs?, limits?)` | Binds catalogs and limits once. |
 | `bundledCatalogs`, `bundledCatalogFiles`, `catalogVersion` | The embedded catalogs. |
 | lower-level: `normalizeText`, `tryNormalizeDomain`, `quote`, `safeTerm`, `analyzeQuery`, `expandTemplate`, … | The building blocks, for custom pipelines. |
 
-Request/response shapes are identical to the HTTP API (`POST /api/v1/dorks/generate` etc.), minus `requestId` and `rateLimit`.
+Request/response shapes are the same ones the web app uses (`{ input, inputType, intent, engine, options }` in, `{ catalogVersion, variants, … }` out).
 
 ### Bring your own catalogs
 

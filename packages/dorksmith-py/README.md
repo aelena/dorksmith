@@ -28,7 +28,7 @@ validate_query("cache:example.com site:example.com or filetype:.pdf").warnings
 # ["Lower-case 'or' is treated as an ordinary word; ...", "filetype: values take no leading dot ...", "cache: is deprecated: ..."]
 ```
 
-Results are dataclasses; `.to_dict()` gives the same camelCase shape as the HTTP API (`POST /api/v1/dorks/generate`), minus `requestId` and `rateLimit`.
+Results are dataclasses; `.to_dict()` gives the same camelCase shape the npm package and the web app use.
 
 ## API
 
@@ -39,11 +39,11 @@ Results are dataclasses; `.to_dict()` gives the same camelCase shape as the HTTP
 | `expand_handle(username, *, categories=None, platform_ids=None, max_platforms=None, catalogs=None)` | Profile URLs (`status` always `not-checked`) and site-scoped queries. |
 | `infer_input_type(text, known_extensions=None)` | Deterministic input-type suggestion. |
 | `search_url(query, engine="google")` | Search-engine URL, percent-encoded locally. |
-| `validate_catalogs(catalogs)` | Structural/cross-reference validation, same rules as the API's readiness check. |
+| `validate_catalogs(catalogs)` | Structural/cross-reference validation of the catalogs. |
 | `bundled_catalogs()`, `load_catalogs(path)`, `catalog_version()` | Embedded or custom catalogs. |
 | lower-level: `normalize_text`, `try_normalize_domain`, `quote`, `safe_term`, `analyze_query`, `expand_template`, … | Building blocks for custom pipelines. |
 
-`options` keys match the HTTP API: `fileTypes`, `excludeTerms`, `after`, `before`, `site`, `maxVariants`, `organization`, `location`, `role`, `displayName`.
+`options` keys match the npm package: `fileTypes`, `excludeTerms`, `after`, `before`, `site`, `maxVariants`, `organization`, `location`, `role`, `displayName`.
 
 ### Bring your own catalogs
 
