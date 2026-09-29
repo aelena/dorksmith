@@ -1,15 +1,13 @@
 # Dorksmith — search query workbench
 
 <!-- badges-start -->
-[![CI](https://img.shields.io/github/actions/workflow/status/aelena/dorksmith/ci.yml?style=flat&logo=github&label=CI)](https://github.com/aelena/dorksmith/actions/workflows/ci.yml) [![Last commit](https://img.shields.io/github/last-commit/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith/commits/main)
+[![Pages](https://img.shields.io/github/actions/workflow/status/aelena/dorksmith/pages.yml?style=flat&logo=github&label=pages)](https://github.com/aelena/dorksmith/actions/workflows/pages.yml) [![npm package CI](https://img.shields.io/github/actions/workflow/status/aelena/dorksmith/js-package.yml?style=flat&logo=github&label=js-package)](https://github.com/aelena/dorksmith/actions/workflows/js-package.yml) [![Python package CI](https://img.shields.io/github/actions/workflow/status/aelena/dorksmith/py-package.yml?style=flat&logo=github&label=py-package)](https://github.com/aelena/dorksmith/actions/workflows/py-package.yml) [![Last commit](https://img.shields.io/github/last-commit/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith/commits/main)
 
 [![npm](https://img.shields.io/npm/v/dorksmith?style=flat&logo=npm&label=npm)](https://www.npmjs.com/package/dorksmith) [![npm downloads](https://img.shields.io/npm/dm/dorksmith?style=flat)](https://www.npmjs.com/package/dorksmith) [![PyPI](https://img.shields.io/pypi/v/dorksmith?style=flat&logo=pypi&logoColor=white&label=PyPI)](https://pypi.org/project/dorksmith/) [![Python versions](https://img.shields.io/pypi/pyversions/dorksmith?style=flat)](https://pypi.org/project/dorksmith/)
 
-[![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/) [![ASP.NET Core minimal API](https://img.shields.io/badge/ASP.NET%20Core-minimal%20API-5C2D91?style=flat)](src/Dorksmith.Api) [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS%2C%20no%20build-F7DF1E?style=flat&logo=javascript&logoColor=black)](web) [![SQLite](https://img.shields.io/badge/storage-SQLite-003B57?style=flat&logo=sqlite&logoColor=white)](src/Dorksmith.Api/Logging) [![Docker Compose](https://img.shields.io/badge/docker-compose-2496ED?style=flat&logo=docker&logoColor=white)](compose.yaml)
+[![Runs in the browser](https://img.shields.io/badge/runs-100%25%20client--side-0f6e6a?style=flat)](#architecture) [![Hosted on GitHub Pages](https://img.shields.io/badge/hosted%20on-GitHub%20Pages-222?style=flat&logo=github)](https://aelena.github.io/dorksmith/) [![TypeScript](https://img.shields.io/badge/engine-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](packages/dorksmith-js) [![Python](https://img.shields.io/badge/engine-Python%203.10%2B-3776AB?style=flat&logo=python&logoColor=white)](packages/dorksmith-py) [![Frontend](https://img.shields.io/badge/frontend-vanilla%20JS%2C%20no%20bundler-F7DF1E?style=flat&logo=javascript&logoColor=black)](web)
 
-[![Tests: xunit](https://img.shields.io/badge/tests-xunit%20%2B%20golden%20fixtures-brightgreen?style=flat)](tests/Dorksmith.Api.Tests) [![E2E: Playwright](https://img.shields.io/badge/e2e-Playwright-45ba4b?style=flat&logo=playwright&logoColor=white)](web/tests) [![Dependency scan](https://img.shields.io/badge/deps-vulnerability%20scanned%20in%20CI-blue?style=flat)](.github/workflows/ci.yml) [![No LLM](https://img.shields.io/badge/LLM-none%2C%20deterministic-blue?style=flat)](#main-features)
-
-[![License: MIT](https://img.shields.io/github/license/aelena/dorksmith?style=flat)](LICENSE) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat)](https://github.com/aelena/dorksmith/pulls) [![Top language](https://img.shields.io/github/languages/top/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith) [![Issues](https://img.shields.io/github/issues/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith/issues) [![Stars](https://img.shields.io/github/stars/aelena/dorksmith?style=flat)](https://github.com/aelena/dorksmith/stargazers)
+[![Golden fixtures](https://img.shields.io/badge/golden%20fixtures-151%20shared%20by%20both%20engines-brightgreen?style=flat)](tests/golden) [![E2E: Playwright](https://img.shields.io/badge/e2e-Playwright-45ba4b?style=flat&logo=playwright&logoColor=white)](web/tests) [![No LLM](https://img.shields.io/badge/LLM-none%2C%20deterministic-blue?style=flat)](#main-features) [![License: MIT](https://img.shields.io/github/license/aelena/dorksmith?style=flat)](LICENSE) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat)](https://github.com/aelena/dorksmith/pulls)
 <!-- badges-end -->
 
 ```plaintext
@@ -22,16 +20,17 @@
 ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝   ╚═╝   ╚═╝  ╚═╝
                                                                         
 ```
-Most "dork generators" are either a static list of copy-pasted strings from 2012 (half of which still recommend `cache:` and `link:`), or a novelty wrapper around a language model that invents operators. Dorksmith is built like a small query compiler instead:
 
-Dorksmith, is a fast, no-login web app that **compiles advanced search queries ("dorks")** for legitimate research: defensive exposure reviews, OSINT/SOCMINT, journalism, troubleshooting and plain power-searching.
+Most "dork generators" are either a static list of copy-pasted strings from 2012 (half of which still recommend `cache:` and `link:`), or a novelty wrapper around a language model that invents operators. Dorksmith is built like a small query compiler instead.
 
-Give it a target, an input type and an intent. It returns several ranked query variants, explains why each exists and which operators it uses, and warns when an operator is unreliable or no longer works. Everything is generated **deterministically from versioned JSON catalogs** — no LLM, no external AI API, no result scraping.
+Dorksmith is a **no-login web app and a pair of libraries that compile advanced search queries ("dorks")** for legitimate research: defensive exposure reviews, OSINT/SOCMINT, journalism, troubleshooting and plain power-searching.
+
+Give it a target, an input type and an intent. It returns several ranked query variants, explains why each exists and which operators it uses, and warns when an operator is unreliable or no longer works. Everything is generated **deterministically from versioned JSON catalogs**, and the web app runs **entirely in your browser**: no server, no LLM, no result scraping, nothing logged.
+
+**Use it:** <https://aelena.github.io/dorksmith/>
 
 ```
-POST /api/v1/dorks/generate
-{ "input": "example.com", "inputType": "domain", "intent": "public-documents",
-  "options": { "fileTypes": ["pdf", "docx", "xlsx"], "excludeTerms": ["jobs"] } }
+target  example.com   ·   type  domain   ·   intent  public-documents   ·   file types  pdf, docx, xlsx   ·   exclude  jobs
 
 → site:example.com (filetype:pdf OR filetype:docx OR filetype:xlsx) -jobs          Balanced
 → site:example.com filetype:pdf -jobs                                               Precise
@@ -42,7 +41,7 @@ POST /api/v1/dorks/generate
 → site:example.com (filetype:pptx OR filetype:ppt) -jobs                            Document-focused
 ```
 
-Same input + same catalog version = same output, every time.
+Same input + same catalog version = same output, every time, in the browser, in Node and in Python.
 
 ![Generator screen: target, intent, options and ranked query variants with operator chips](docs/screenshot-generator.png)
 
@@ -50,19 +49,16 @@ Same input + same catalog version = same output, every time.
 
 ## Contents
 
-- [Main Features](#main-features)
-- [Quick start](#quick-start)
+- [Main features](#main-features)
+- [Try it or run it locally](#try-it-or-run-it-locally)
 - [Using the app](#using-the-app)
 - [Examples](#examples)
-- [API reference](#api-reference)
-- [Configuration](#configuration)
-- [Privacy defaults](#privacy-defaults)
-- [Production deployment](#production-deployment)
+- [Packages: npm and PyPI](#packages-npm-and-pypi)
 - [Catalog maintenance](#catalog-maintenance)
 - [Architecture](#architecture)
 - [Development and testing](#development-and-testing)
-- [Continuous integration](#continuous-integration)
-- [Packages: npm and PyPI](#packages-npm-and-pypi)
+- [Deploying to GitHub Pages](#deploying-to-github-pages)
+- [Privacy](#privacy)
 - [Safety boundaries](#safety-boundaries)
 - [Roadmap](#roadmap)
 
@@ -75,40 +71,30 @@ Same input + same catalog version = same output, every time.
 | **Several variants, not one** | Balanced, Precise, Broad, Title-, URL- and Document-focused, Recent, Noise-reduced |
 | **Explains itself** | Every variant carries an explanation, the operators it uses and a rank reason |
 | **Operator registry is data** | `data/operators.google.json` records `official` / `working` / `unreliable` / `deprecated` per operator, with sources. Deprecated operators are never emitted |
-| **Operator-aware autocomplete** | `si` → `site:`, `filetype:p` → `pdf`, a domain suggests domain intents — all client-side |
+| **Operator-aware autocomplete** | `si` → `site:`, `filetype:p` → `pdf`, a domain suggests domain intents |
 | **OSINT/SOCMINT workflows** | 36 intents including username discovery across 85 platforms, without probing anything |
-| **Cheap to run** | One small VPS. Two containers. SQLite. No queues, no Redis, no GPUs |
-| **No account, ever** | No registration, no auth cookies, no profiles |
+| **Runs anywhere** | In the browser as a static page, in Node or the browser as an npm package, in Python as a PyPI package, and on the command line |
+| **Nothing to host, nothing logged** | The web app is static files; generation happens on your device |
+| **No account, ever** | No registration, no cookies, no profiles |
 
 ---
 
-## Quick start
+## Try it or run it locally
 
-### Docker (recommended)
+The app is published at **<https://aelena.github.io/dorksmith/>** from the `main` branch by the `pages` workflow.
+
+To run it locally you need Node ≥ 20 (used only to build the engine and serve files; the app itself has no bundler):
 
 ```bash
 git clone https://github.com/aelena/dorksmith.git
 cd dorksmith
-cp .env.example .env            # optional locally; needed for production (IP_HMAC_SECRET)
-docker compose up --build
+npm run build      # builds packages/dorksmith-js and copies the engine into web/js/engine
+npm run serve      # http://localhost:5080
 ```
 
-Open <http://localhost:7077>.
+Any static file server works instead of `npm run serve` (e.g. `python -m http.server 5080 -d web`), as long as the engine has been copied in by `npm run build`.
 
-Topology: `web` (unprivileged nginx) serves the SPA and proxies `/api` and `/health` to `api` (ASP.NET Core 8, non-root, read-only filesystem). The search log lives in the named volume `dorksmith-state`.
-
-### Without Docker
-
-Requires the .NET 8 SDK.
-
-```bash
-dotnet run --project src/Dorksmith.Api
-# → http://localhost:5080  (the API also serves the SPA from ./web in this mode)
-```
-
-```bash
-dotnet test                     # 334 unit, golden and integration tests
-```
+Prefer the command line? `npx dorksmith generate example.com --intent public-documents` or `pip install dorksmith && dorksmith generate example.com --intent public-documents`.
 
 ---
 
@@ -119,9 +105,9 @@ Four sections, switchable with the tabs or <kbd>Alt</kbd>+<kbd>G</kbd> / <kbd>U<
 1. **Generator** — target, input type (auto-detected, overridable), intent, options, results.
 2. **Username Search** — expands a handle into profile URLs and site-scoped queries by platform category.
 3. **Operator Guide** — searchable operator cards with syntax, example, support badge, caveats and source links.
-4. **About** — usage notice, keyboard reference, opt-in local history, catalog version.
+4. **About** — usage notice, keyboard reference, opt-in local history, catalog and engine versions.
 
-Every result card has **Copy** and **Open in Google** (the URL is built client-side with `encodeURIComponent`; the server never returns redirect URLs). **Copy all** copies every variant, one per line. **More precise** / **Broader** adjust the structured controls and regenerate — no model involved.
+Every result card has **Copy** and **Open in Google** (the URL is built with `encodeURIComponent`; opening it is the only outbound action, and you take it). **Copy all** copies every variant, one per line. **More precise** / **Broader** adjust the structured controls and regenerate.
 
 Keyboard: <kbd>/</kbd> focuses the target box, <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>↵</kbd> generates, <kbd>↑</kbd> <kbd>↓</kbd> <kbd>↵</kbd> drive suggestions, <kbd>Esc</kbd> closes them.
 
@@ -151,33 +137,30 @@ Keyboard: <kbd>/</kbd> focuses the target box, <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<k
 
 Defensive intents are labelled in the UI and only accept `domain` input. They stop at query generation: nothing is fetched, verified or downloaded.
 
+![Username Search: profile URLs grouped by platform category, all marked not checked](docs/screenshot-handles.png)
+
 ---
 
 ## Examples
 
-All examples use `curl` against a local instance. Responses are abbreviated to the queries; the real payload includes `label`, `explanation`, `operators`, `warnings` and `rankReason` per variant.
+The examples use the CLI (`npx dorksmith …` or `dorksmith …` after `pip install dorksmith`); the web app produces the same variants from the same inputs. `--json` prints the full payload with `label`, `explanation`, `operators`, `warnings` and `rankReason` per variant.
 
 ### 1. Documents about a topic, recent only
 
 ```bash
-curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' -d '{
-  "input": "quarterly roadmap", "inputType": "keyword", "intent": "documents",
-  "options": { "fileTypes": ["pdf", "pptx"], "after": "2025-01-01", "maxVariants": 4 }
-}' | jq -r '.variants[] | "\(.label)\t\(.query)"'
+dorksmith generate "quarterly roadmap" --intent documents --filetypes pdf,pptx --after 2025-01-01 --max 4
 ```
 ```
-Document-focused   "quarterly roadmap" (filetype:pdf OR filetype:pptx) after:2025-01-01
-Precise            "quarterly roadmap" filetype:pdf
-Title-focused      intitle:"quarterly roadmap" (filetype:pdf OR filetype:pptx)
-Broad              quarterly roadmap (filetype:pdf OR filetype:pptx)
+[Document-focused]  "quarterly roadmap" (filetype:pdf OR filetype:pptx) after:2025-01-01
+[Precise]           "quarterly roadmap" filetype:pdf
+[Title-focused]     intitle:"quarterly roadmap" (filetype:pdf OR filetype:pptx)
+[Broad]             quarterly roadmap (filetype:pdf OR filetype:pptx)
 ```
 
 ### 2. Defensive exposure check on your own domain
 
 ```bash
-curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' -d '{
-  "input": "example.com", "inputType": "domain", "intent": "exposed-config-files"
-}' | jq -r '.variants[].query'
+dorksmith generate example.com --intent exposed-config-files
 ```
 ```
 site:example.com (filetype:env OR filetype:ini OR filetype:cfg OR filetype:conf OR filetype:yml OR filetype:yaml OR filetype:toml OR filetype:properties)
@@ -188,14 +171,12 @@ site:example.com (inurl:".git" OR inurl:".svn" OR inurl:".hg" OR inurl:".DS_Stor
 site:*.example.com -inurl:www (filetype:env OR filetype:ini OR filetype:cfg OR filetype:conf OR filetype:yml OR filetype:yaml OR filetype:toml OR filetype:properties)
 ```
 
-Override the default extensions with `options.fileTypes` — e.g. `["yml", "yaml"]` to focus on CI and Kubernetes manifests.
+Override the default extensions with `--filetypes yml,yaml` to focus on CI and Kubernetes manifests.
 
 ### 3. Sub-domains, without touching DNS
 
 ```bash
-curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' \
-  -d '{"input":"example.com","inputType":"domain","intent":"subdomain-references","options":{"maxVariants":3}}' \
-  | jq -r '.variants[].query'
+dorksmith generate example.com --intent subdomain-references --max 3
 ```
 ```
 site:*.example.com -inurl:www
@@ -206,10 +187,7 @@ site:*.example.com (inurl:dev OR inurl:staging OR inurl:test OR inurl:uat OR inu
 ### 4. Person + organisation, with proximity
 
 ```bash
-curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' -d '{
-  "input": "Alice Smith", "inputType": "person", "intent": "person-organization",
-  "options": { "organization": "Example Corp", "maxVariants": 3 }
-}' | jq -r '.variants[] | "\(.query)\n   ↳ \(.explanation)"'
+dorksmith generate "Alice Smith" --type person --intent person-organization --organization "Example Corp" --max 3
 ```
 ```
 "Alice Smith" "Example Corp"
@@ -220,12 +198,12 @@ curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json'
    ↳ Documents mentioning both.
 ```
 
-`person-organization`, `person-location`, `person-role` and `username-display-name` require the matching option; the API answers **422** with `field: "options.organization"` if it is missing.
+`person-organization`, `person-location`, `person-role` and `username-display-name` require the matching option; the engine raises an `InputValidationError` with `field: "options.organization"` (exit code 3 on the CLI) if it is missing.
 
 ### 5. Name variants
 
 ```bash
-... -d '{"input":"Alice Smith","inputType":"person","intent":"person-name-variants","options":{"maxVariants":5}}'
+dorksmith generate "Alice Smith" --type person --intent person-name-variants --max 5
 ```
 ```
 "Alice Smith"
@@ -235,14 +213,12 @@ intitle:"Alice Smith"
 "Alice Smith" -site:pinterest.com -site:amazon.com -site:ebay.com
 ```
 
-Raise `maxVariants` to see the remaining variants, e.g. `"A. Smith"` (first initial + surname) and the date-bounded one when `after`/`before` are supplied.
+Raise `--max` to see the remaining variants, e.g. `"A. Smith"` (first initial + surname) and the date-bounded one when `--after`/`--before` are supplied.
 
 ### 6. Username across platforms
 
 ```bash
-curl -s localhost:7077/api/v1/dorks/generate -H 'content-type: application/json' \
-  -d '{"input":"@alice42","inputType":"username","intent":"username-profiles","options":{"maxVariants":3}}' \
-  | jq -r '.variants[].query'
+dorksmith generate @alice42 --intent username-profiles --max 3
 ```
 ```
 "alice42" (site:x.com OR site:instagram.com OR site:facebook.com OR site:tiktok.com OR site:threads.net OR site:bsky.app)
@@ -255,8 +231,7 @@ Platform lists come from `data/platforms.json`, ordered by weight, so editing th
 ### 7. Expand a handle into profile URLs
 
 ```bash
-curl -s localhost:7077/api/v1/handles/expand -H 'content-type: application/json' \
-  -d '{"username":"alice42","categories":["developer"],"maxPlatforms":3}' | jq
+dorksmith handle alice42 --categories developer --max 3 --json
 ```
 ```json
 {
@@ -265,12 +240,12 @@ curl -s localhost:7077/api/v1/handles/expand -H 'content-type: application/json'
   "notice": "URLs are constructed from templates and are NOT verified. A URL that resolves does not prove the account belongs to the person you are researching.",
   "profiles": [
     { "platformId": "github", "platformName": "GitHub", "category": "developer",
-      "url": "https://github.com/alice42", "searchQuery": "site:github.com \"alice42\"", "status": "not-checked" },
+      "url": "https://github.com/alice42", "searchQuery": "site:github.com \"alice42\"", "status": "not-checked", "caveat": null },
     { "platformId": "stackoverflow", "platformName": "Stack Overflow", "category": "developer",
       "url": "https://stackoverflow.com/users/alice42", "searchQuery": "site:stackoverflow.com \"alice42\"",
       "status": "not-checked", "caveat": "Stack Overflow user URLs need a numeric id; use the search query instead." },
     { "platformId": "gitlab", "platformName": "GitLab", "category": "developer",
-      "url": "https://gitlab.com/alice42", "searchQuery": "site:gitlab.com \"alice42\"", "status": "not-checked" }
+      "url": "https://gitlab.com/alice42", "searchQuery": "site:gitlab.com \"alice42\"", "status": "not-checked", "caveat": null }
   ],
   "queries": [ { "id": "ue-quoted", "label": "Balanced", "query": "\"alice42\"", "explanation": "The handle as an exact phrase." }, "…" ],
   "warnings": [],
@@ -278,28 +253,26 @@ curl -s localhost:7077/api/v1/handles/expand -H 'content-type: application/json'
 }
 ```
 
-![Username Search: profile URLs grouped by platform category, all marked not checked](docs/screenshot-handles.png)
-
 `status` is always `not-checked`. Handles that are used as a sub-domain (`{username}.tumblr.com`) but contain characters invalid in a host name get `url: null` plus a caveat instead of a broken link.
 
 ### 8. Email address references
 
 ```bash
-... -d '{"input":"alice@example.com","inputType":"email","intent":"email-mentions"}'
+dorksmith generate alice@example.com --intent email-mentions
 ```
 ```
 "alice@example.com"
 "alice@example.com" -site:example.com           ← published elsewhere
 "alice" site:example.com                        ← the local part on its own domain
-intext:"alice@example.com"
 "alice@example.com" (filetype:pdf OR filetype:docx OR filetype:xlsx OR filetype:txt)
 "alice@example.com" (site:github.com OR site:linkedin.com OR site:x.com OR site:facebook.com)
+intext:"alice@example.com"
 ```
 
 ### 9. Troubleshooting an error message
 
 ```bash
-... -d '{"input":"ECONNRESET socket hang up","inputType":"technology","intent":"troubleshooting","options":{"maxVariants":3}}'
+dorksmith generate "ECONNRESET socket hang up" --type technology --intent troubleshooting --max 3
 ```
 ```
 "ECONNRESET socket hang up" (site:stackoverflow.com OR site:github.com OR site:serverfault.com OR site:superuser.com)
@@ -310,8 +283,7 @@ intext:"alice@example.com"
 ### 10. Validate a hand-written query (expert mode)
 
 ```bash
-curl -s localhost:7077/api/v1/dorks/validate -H 'content-type: application/json' \
-  -d '{"query":"cache:example.com site:example.com or filetype:.pdf"}' | jq
+dorksmith validate 'cache:example.com site:example.com or filetype:.pdf' --json
 ```
 ```json
 {
@@ -331,203 +303,71 @@ curl -s localhost:7077/api/v1/dorks/validate -H 'content-type: application/json'
 }
 ```
 
-The query is never rewritten — validation only.
+The query is never rewritten — validation only. The web app runs the same analysis live under the target box.
 
 ### 11. User text never becomes syntax
 
 ```bash
-... -d '{"input":"-secret site:evil.com OR","inputType":"keyword","intent":"general-discovery","options":{"maxVariants":2}}'
+dorksmith generate '-secret site:evil.com OR' --max 2
 ```
 ```
 "-secret" "site:evil.com" "OR"
 "-secret site:evil.com OR"
 ```
 
-Tokens that look like operators are quoted, so a pasted string cannot smuggle `-site:` exclusions or `OR` logic into a generated query. Exclusions in `options.excludeTerms` do allow known, generatable operators (`site:pinterest.com` → `-site:pinterest.com`), but deprecated ones are neutralised (`cache:x` → `-"cache:x"`).
+Tokens that look like operators are quoted, so a pasted string cannot smuggle `-site:` exclusions or `OR` logic into a generated query. Excluded terms do allow known, generatable operators (`site:pinterest.com` → `-site:pinterest.com`), but deprecated ones are neutralised (`cache:x` → `-"cache:x"`).
+
+### 12. As a library
+
+```js
+import { generate, expandHandle, validateQuery, searchUrl } from 'dorksmith';   // Node or browser
+const { variants } = generate({ input: 'example.com', inputType: 'domain', intent: 'public-documents', options: { fileTypes: ['pdf'] } });
+```
+
+```python
+from dorksmith import generate, expand_handle, validate_query
+result = generate("example.com", "domain", "public-documents", options={"fileTypes": ["pdf"]})
+```
+
+Both throw/raise `InputValidationError` with `field` and `unprocessable` (true when the request is well-formed but cannot be generated, e.g. an intent that needs an option).
 
 ---
 
-## API reference
+## Packages: npm and PyPI
 
-Base path `/api/v1`, JSON in and out. Errors always use one shape:
+| Package | Folder | Install | Runtime | Tests |
+|---|---|---|---|---|
+| [`dorksmith` on npm](https://www.npmjs.com/package/dorksmith) ([source](packages/dorksmith-js)) | `packages/dorksmith-js` | `npm install dorksmith` | ESM, zero dependencies, browsers and Node ≥ 20, TypeScript types, CLI | 166 (unit + golden) |
+| [`dorksmith` on PyPI](https://pypi.org/project/dorksmith/) ([source](packages/dorksmith-py)) | `packages/dorksmith-py` | `pip install dorksmith` | pure Python ≥ 3.10, zero dependencies, typed, CLI | 177 (unit + golden) |
 
-```json
-{ "error": "invalid_input", "message": "A valid domain is required for inputType=domain.", "field": "input" }
-```
+Both packages are conformance-tested against the same 151 golden fixtures, so they produce identical queries for identical input. The web app uses the npm package's build directly. Each package README documents its full API.
 
-| Status | `error` | When |
-|---|---|---|
-| 400 | `invalid_input` | malformed JSON, unknown type/intent, invalid domain/email/URL/username, bad dates, limits exceeded |
-| 404 | `not_found` / `feature_disabled` | unknown engine; username search disabled |
-| 413 | `payload_too_large` | body over 16 KB |
-| 422 | `cannot_generate` | intent incompatible with the input type, required option missing, nothing generatable |
-| 429 | `rate_limit_exceeded` | hourly quota exhausted; includes `retryAfterSeconds` and `Retry-After` |
-| 500 | `internal_error` | never includes stack traces |
-| 503 | `not_ready` | catalogs failed validation |
+### Releasing
 
-### `POST /dorks/generate`
-
-Request:
-
-```json
-{
-  "input": "example.com",
-  "inputType": "domain",
-  "intent": "public-documents",
-  "engine": "google",
-  "options": {
-    "fileTypes": ["pdf", "docx"],
-    "excludeTerms": ["jobs", "privacy policy", "site:pinterest.com"],
-    "after": "2024-01-01",
-    "before": "2024-12-31",
-    "site": null,
-    "maxVariants": 6,
-    "organization": null, "location": null, "role": null, "displayName": null
-  }
-}
-```
-
-Response:
-
-```json
-{
-  "requestId": "01M3AF3RJMRTYGD22MVN2SNWWS",
-  "catalogVersion": "2026-09-24",
-  "engine": "google", "intent": "public-documents", "inputType": "domain", "normalizedInput": "example.com",
-  "variants": [
-    {
-      "id": "pd-domain-balanced",   // the "Recent" family (pd-domain-recent) carries after:/before: when dates are supplied
-      "label": "Balanced",
-      "family": "balanced",
-      "query": "site:example.com (filetype:pdf OR filetype:docx) -jobs -\"privacy policy\" -site:pinterest.com",
-      "explanation": "Scopes results to the target domain and common document formats.",
-      "operators": ["\"", "site:", "(", "filetype:", "OR", "-"],
-      "warnings": [],
-      "rankReason": "weight 100 · +10 intent · +10 exact input type · +22 operator reliability · −6 complexity · +15 new family (balanced)"
-    }
-  ],
-  "rateLimit": { "limit": 25, "remaining": 24, "resetAtUtc": "2026-09-24T16:00:00+00:00" }
-}
-```
-
-Headers: `X-Request-Id`, `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`, `Cache-Control: no-store`.
-
-Limits (all configurable): input ≤ 500 chars, ≤ 20 excluded terms, ≤ 10 file types, 1–12 variants (default 6), context fields ≤ 200 chars.
-
-### `POST /dorks/validate`
-
-`{ "query": "…", "engine": "google" }` → operators used with support state, warnings, `hasErrors`.
-
-### `POST /handles/expand`
-
-`{ "username": "alice42", "categories": ["general-social"], "platformIds": ["github"], "maxPlatforms": 30 }` → profiles (`status` always `not-checked`), queries, warnings. Shares the hourly quota with generation.
-
-### `GET /operators?engine=google` · `GET /intents` · `GET /filetypes` · `GET /platforms?q=git&category=developer`
-
-Catalog resources. All return `ETag` and `Cache-Control: public, max-age=300`; send `If-None-Match` to get `304`.
-
-### `GET /config/public`
-
-Non-secret runtime settings the SPA needs:
-
-```json
-{ "maxVariants": 12, "defaultVariants": 6, "maxQueryLength": 500, "rateLimitEnabled": true, "rateLimitPerHour": 25,
-  "supportedEngines": ["google"], "usernameSearchEnabled": true, "maxUsernameLength": 100, "maxPlatforms": 100,
-  "searchLogEnabled": true, "searchLogRetentionDays": 30, "ipLoggingMode": "hmac", "catalogVersion": "2026-09-24" }
-```
-
-### `GET /health/live` · `GET /health/ready`
-
-Liveness is unconditional. Readiness fails (503) if any catalog is malformed or the SQLite log is unreachable:
-
-```json
-{ "status": "Healthy", "checks": [ { "name": "catalogs", "status": "Healthy", "description": "catalog 2026-09-24" },
-                                    { "name": "search-log", "status": "Healthy", "description": "sqlite /app/state/dorksmith.db" } ] }
-```
-
----
-
-## Configuration
-
-Environment variables (flat names map onto `appsettings.json` sections; the standard `Section__Key` form works too):
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `APP_ENVIRONMENT` | `Production` | `Development` enables readable console logs and a 500/h limit |
-| `RATE_LIMIT_ENABLED` | `true` | per-client quota on generate/expand |
-| `RATE_LIMIT_PERMIT_LIMIT` | `25` | requests per window |
-| `RATE_LIMIT_WINDOW_MINUTES` | `60` | fixed window length |
-| `SEARCH_LOG_ENABLED` | `true` | write one row per request |
-| `SEARCH_LOG_RETENTION_DAYS` | `30` | rows older than this are deleted hourly; `0` keeps forever |
-| `SQLITE_PATH` | `/app/state/dorksmith.db` | `:memory:` for tests |
-| `IP_LOGGING_MODE` | `Hmac` (app) · `None` in `compose.yaml` · `Hmac` in `compose.prod.yaml` | `Hmac` · `Raw` · `None` |
-| `IP_HMAC_SECRET` | *(unset)* | **set this for public deployments** — ≥ 16 chars; unset means an ephemeral per-process key (harmless in `None` mode) |
-| `MAX_QUERY_LENGTH` | `500` | main input length |
-| `MAX_VARIANTS` | `12` | upper bound for `options.maxVariants` |
-| `DEFAULT_VARIANTS` | `6` | when the client omits it |
-| `USERNAME_SEARCH_ENABLED` | `true` | hides the tab and 404s the endpoint when `false` |
-| `USERNAME_MAX_PLATFORMS` | `100` | cap for `maxPlatforms` |
-| `CORS_ALLOWED_ORIGINS` | *(empty = same-origin only)* | comma-separated list |
-| `KNOWN_PROXIES` / `KNOWN_NETWORKS` | *(empty = trust nothing)* | which hops may set `X-Forwarded-For`; Compose sets the Docker networks |
-| `FORWARD_LIMIT` | `1` | hops to unwind: `1` nginx only, `2` Caddy → nginx |
-| `CATALOG_PATH` | `data` | catalog directory (read-only mount in Docker) |
-| `SERVE_STATIC` / `WEB_PATH` | `true` / `web` | let the API serve the SPA (dev / single container) |
-
-Generate a secret:
+Each package has its own workflow (`.github/workflows/js-package.yml`, `py-package.yml`) that tests on every change under its folder, `data/` or `tests/golden/`, and publishes when a version tag is pushed. Both registries use trusted publishing (OIDC), so no credentials are stored anywhere. Published so far: npm 0.1.1, PyPI 0.1.0.
 
 ```bash
-openssl rand -hex 32
+# npm: bump packages/dorksmith-js/package.json, then
+git tag js-v0.1.2 && git push origin js-v0.1.2
+
+# PyPI: bump packages/dorksmith-py/pyproject.toml (and __version__), then
+git tag py-v0.1.1 && git push origin py-v0.1.1
 ```
 
----
+The workflows refuse to publish when the tag does not match the version in the manifest. A tag can be re-pushed to retry a failed publish (`git push --delete origin js-v0.1.2 && git push origin js-v0.1.2`) as long as that version is not already on the registry.
 
-## Privacy defaults
+One-time setup (already done for this repository; documented for forks):
 
-- **What is logged:** one row per generate/expand request: id, UTC time, client key, IP mode, input type, intent, engine, normalised input, options JSON, variant count, HTTP status, duration, catalog version, and a coarse user-agent family (`browser` / `cli` / `bot` / `other`). Nothing else. No headers, cookies, fingerprints or results.
-- **Local runs store no address at all.** `compose.yaml` sets `IP_LOGGING_MODE=None` because a laptop instance is single-user; the production overlay switches to `Hmac`. Rate limiting still works in `None` mode from a transient in-memory key.
-- **Client key:** `HMAC-SHA256(IP_HMAC_SECRET, normalized_ip)` in `Hmac` mode. IPv4-mapped IPv6 addresses are normalised first so the same client gets the same key. The raw IP exists only in memory during the request. `Raw` stores the address; `None` stores nothing (rate limiting still works from a transient HMAC).
-- **Retention:** 30 days by default, enforced by a background job; configurable, documented in the app's About tab and footer (values come from `/config/public`).
-- **Rate limiting:** 25 requests per hour per client by default. Catalog reads are never limited.
-- **No cookies.** Optional local history and theme preference live in the browser's `localStorage` only, behind an explicit opt-in.
-- **Search log storage:** SQLite in WAL mode with parameterised statements, behind `ISearchLogStore` so it can be replaced (Postgres, Azure Tables) without touching endpoints.
+- **npm** — trusted publishing is configured on the *package's* settings page, so the package must exist first. Publish `0.1.0` once from a workstation (`cd packages/dorksmith-js && npm login && npm publish --access public`; npm requires 2FA on the account), then on npmjs.com open the package → Settings → Trusted Publisher → GitHub Actions: user `aelena`, repository `dorksmith`, workflow filename `js-package.yml`, environment `npm`, allowed action `npm publish`. Create the matching `npm` environment in the GitHub repository settings.
+- **PyPI** — no bootstrap needed. On pypi.org add a *pending* trusted publisher for project `dorksmith`: owner `aelena`, repository `dorksmith`, workflow `py-package.yml`, environment `pypi`. Create the matching `pypi` environment in the GitHub repository settings.
 
----
-
-## Production deployment
-
-### Recommended: one small VPS with Compose + Caddy
-
-```bash
-# on the server
-git clone https://github.com/aelena/dorksmith.git /opt/dorksmith && cd /opt/dorksmith
-cp .env.example .env && $EDITOR .env        # IP_HMAC_SECRET, rate limits, retention
-DORKSMITH_DOMAIN=dorks.example.org ACME_EMAIL=ops@example.org \
-  docker compose -f compose.yaml -f compose.prod.yaml up -d --build
-```
-
-`compose.prod.yaml` adds a `caddy` container (ports 80/443, automatic TLS, HSTS), stops publishing nginx directly and sets `FORWARD_LIMIT=2` so the API sees the real client address behind Caddy → nginx.
-
-Checklist:
-
-- provider firewall: allow 22/80/443 only;
-- unattended security updates for the host (`unattended-upgrades`) and periodic `docker compose pull && up -d --build`;
-- nightly encrypted backup of the state volume — `deploy/backup-sqlite.sh` snapshots the database with SQLite's online backup and encrypts with GPG; run it from cron;
-- external uptime check on `https://your-host/health/ready`;
-- logs are JSON on stdout (`docker compose logs api`), ready for any container log shipper.
-
-Both containers run as non-root with a read-only filesystem, all capabilities dropped and `no-new-privileges`.
-
-### Managed alternatives
-
-The API image runs unchanged on Azure Container Apps, Fly.io, Render or similar. Two caveats when scaling past one instance: the in-memory quota is per instance (implement `IRequestQuotaService` over Redis or another atomic store), and SQLite should give way to a shared `ISearchLogStore`. Object storage is fine for archived logs but not as the online counter store.
-
-Kubernetes is deliberately not part of the MVP.
+Once on npm, the ESM package is also served by CDNs such as jsDelivr, unpkg and esm.sh (`import { generate } from 'https://esm.sh/dorksmith'`).
 
 ---
 
 ## Catalog maintenance
 
-All knowledge lives in `data/` and is validated on startup. A broken catalog fails `/health/ready` with the reason, so a typo can never ship silently.
+All knowledge lives in `data/` and is validated by both engines (`validateCatalogs` / `validate_catalogs`) and by the package tests. `data/` is the single source of truth; the packages embed copies that a sync script refreshes (`npm run sync-catalogs` in `packages/dorksmith-js`, `python scripts/sync_catalogs.py` in `packages/dorksmith-py`) and CI fails on drift.
 
 | File | Contents |
 |---|---|
@@ -549,7 +389,7 @@ All knowledge lives in `data/` and is validated on startup. A broken catalog fai
 }
 ```
 
-Rules enforced by the validator: `deprecated` ⇒ `generate:false`; `generate:true` ⇒ `official` or `working`; no template pattern may contain a non-generatable operator. Bump `catalogVersion` when you change behaviour.
+Rules enforced by the validators: `deprecated` ⇒ `generate:false`; `generate:true` ⇒ `official` or `working`; no template pattern may contain a non-generatable operator. Bump `catalogVersion` when you change behaviour.
 
 ### Adding a template
 
@@ -576,21 +416,25 @@ Frequently used placeholders:
 | `{site}` `{siteWildcard}` `{excludeSite}` `{domainQuoted}` `{domainLabel}` `{atDomainQuoted}` | `site:example.com`, `site:*.example.com`, `-site:example.com`, `"example.com"`, `"example"`, `"@example.com"` |
 | `{quotedUsername}` `{atUsername}` `{inurlUsername}` `{hashtagUsername}` | `"alice42"`, `"@alice42"`, `inurl:alice42`, `#alice42` |
 | `{emailQuoted}` `{emailUserQuoted}` · `{urlQuoted}` `{urlBareQuoted}` `{inurlPath}` · `{filenameStem}` `{filetypeFromFilename}` | per input type |
-| `{filetypeGroup}` `{filetypeFirst}` | from `options.fileTypes`, else the template's `fileTypes`, else the intent's `defaultFileTypes` |
+| `{filetypeGroup}` `{filetypeFirst}` | from the request's file types, else the template's `fileTypes`, else the intent's `defaultFileTypes` |
 | `{exclusions}` `{dates}` `{after}` `{before}` `{siteOption}` `{context}` | optional by default — empty when not supplied |
 | `{keywords}` | OR-group of the template's `keywords` list |
 | `{platformSites}` | `(site:a OR site:b …)` from `platformIds` or `platformCategories` + `platformLimit` |
 | `{organization}` `{location}` `{role}` `{displayName}` | quoted option values |
 
-A placeholder that resolves to nothing disqualifies the template unless it is optional (`exclusions`, `dates`, `after`, `before`, `site`, `siteOption`, `context`) — override per template with `requires` / `optional`. The full list is in `src/Dorksmith.Api/Generation/Placeholders.cs`.
+A placeholder that resolves to nothing disqualifies the template unless it is optional (`exclusions`, `dates`, `after`, `before`, `site`, `siteOption`, `context`) — override per template with `requires` / `optional`. The full list is in `packages/dorksmith-js/src/placeholders.ts` (mirrored in `packages/dorksmith-py/src/dorksmith/placeholders.py`).
 
-**Every template must be covered by a golden test.** Fixtures live in `tests/Dorksmith.Api.Tests/Golden/fixtures/*.json` (input + type + intent + options → expected ordered variants). After adding or changing templates:
+**Every template must be covered by a golden fixture.** Fixtures live in `tests/golden/*.json` (input + type + intent + options → expected ordered variants) and are the contract between the JS and Python engines. After adding or changing templates:
 
 ```bash
-DORKSMITH_UPDATE_GOLDEN=1 dotnet test --filter GoldenTests    # rewrites expected output
-git diff tests/Dorksmith.Api.Tests/Golden/fixtures             # review the change
-dotnet test                                                     # coverage test fails if a template has no fixture
+cd packages/dorksmith-js && npm run sync-catalogs
+DORKSMITH_UPDATE_GOLDEN=1 npm test        # rewrites the expected output of every fixture from the JS engine
+git diff ../../tests/golden               # review the change
+npm test                                  # coverage test fails if a template has no fixture
+cd ../dorksmith-py && python scripts/sync_catalogs.py && python -m pytest -q   # Python must agree
 ```
+
+To cover a new template, add a fixture file with `"expected": []` and the request that reaches it, then run the update step.
 
 ### Adding a platform
 
@@ -615,32 +459,25 @@ raw input → normalise → classify/validate → load intent templates → reso
           → drop invalid → canonicalise → de-duplicate → score & rank → top N + explanations
 ```
 
+The pipeline is a pure function of (request, catalogs). It is implemented twice, in TypeScript and in Python, and the 151 golden fixtures keep the two byte-for-byte identical.
+
 ```
-src/Dorksmith.Api
-  Program.cs                 host: options, DI, forwarded headers, CORS, health, endpoints
-  Endpoints/                 Dork, Handle, Catalog, Config, Health (minimal API)
-  Generation/                QueryNormalizer · QueryQuoting · RequestValidator · PlaceholderResolver
-                             QueryValidator (operator scanner) · CandidateRanker · DorkGenerator
-  Handles/HandleExpander     platform expansion, no probing
-  Catalogs/                  models, JsonCatalogProvider (+ETags), CatalogValidator, health check
-  RateLimiting/              IRequestQuotaService, InMemoryRequestQuotaService, headers
-  Logging/                   ISearchLogStore, SqliteSearchLogStore (+embedded migrations), retention job
-  Privacy/ClientKeyProvider  IP normalisation + HMAC
-  Http/                      error envelope, security headers, static SPA, JSON body reader, ULID ids
-web/                         index.html + css/app.css + ES modules (no build step)
-  js/app.js                  shell: tabs, theme, shortcuts, notices
-  js/generator-ui.js         form ↔ API, cards, copy/open
-  js/autocomplete.js         suggestion engine + listbox
-  js/validator.js            client-side syntax warnings
-  js/operators-ui.js         operator guide
-  js/handles-ui.js           username search
-  js/api.js · storage.js · clipboard.js · query-format.js · dom.js
-data/                        versioned catalogs
-tests/Dorksmith.Api.Tests    unit · golden · integration (xunit + WebApplicationFactory)
-web/tests                    Playwright browser tests (test-only Node dependency)
+data/                        versioned catalogs — the single source of truth
+tests/golden/                151 golden fixtures shared by both engines
+packages/dorksmith-js/       TypeScript engine → npm "dorksmith" (also the engine of the web app)
+  src/normalizer.ts · quoting.ts · resolver.ts · analyzer.ts · ranker.ts · generator.ts · handles.ts
+  src/catalog-validator.ts · infer.ts · cli.ts · catalogs.generated.ts (embedded data/)
+packages/dorksmith-py/       Python engine → PyPI "dorksmith", same module layout
+web/                         the app: index.html + css/app.css + ES modules, no bundler
+  js/api.js                  in-page "API": same call shapes the old HTTP API had, answered by js/engine/
+  js/engine/                 generated copy of the npm package build (git-ignored, `npm run build`)
+  js/app.js · generator-ui.js · autocomplete.js · validator.js · operators-ui.js · handles-ui.js
+  tests/                     Playwright browser tests (test-only Node dependency)
+scripts/                     copy-engine.mjs (build step), serve.mjs (dependency-free static server)
+.github/workflows/           pages.yml (build + test + deploy the app), js-package.yml, py-package.yml
 ```
 
-Ranking (`CandidateRanker`):
+Ranking (`ranker`):
 
 ```
 score = template_weight + intent_match (+10) + input_type_match (+10)
@@ -652,113 +489,54 @@ score = template_weight + intent_match (+10) + input_type_match (+10)
 
 Ties break on catalog order, so output is stable. Duplicates are removed after canonicalisation (collapsed whitespace, lower-cased operator prefixes, upper-cased `OR`).
 
-Security headers on every response: strict CSP (`default-src 'self'`, no inline script/style), `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy`. The SPA never uses `innerHTML` with data; all text goes through `textContent`.
+Web security without a server: the page declares its own Content-Security-Policy (`default-src 'self'`, no inline script or style, `connect-src 'self'`), never uses `innerHTML` with data, and the only outbound navigation is the user-initiated "Open in Google" link with `rel="noopener noreferrer"`.
 
 ---
 
 ## Development and testing
 
 ```bash
-dotnet build
-dotnet test                                    # 334 tests: unit, golden, integration
-dotnet run --project src/Dorksmith.Api         # http://localhost:5080 with the SPA served by the API
+npm run build                                   # engine → web/js/engine
+npm run serve                                   # http://localhost:5080
+npm test                                        # Playwright suite (needs `npx playwright install chromium` once)
+
+cd packages/dorksmith-js && npm test            # 166 tests: unit + golden fixtures
+cd packages/dorksmith-py && python -m pip install -e ".[test]" && python -m pytest -q   # 177 tests
 ```
 
-Browser tests (Chromium via Playwright; Node is a **test-only** dependency):
+The browser suite covers the generate flow, copy, autocomplete keyboard navigation, operator guide search and filters, username expansion, 400/422 rendering, keyboard shortcuts, and asserts that no request leaves the page after load.
 
-```bash
-cd web/tests
-npm install && npx playwright install chromium
-npx playwright test            # starts `dotnet run` itself, or set DORKSMITH_BASE_URL to reuse a server
-```
+Workflows:
 
-They cover the generate flow, copy, autocomplete keyboard navigation, operator guide search and filters, username expansion, error rendering (400/422/429) and keyboard shortcuts.
-
-CI (`.github/workflows/ci.yml`): build + tests + `dotnet list package --vulnerable`, Playwright suite, and both container images.
-
-Performance: generation is pure in-memory template expansion; a full 12-variant request takes well under 5 ms on a laptop, and catalogs are pre-serialised with ETags so the SPA's first load is one HTML file, one stylesheet and ten small modules — no bundler, no third-party scripts.
-
----
-
-## Continuous integration
-
-`.github/workflows/ci.yml` runs on every push to `main` and on every pull request, with read-only repository permissions. It has three jobs; the badge at the top of this page reflects the latest run.
-
-| Job | Runs on | What it does |
+| Workflow | Trigger | Does |
 |---|---|---|
-| **backend** | `ubuntu-latest`, .NET 8 SDK | `dotnet restore` → `dotnet build -c Release` → `dotnet test` (unit, golden and integration tests) → dependency vulnerability scan. Test results (`.trx`) are uploaded as an artifact even when the job fails. |
-| **frontend** | `ubuntu-latest`, .NET 8 SDK + Node 20 | Needs **backend** to pass first. Builds the API, runs `npm ci` in `web/tests` (the lock file drives the npm cache), installs Chromium with its system dependencies, then runs the Playwright suite with `CI=true` (one retry per test, HTML report). The report is uploaded only on failure. |
-| **containers** | `ubuntu-latest`, Buildx | Builds the API image (`src/Dorksmith.Api/Dockerfile`, repository root as context) and the web image (`web/`). Nothing is pushed; this proves both Dockerfiles stay buildable. |
-
-The vulnerability gate is deliberately simple:
-
-```bash
-dotnet list Dorksmith.sln package --vulnerable --include-transitive | tee vuln.txt
-if grep -q "has the following vulnerable packages" vuln.txt; then exit 1; fi
-```
-
-`dotnet list package --vulnerable` queries the GitHub Advisory Database through nuget.org, and `--include-transitive` matters: both findings fixed so far were transitive (a native SQLite library pulled in by `Microsoft.Data.Sqlite`, and an older `System.Text.Json` pulled in by the test host). The fix in those cases is an explicit `PackageReference` to a patched version, which NuGet then prefers over the transitive one.
-
-Reproduce the whole pipeline locally:
-
-```bash
-dotnet build -c Release && dotnet test -c Release --no-build
-dotnet list Dorksmith.sln package --vulnerable --include-transitive
-cd web/tests && npm ci && npx playwright install chromium && npx playwright test && cd ../..
-docker compose build
-```
-
-Extending it: to publish images, add a registry login step and set `push: true` with `tags` pointing at your registry in the **containers** job; to run on a schedule (for example a weekly vulnerability re-scan), add a `schedule:` trigger with a cron expression under `on:`.
+| `pages.yml` | push to `main`, manual | build engine → engine tests → Playwright against the static site → upload `web/` → deploy to GitHub Pages |
+| `js-package.yml` | changes under `packages/dorksmith-js`, `data/`, `tests/golden/`; tags `js-v*` | test matrix (Node 20/22), catalog-drift check, publish to npm on tag |
+| `py-package.yml` | changes under `packages/dorksmith-py`, `data/`, `tests/golden/`; tags `py-v*` | test matrix (Python 3.10–3.13), catalog-drift check, build + publish to PyPI on tag |
 
 ---
 
-## Packages: npm and PyPI
+## Deploying to GitHub Pages
 
-The engine is pure and deterministic, so it also ships as two standalone libraries with the catalogs embedded. Both are ports of the C# engine and are conformance-tested against the **same 151 golden fixtures**, so all three implementations produce identical queries for identical input.
+The `pages` workflow already builds and deploys `web/` on every push to `main`. What the repository owner has to do once:
 
-| Package | Folder | Install | Runtime | Tests |
-|---|---|---|---|---|
-| [`dorksmith` on npm](https://www.npmjs.com/package/dorksmith) ([source](packages/dorksmith-js)) | `packages/dorksmith-js` | `npm install dorksmith` | ESM, zero dependencies, browsers and Node ≥ 20, TypeScript types, CLI | 166 (unit + golden) |
-| [`dorksmith` on PyPI](https://pypi.org/project/dorksmith/) ([source](packages/dorksmith-py)) | `packages/dorksmith-py` | `pip install dorksmith` | pure Python ≥ 3.10, zero dependencies, typed, CLI | 177 (unit + golden) |
+1. Repository → **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **GitHub Actions** (not "Deploy from a branch").
+3. Push to `main` or run the `pages` workflow manually (Actions → pages → Run workflow). The first run creates the `github-pages` environment automatically.
+4. The site is served at `https://<owner>.github.io/<repository>/`, i.e. <https://aelena.github.io/dorksmith/>. The app uses relative asset paths and hash routing, so it works under that sub-path without configuration.
 
-```js
-import { generate } from 'dorksmith';
-generate({ input: 'example.com', inputType: 'domain', intent: 'exposed-config-files', options: { maxVariants: 2 } }).variants.map(v => v.query);
-// [ 'site:example.com (filetype:env OR filetype:ini OR ...)', 'site:example.com (inurl:".env" OR inurl:"config.php" OR ...)' ]
-```
+No organisation is required: a project site is published from a personal account. If you later want a custom domain, add it under Settings → Pages → Custom domain, create the DNS `CNAME` (or `A`/`AAAA` records for an apex) it shows, and commit a `web/CNAME` file containing the domain so deployments keep it.
 
-```python
-from dorksmith import generate
-[v.query for v in generate("Alice Smith", "person", "person-organization", options={"organization": "Example Corp", "maxVariants": 2}).variants]
-# ['"Alice Smith" "Example Corp"', '"Alice Smith" AROUND(5) "Example Corp"']
-```
+Forks work the same way; the only thing to change is the "Use it" link in this README.
 
-Both CLIs mirror each other: `npx dorksmith generate example.com --intent public-documents` and `dorksmith generate example.com --intent public-documents`.
+---
 
-### Keeping the catalogs in sync
+## Privacy
 
-`data/` stays the single source of truth. Each package has a sync script that copies the catalogs in (`npm run sync-catalogs`, `python scripts/sync_catalogs.py`), and both package workflows fail if the embedded copies drift from `data/`. Bump the package versions when the catalogs change behaviour.
-
-### Releasing
-
-Each package has its own workflow (`.github/workflows/js-package.yml`, `py-package.yml`) that tests on every change under its folder, `data/` or the golden fixtures, and publishes when a version tag is pushed. Both registries are configured for trusted publishing (OIDC), so releases need no stored credentials. Published so far: npm 0.1.1, PyPI 0.1.0.
-
-```bash
-# npm: bump packages/dorksmith-js/package.json, then
-git tag js-v0.1.2 && git push origin js-v0.1.2
-
-# PyPI: bump packages/dorksmith-py/pyproject.toml (and __version__), then
-git tag py-v0.1.1 && git push origin py-v0.1.1
-```
-
-The workflows refuse to publish when the tag does not match the version in the manifest. A tag can be re-pushed to retry a failed publish (`git push --delete origin js-v0.1.2 && git push origin js-v0.1.2`), as long as that version is not already on the registry.
-
-One-time setup (already done for this repository; documented for forks):
-
-- **npm** — trusted publishing is configured on the *package's* settings page, so the package must exist first. Publish `0.1.0` once from your machine (`cd packages/dorksmith-js && npm login && npm publish --access public`, which uses your normal 2FA), then on npmjs.com open `dorksmith` → Settings → Trusted Publisher → GitHub Actions and enter user `aelena`, repository `dorksmith`, workflow filename `js-package.yml`, environment `npm`. Create the matching `npm` environment in the GitHub repository settings. From then on the workflow publishes by identity: no token, no 2FA bypass, and provenance attestations are attached automatically.
-- **PyPI** — no token. On pypi.org add a *trusted publisher* for project `dorksmith`: owner `aelena`, repository `dorksmith`, workflow `py-package.yml`, environment `pypi`. Create the matching `pypi` environment in the GitHub repository settings (optionally with required reviewers as a manual release gate).
-
-Where else the ESM package can live: once on npm it is automatically served by CDNs such as jsDelivr, unpkg and esm.sh, which is what a static build of this app on GitHub Pages would import. GitHub Packages also hosts npm packages but requires authentication to install, so it suits private use only; JSR (jsr.io) is a further option for TypeScript-native publishing.
+- The app is static. Generation, validation and handle expansion run in your browser from embedded catalogs; the page performs no network requests after loading its own files (the browser test suite asserts this).
+- Nothing is logged, there is no server-side component and no analytics.
+- No cookies. Theme preference, optional target history and suggestion frequencies live in `localStorage`, only if you opt in, and can be cleared from the About tab.
+- "Open in Google" is a normal link you click; what happens after that is between you and the search engine.
 
 ---
 
@@ -767,7 +545,7 @@ Where else the ESM package can live: once on npm it is automatically served by C
 Dorksmith generates public-search queries and public profile URLs. It does not, and will not:
 
 - fetch, scrape or parse search-engine result pages;
-- probe platforms to determine whether an account exists (Sherlock/Maigret style) — any future adapter would sit behind a separate `IUsernameProbe` interface with bounded concurrency, timeouts, per-platform enable flags and no CAPTCHA/auth bypass;
+- probe platforms to determine whether an account exists (Sherlock/Maigret style);
 - validate, use or store discovered secrets, passwords or tokens;
 - download exposed datasets or enumerate targets at scale;
 - offer proxy rotation, credential stuffing, exploitation or intrusion functionality.
@@ -782,8 +560,7 @@ Defensive exposure checks are for systems you own or are authorised to assess. U
 - Permalinks encoded entirely in the URL fragment.
 - Export variants as TXT/JSON/CSV; local favourites and reusable recipes.
 - Side-by-side variant comparison and organisation research packs.
-- Distributed quota store for multi-instance deployments.
-- Signed, versioned catalog releases with a self-hosted update mechanism.
+- Signed, versioned catalog releases.
 
 ---
 

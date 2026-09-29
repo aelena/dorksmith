@@ -6,8 +6,9 @@
   <title>Dorksmith — Search Query Workbench</title>
   <meta name="description" content="Deterministic advanced search query (dork) generator and OSINT/SOCMINT workbench. Catalog-driven, no AI, no accounts.">
   <meta name="color-scheme" content="light dark">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/css/app.css">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -36,7 +37,7 @@
       <div class="two-col">
         <form id="generator-form" class="panel form" autocomplete="off" novalidate>
           <h1 class="panel-title">Generate advanced search queries</h1>
-          <p class="muted">Deterministic, catalog-driven query variants with explanations. Nothing is sent to an AI service.</p>
+          <p class="muted">Deterministic, catalog-driven query variants with explanations. Everything runs in this browser; nothing is sent anywhere.</p>
 
           <div class="field">
             <label for="input">Target</label>
@@ -230,15 +231,14 @@
       <div class="panel prose">
         <h1 class="panel-title">About Dorksmith</h1>
         <p>Dorksmith is a <strong>deterministic query compiler</strong> for advanced web search. Given a target, an input type and an intent it emits several ranked query variants, explains why each exists and which operators it uses, and warns about operators the search engine no longer supports reliably.</p>
-        <p>It is built for defensive exposure reviews, OSINT and SOCMINT research, journalism, troubleshooting and plain-old power searching. There is no login, no account, no AI model and no result scraping: every query is generated locally from a versioned catalog and opened in the search engine by you.</p>
+        <p>It is built for defensive exposure reviews, OSINT and SOCMINT research, journalism, troubleshooting and plain-old power searching. There is no login, no account, no AI model, no server and no result scraping: the whole engine runs inside this page from a versioned catalog, and queries are opened in the search engine by you.</p>
 
         <h2>Usage notice</h2>
         <ul id="usage-notice">
           <li>This service only <strong>generates public-search queries and public profile URLs</strong>. It performs no probing, exploitation, credential validation or bulk enumeration.</li>
           <li>You are responsible for <strong>lawful and authorised use</strong>. Defensive exposure checks must only target systems you own or are permitted to assess.</li>
-          <li>Generation requests are <strong>rate limited</strong> per client: <span id="about-rate-limit">…</span> requests per hour.</li>
-          <li>Search inputs and options are <strong>logged</strong> for service operation and abuse prevention, and retained for <span id="about-retention">…</span> days.</li>
-          <li>Client addresses are stored as <span id="about-ip-mode">…</span>.</li>
+          <li><strong>Nothing leaves your device.</strong> Generation runs in this browser from the embedded catalogs; the page makes no network requests and keeps no server-side log of what you type.</li>
+          <li>The only outbound action is the one you take: "Open in Google" opens a new tab with the query you chose.</li>
           <li>No cookies are set. Optional local history, if you enable it, lives only in this browser's <code>localStorage</code>.</li>
         </ul>
 
@@ -261,14 +261,14 @@
         </p>
 
         <h2>Catalog</h2>
-        <p>Operator, intent, file-type and platform knowledge live in versioned JSON catalogs. Current catalog version: <code id="about-catalog-version">…</code>.</p>
+        <p>Operator, intent, file-type and platform knowledge live in versioned JSON catalogs. Current catalog version: <code id="about-catalog-version">…</code>, engine <code id="about-engine-version">…</code>. The same engine is available as the <a href="https://www.npmjs.com/package/dorksmith" rel="noopener noreferrer" target="_blank">dorksmith npm package</a> and the <a href="https://pypi.org/project/dorksmith/" rel="noopener noreferrer" target="_blank">dorksmith Python package</a>.</p>
         <p class="muted">Source and documentation: <a href="https://github.com/aelena/dorksmith" rel="noopener noreferrer" target="_blank">github.com/aelena/dorksmith</a></p>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <span>Public-search query generation only · rate limited · inputs logged <span id="footer-retention">…</span> · IPs <span id="footer-ip-mode">…</span></span>
+    <span>Public-search query generation only · runs entirely in your browser · nothing is logged</span>
     <span class="footer-sep" aria-hidden="true">·</span>
     <button type="button" class="link-btn" data-view="about">Usage &amp; privacy</button>
     <span class="footer-sep" aria-hidden="true">·</span>
@@ -329,6 +329,6 @@
     </article>
   </template>
 
-  <script type="module" src="/js/app.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

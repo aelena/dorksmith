@@ -11,7 +11,7 @@ import pytest
 
 from dorksmith import bundled_catalogs, generate, validate_catalogs
 
-FIXTURES = Path(__file__).resolve().parents[3] / "tests" / "Dorksmith.Api.Tests" / "Golden" / "fixtures"
+FIXTURES = Path(__file__).resolve().parents[3] / "tests" / "golden"
 FILES = sorted(FIXTURES.glob("*.json")) if FIXTURES.is_dir() else []
 _covered: set[str] = set()
 

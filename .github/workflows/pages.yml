@@ -1,0 +1,61 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build engine, test the SPA, package the site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            packages/dorksmith-js/package-lock.json
+            web/tests/package-lock.json
+      - name: Build the engine and copy it into the SPA
+        run: npm run build
+      - name: Engine unit + golden tests
+        run: npm --prefix packages/dorksmith-js test
+      - name: Browser tests against the static site
+        run: |
+          npm --prefix web/tests ci
+          cd web/tests && npx playwright install --with-deps chromium && npx playwright test
+        env:
+          CI: "true"
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report
+          path: web/tests/playwright-report
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: web
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

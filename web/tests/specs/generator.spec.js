@@ -71,19 +71,21 @@ test.describe('Generator', () => {
     expect(clip).toBe(query);
   });
 
-  test('renders a rate-limit error with retry information', async ({ page }) => {
-    await page.route('**/api/v1/dorks/generate', route => route.fulfill({
-      status: 429,
-      contentType: 'application/json',
-      headers: { 'Retry-After': '1140' },
-      body: JSON.stringify({ error: 'rate_limit_exceeded', message: 'Hourly request limit reached.', retryAfterSeconds: 1140 }),
-    }));
+  test('runs entirely client-side: no request leaves the page after load', async ({ page }) => {
+    const origin = new URL(page.url()).origin;
+    const external = [];
+    page.on('request', r => { const u = new URL(r.url()); if (u.origin !== origin || u.pathname.startsWith('/api/')) external.push(r.url()); });
     await page.fill('#input', 'example.com');
+    await page.keyboard.press('Escape');
+    await page.selectOption('#intent', 'public-documents');
     await page.click('#generate');
-    const box = page.locator('#results-error');
-    await expect(box).toBeVisible();
-    await expect(box).toContainText('Rate limit reached');
-    await expect(box).toContainText('19 minutes');
+    await expect(page.locator('#results .variant').first()).toBeVisible();
+    await expect(page.locator('#results-meta')).toContainText('generated in this browser');
+    await page.locator('#tab-handles').click();
+    await page.fill('#handle', 'alice42');
+    await page.click('#expand');
+    await expect(page.locator('#handles-results .profile').first()).toBeVisible();
+    expect(external).toEqual([]);
   });
 
   test('"/" focuses the target box and Alt+initial switches sections', async ({ page }) => {

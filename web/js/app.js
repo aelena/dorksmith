@@ -83,19 +83,14 @@ function initShortcuts() {
 async function initNotices() {
   try {
     const cfg = await api.config();
-    const ipMode = { hmac: 'HMAC pseudonyms (no raw IP retained)', raw: 'raw IP addresses', none: 'not stored' }[cfg.ipLoggingMode] || cfg.ipLoggingMode;
-    setText('#about-rate-limit', cfg.rateLimitPerHour);
-    setText('#about-retention', cfg.searchLogRetentionDays);
-    setText('#about-ip-mode', ipMode);
     setText('#about-catalog-version', cfg.catalogVersion);
-    setText('#footer-retention', `${cfg.searchLogRetentionDays} days`);
-    setText('#footer-ip-mode', cfg.ipLoggingMode === 'hmac' ? 'pseudonymised' : cfg.ipLoggingMode === 'raw' ? 'stored raw' : 'not stored');
     setText('#footer-catalog-version', cfg.catalogVersion);
+    fetch('js/engine/VERSION').then(r => (r.ok ? r.text() : '')).then(v => setText('#about-engine-version', (v || '').trim().split(' ')[1] || 'dev')).catch(() => setText('#about-engine-version', 'dev'));
     $('#variants').max = String(cfg.maxVariants);
     if (!cfg.usernameSearchEnabled) { $('#tab-handles').setAttribute('hidden', ''); }
     document.dispatchEvent(new CustomEvent('dorksmith:config', { detail: cfg }));
   } catch (e) {
-    setText('#results-status', 'The API is not reachable. Start the server and reload.');
+    setText('#results-status', 'The engine failed to load. Run `npm run build` at the repository root and reload.');
   }
 }
 

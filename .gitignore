@@ -53,3 +53,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .venv/
+
+# Generated engine copy for the SPA (npm run build)
+web/js/engine/

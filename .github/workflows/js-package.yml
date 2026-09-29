@@ -4,9 +4,9 @@ on:
   push:
     branches: [main]
     tags: ['js-v*']
-    paths: ['packages/dorksmith-js/**', 'data/**', 'tests/Dorksmith.Api.Tests/Golden/**', '.github/workflows/js-package.yml']
+    paths: ['packages/dorksmith-js/**', 'data/**', 'tests/golden/**', '.github/workflows/js-package.yml']
   pull_request:
-    paths: ['packages/dorksmith-js/**', 'data/**', 'tests/Dorksmith.Api.Tests/Golden/**', '.github/workflows/js-package.yml']
+    paths: ['packages/dorksmith-js/**', 'data/**', 'tests/golden/**', '.github/workflows/js-package.yml']
 
 permissions:
   contents: read

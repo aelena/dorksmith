@@ -244,8 +244,7 @@ function renderResults(res) {
   show($('#results-tools'), res.variants.length > 0);
   setText('#results-status', `${res.variants.length} variant${res.variants.length === 1 ? '' : 's'} for ${res.inputType} “${res.normalizedInput}” · intent ${res.intent}`);
   const meta = $('#results-meta');
-  const rl = res.rateLimit ? ` · ${res.rateLimit.remaining}/${res.rateLimit.limit} requests left this window` : '';
-  meta.textContent = `catalog ${res.catalogVersion} · request ${res.requestId}${rl}`;
+  meta.textContent = `catalog ${res.catalogVersion} · generated in this browser`;
   show(meta);
 }
 
@@ -257,12 +256,6 @@ function renderError(err) {
     box.append(el('strong', { text: 'Rate limit reached. ' }), err.message || 'Hourly request limit reached.');
     if (mins) box.append(el('span', { class: 'retry', text: `Try again in about ${mins} minute${mins === 1 ? '' : 's'}.` }));
     setText('#results-status', 'Rate limited.');
-  } else if (err.status === 503) {
-    box.append(el('strong', { text: 'Service not ready. ' }), err.message);
-    setText('#results-status', 'The API reported it is not ready.');
-  } else if (err.status === 0) {
-    box.append(el('strong', { text: 'Network error. ' }), err.message);
-    setText('#results-status', 'Could not reach the API.');
   } else {
     box.append(el('strong', { text: `Error ${err.status}. ` }), err.message);
     setText('#results-status', 'Generation failed.');

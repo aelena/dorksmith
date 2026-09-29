@@ -1,8 +1,8 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
-// The API serves the SPA itself in development (SERVE_STATIC=true), so one process is enough.
-// `dotnet run` honours src/Dorksmith.Api/Properties/launchSettings.json → http://localhost:5080.
+// The SPA is static and runs the engine in the browser, so the tests only need a file server.
+// `npm run build` at the repository root must have copied the engine into web/js/engine first.
 const baseURL = process.env.DORKSMITH_BASE_URL || 'http://localhost:5080';
 
 module.exports = defineConfig({
@@ -19,15 +19,9 @@ module.exports = defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: process.env.DORKSMITH_BASE_URL ? undefined : {
-    command: 'dotnet run --project ../../src/Dorksmith.Api',
-    url: `${baseURL}/health/ready`,
+    command: 'node ../../scripts/serve.mjs --port 5080',
+    url: `${baseURL}/`,
     reuseExistingServer: true,
-    timeout: 180_000,
-    env: {
-      ASPNETCORE_ENVIRONMENT: 'Development',
-      RATE_LIMIT_PERMIT_LIMIT: '10000',
-      SQLITE_PATH: ':memory:',
-      IP_HMAC_SECRET: 'playwright-only-secret-not-for-production',
-    },
+    timeout: 30_000,
   },
 });

@@ -4,9 +4,9 @@ on:
   push:
     branches: [main]
     tags: ['py-v*']
-    paths: ['packages/dorksmith-py/**', 'data/**', 'tests/Dorksmith.Api.Tests/Golden/**', '.github/workflows/py-package.yml']
+    paths: ['packages/dorksmith-py/**', 'data/**', 'tests/golden/**', '.github/workflows/py-package.yml']
   pull_request:
-    paths: ['packages/dorksmith-py/**', 'data/**', 'tests/Dorksmith.Api.Tests/Golden/**', '.github/workflows/py-package.yml']
+    paths: ['packages/dorksmith-py/**', 'data/**', 'tests/golden/**', '.github/workflows/py-package.yml']
 
 permissions:
   contents: read

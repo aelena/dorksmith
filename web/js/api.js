@@ -1,6 +1,9 @@
-// Thin fetch wrapper for /api/v1. Errors are normalised to { status, error, message, field, retryAfterSeconds }.
+// In-browser "API": the same call shapes the SPA used against the HTTP service, now answered locally by the
+// dorksmith engine (built from packages/dorksmith-js and copied to js/engine/ by `npm run build`).
+// Nothing here performs a network request.
+import * as engine from './engine/index.js';
 
-const BASE = '/api/v1';
+const { bundledCatalogs, catalogVersion, DEFAULT_LIMITS, InputValidationError } = engine;
 
 export class ApiError extends Error {
   constructor(status, body) {
@@ -9,53 +12,69 @@ export class ApiError extends Error {
     this.error = body?.error || 'request_failed';
     this.field = body?.field || null;
     this.retryAfterSeconds = body?.retryAfterSeconds ?? null;
-    this.rateLimit = body?.rateLimit ?? null;
   }
 }
 
-async function request(path, init = {}) {
-  let res;
+function run(fn) {
   try {
-    res = await fetch(BASE + path, {
-      headers: { Accept: 'application/json', ...(init.body ? { 'Content-Type': 'application/json' } : {}) },
-      ...init,
-    });
+    return fn();
   } catch (e) {
-    throw new ApiError(0, { error: 'network_error', message: 'Could not reach the API. Check the server is running.' });
-  }
-  if (res.status === 304) return null;
-  const text = await res.text();
-  let body = null;
-  if (text) { try { body = JSON.parse(text); } catch { body = { message: text }; } }
-  if (!res.ok) {
-    if (res.status === 429 && body && body.retryAfterSeconds == null) {
-      const ra = Number(res.headers.get('Retry-After'));
-      if (Number.isFinite(ra)) body.retryAfterSeconds = ra;
+    if (e instanceof InputValidationError) {
+      throw new ApiError(e.unprocessable ? 422 : 400, { error: e.unprocessable ? 'cannot_generate' : 'invalid_input', message: e.message, field: e.field });
     }
-    throw new ApiError(res.status, body);
+    throw new ApiError(500, { error: 'internal_error', message: String(e?.message || e) });
   }
-  return body;
 }
 
-const cache = new Map();
-/** GET with in-memory memoisation for catalog resources; the browser handles ETag revalidation. */
-async function cachedGet(path) {
-  if (!cache.has(path)) cache.set(path, request(path).catch(e => { cache.delete(path); throw e; }));
-  return cache.get(path);
-}
+const newId = () => Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 8).toUpperCase();
+
+const config = Object.freeze({
+  maxVariants: DEFAULT_LIMITS.maxVariants,
+  defaultVariants: DEFAULT_LIMITS.defaultVariants,
+  maxQueryLength: DEFAULT_LIMITS.maxQueryLength,
+  maxExcludeTerms: DEFAULT_LIMITS.maxExcludeTerms,
+  maxFileTypes: DEFAULT_LIMITS.maxFileTypes,
+  maxUsernameLength: DEFAULT_LIMITS.maxUsernameLength,
+  maxPlatforms: DEFAULT_LIMITS.maxPlatforms,
+  supportedEngines: Object.keys(bundledCatalogs.operators),
+  usernameSearchEnabled: true,
+  runsLocally: true,
+  catalogVersion,
+});
+
+const publicIntents = () => ({
+  catalogVersion,
+  families: bundledCatalogs.intents.families,
+  groups: bundledCatalogs.intents.groups,
+  intents: bundledCatalogs.intents.intents.map(i => ({
+    id: i.id, label: i.label, group: i.group, description: i.description, safety: i.safety,
+    compatibleInputTypes: i.compatibleInputTypes, tags: i.tags ?? [],
+    requiresOptions: i.requiresOptions ?? [], requiresOptionsForInputTypes: i.requiresOptionsForInputTypes ?? {},
+    defaultFileTypes: i.defaultFileTypes ?? [], templateCount: i.templates.length,
+    families: [...new Set(i.templates.map(t => t.family))],
+  })),
+});
 
 export const api = {
-  config: () => cachedGet('/config/public'),
-  operators: (engine = 'google') => cachedGet(`/operators?engine=${encodeURIComponent(engine)}`),
-  intents: () => cachedGet('/intents'),
-  fileTypes: () => cachedGet('/filetypes'),
-  platforms: () => cachedGet('/platforms'),
-  generate: (payload) => request('/dorks/generate', { method: 'POST', body: JSON.stringify(payload) }),
-  validate: (payload) => request('/dorks/validate', { method: 'POST', body: JSON.stringify(payload) }),
-  expandHandle: (payload) => request('/handles/expand', { method: 'POST', body: JSON.stringify(payload) }),
+  config: async () => config,
+  operators: async (name = 'google') => {
+    const c = bundledCatalogs.operators[name];
+    if (!c) throw new ApiError(404, { error: 'not_found', message: `No operator catalog for engine '${name}'.` });
+    return c;
+  },
+  intents: async () => publicIntents(),
+  fileTypes: async () => bundledCatalogs.fileTypes,
+  platforms: async () => ({
+    catalogVersion: bundledCatalogs.platforms.catalogVersion,
+    categories: bundledCatalogs.platforms.categories,
+    platforms: bundledCatalogs.platforms.platforms.filter(p => p.enabled),
+  }),
+  generate: async (payload) => run(() => ({ requestId: newId(), ...engine.generate(payload), rateLimit: null })),
+  validate: async ({ query, engine: name = 'google' }) => run(() => engine.validateQuery(query, name)),
+  expandHandle: async (payload) => run(() => ({ ...engine.expandHandle(payload), rateLimit: null })),
 };
 
-/** Client-side construction of the search URL. Never accept a redirect URL from the server. */
+/** Search URL built client-side with encodeURIComponent; the only outbound navigation, and user-initiated. */
 export function googleSearchUrl(query) {
-  return 'https://www.google.com/search?q=' + encodeURIComponent(query);
+  return engine.searchUrl(query, 'google');
 }

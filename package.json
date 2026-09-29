@@ -1,0 +1,12 @@
+{
+  "name": "dorksmith-workbench",
+  "private": true,
+  "description": "Dorksmith web app: a static SPA running the dorksmith engine entirely in the browser.",
+  "type": "module",
+  "scripts": {
+    "build": "cd packages/dorksmith-js && npm ci && npm run build && cd ../.. && node scripts/copy-engine.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "cd web/tests && npm ci && npx playwright test"
+  },
+  "engines": { "node": ">=20" }
+}
